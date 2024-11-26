@@ -6,6 +6,12 @@
 <meta charset="UTF-8">
 <title>도서관 웹사이트</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/index_styles.css">
+<%
+	request.setCharacterEncoding("UTF-8");
+    // 세션에서 로그인 상태를 확인합니다.
+    HttpSession callSession = request.getSession();
+    String member_id = (String) callSession.getAttribute("member_id"); // 로그인 시 저장된 사용자 이름
+%>
 </head>
 <body>
 <main>
@@ -33,19 +39,50 @@
         <!--main-content-->
         <div class="main-content">
             <!--login-->
-            <div class="login">
-                <h2>로그인</h2>
-                <form>
-                    <input type="text" placeholder="사용자 아이디">
-                    <input type="password" placeholder="비밀번호">
-                    <button id="signin" type="submit">로그인</button>
-                    <div id="idpass">
-                        <label id="remember"><input type="checkbox">아이디 저장</label>
-                        <a href="#" id="forget">아이디/비밀번호 찾기</a>
-                    </div>
-                </form>
-                <button class="signup">회원가입</button>
-            </div>
+	                <%
+					    if (member_id == null) {
+					        // 로그인 상태가 아닐 경우 로그인 폼 표시
+					%>
+					    <div class="login">
+					        <h2>로그인</h2>
+					        <form method="post" action="<%= request.getContextPath() %>/login.do">
+					            <input type="text" id="username" name="member_id" placeholder="사용자 아이디" required>
+					            <input type="password" id="password" name="member_password" placeholder="비밀번호" required>
+					            <button type="submit">로그인</button>
+					            <div id="idpass">
+					                <label id="remember">
+					                    <input type="checkbox" name="rememberMe"> 아이디 저장
+					                </label>
+					                <a href="#" id="forget">아이디/비밀번호 찾기</a>
+					            </div>
+					        </form>
+					        <button class="signup" onclick="window.location.href='Register.jsp';">회원가입</button>
+					    </div>
+					<%
+					    } else {
+					        // 로그인 상태일 경우 환영 메시지 표시
+					        boolean isManager = (Boolean) session.getAttribute("is_manager");
+					%>
+					    <div class="welcome">
+					        <h2><%= member_id %>님, 환영합니다</h2>
+					        <p>서울도서관</p>
+					        <p>최근 읽은 책: 꽃을 보듯 너를 본다</p>
+					        <p>최근 독서 기록: 푸른 사자 와니니</p>
+					        <button onclick="window.location.href='record.jsp'">기록하러 가기</button>
+						<% if (isManager) { %>
+					        <button onclick="window.location.href='adminpage.jsp'">관리자페이지</button>
+						<% } else { %>
+							<button onclick="window.location.href='mypage.jsp'">마이페이지</button>
+						<%
+							} 
+						%>
+					        <form action="logout.do" method="get">
+					        	<button type="submit">로그아웃</button>
+					   		</form>
+					    </div>
+					<%
+					    }
+					%>
             <!--book-section-->
             <section class="book-section">
                 <!--book-container-->

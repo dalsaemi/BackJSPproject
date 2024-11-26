@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.backbookmanage.member.DAO.MemberInformationDAO;
+import com.backbookmanage.member.DTO.MemberInformationDTO;
+
 /**
  * Servlet implementation class JoinController
  */
@@ -32,7 +35,7 @@ public class JoinController extends HttpServlet {
 		member_email = member_email + "@" + domain;
 		String member_gender = request.getParameter("member_gender");
 		
-		MemberDTO mDto = new MemberDTO();
+		MemberInformationDTO mDto = new MemberInformationDTO();
 		mDto.setMember_id(member_id);
 		mDto.setMember_name(member_name);
 		mDto.setMember_password(member_password);
@@ -53,7 +56,7 @@ public class JoinController extends HttpServlet {
 		mDto.setIs_manager(false); // 회원가입할 때는 관리자말고 일반 유저로
 		mDto.setMember_gender(member_gender.charAt(0));
 		
-		MemberDAO mDao = new MemberDAO();
+		MemberInformationDAO mDao = new MemberInformationDAO();
 		boolean insertCheck = mDao.memberInsert(mDto);
 		
 		if (insertCheck) {

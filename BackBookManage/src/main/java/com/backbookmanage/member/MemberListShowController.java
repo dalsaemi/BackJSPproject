@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.backbookmanage.member.DAO.MemberInformationDAO;
+
 /**
  * Servlet implementation class MemberListShowController
  */
@@ -31,7 +33,7 @@ public class MemberListShowController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		MemberDAO memberDAO = new MemberDAO();
+		MemberInformationDAO memberDAO = new MemberInformationDAO();
 		ArrayList<String> members = memberDAO.memberIdList();
 		if (members == null) {
 		    members = new ArrayList<>();

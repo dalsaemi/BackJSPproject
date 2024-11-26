@@ -1,7 +1,9 @@
-<%@ page import="com.backbookmanage.common.JDBCUtil, com.backbookmanage.member.MemberDAO, java.util.ArrayList"%>
+<%@ page import="com.backbookmanage.common.JDBCUtil,com.backbookmanage.member.DAO.MemberInformationDAO,java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8"); %>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 <title>독서 관리 서비스 회원가입</title>
 </head>
 <body>
-<form method="get" action="<%= request.getContextPath() %>/register.do" onsubmit="return validateForm()">
+<form method="get" action="<%=request.getContextPath()%>/register.do" onsubmit="return validateForm()">
     <table>
     <tr>
         <td><h2>회원가입</h2></td>
@@ -50,14 +52,14 @@
     </table>
 </form>
 <%
-	JDBCUtil.getConnection();
-	MemberDAO mDao = new MemberDAO();
+JDBCUtil.getConnection();
+	MemberInformationDAO mDao = new MemberInformationDAO();
 	ArrayList<String> members = mDao.memberIdList();
 	// js에 넘겨주기 위한 사전작업
 	StringBuffer values = new StringBuffer();
 	for(int i=0; i < members.size(); i++) {
 		if(values.length()>0) {
-			values.append(',');
+	values.append(',');
 		}
 		values.append('"').append(members.get(i)).append('"');
 	}

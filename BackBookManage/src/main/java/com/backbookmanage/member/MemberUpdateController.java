@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.backbookmanage.member.DAO.MemberInformationDAO;
+import com.backbookmanage.member.DTO.MemberInformationDTO;
+
 /**
  * Servlet implementation class MemberUpdateController
  */
@@ -34,7 +37,7 @@ public class MemberUpdateController extends HttpServlet {
 		String member_birth = request.getParameter("member_birth");
 		String member_gender = request.getParameter("member_gender");
 		
-		MemberDTO mDto = new MemberDTO();
+		MemberInformationDTO mDto = new MemberInformationDTO();
 		
 		mDto.setMember_id(member_id);
 		mDto.setMember_name(member_name);
@@ -55,7 +58,7 @@ public class MemberUpdateController extends HttpServlet {
 		mDto.setIs_manager(false);
 		mDto.setMember_gender(member_gender.charAt(0));
 		
-		MemberDAO mDao = new MemberDAO();
+		MemberInformationDAO mDao = new MemberInformationDAO();
 		boolean updateCheck = mDao.memberUpdate(mDto);
 		
 		ArrayList<String> memberInfo = mDao.memberSelect(member_id);

@@ -1,7 +1,7 @@
-package com.backbookmanage.member;
+package com.backbookmanage.member.DTO;
 import java.sql.Date;
 
-public class MemberDTO {
+public class MemberInformationDTO {
 	private String member_id;
     private String member_name;
     private String member_password;

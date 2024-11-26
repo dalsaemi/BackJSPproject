@@ -1,4 +1,4 @@
-package com.backbookmanage.member;
+package com.backbookmanage.member.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.sql.Date;
 
 import com.backbookmanage.common.JDBCUtil;
-import com.backbookmanage.member.MemberDTO;
+import com.backbookmanage.member.DTO.MemberInformationDTO;
 
-public class MemberDAO {
+public class MemberInformationDAO {
 	
 	//멤버 로그인 확인
 	public boolean memberLoginCheck(String getMember_id, String password) {
@@ -61,7 +61,7 @@ public class MemberDAO {
 
 	
 	//멤버 추가 (회원가입)
-    public boolean memberInsert(MemberDTO mDTO) {
+    public boolean memberInsert(MemberInformationDTO mDTO) {
     	Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -119,7 +119,7 @@ public class MemberDAO {
     }
     
     //멤버 정보 수정
-    public boolean memberUpdate(MemberDTO mDTO) {
+    public boolean memberUpdate(MemberInformationDTO mDTO) {
     	Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

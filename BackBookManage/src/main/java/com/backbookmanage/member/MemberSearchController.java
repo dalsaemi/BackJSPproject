@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.backbookmanage.member.DAO.MemberInformationDAO;
+import com.backbookmanage.member.DTO.MemberInformationDTO;
+
 /**
  * Servlet implementation class MemberSearchController
  */
@@ -34,8 +37,8 @@ public class MemberSearchController extends HttpServlet {
         
         if (member_id != null) {
             // DAO와 DTO 사용
-            MemberDAO memberDAO = new MemberDAO();
-            MemberDTO mDTO = new MemberDTO();
+            MemberInformationDAO memberDAO = new MemberInformationDAO();
+            MemberInformationDTO mDTO = new MemberInformationDTO();
             mDTO.setMember_id(member_id);
 
             // ID로 회원 정보 검색

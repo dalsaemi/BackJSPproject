@@ -9,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.backbookmanage.member.DAO.MemberInformationDAO;
+import com.backbookmanage.member.DTO.MemberInformationDTO;
+
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 
@@ -36,8 +40,8 @@ String member_id = request.getParameter("member_id"); // 세션에서 ID 가져�
         
         if (member_id != null) {
             // DAO와 DTO 사용
-            MemberDAO memberDAO = new MemberDAO();
-            MemberDTO mDTO = new MemberDTO();
+            MemberInformationDAO memberDAO = new MemberInformationDAO();
+            MemberInformationDTO mDTO = new MemberInformationDTO();
             ArrayList<String> memberinfo = memberDAO.memberSelect(member_id);
             //회원 정보 세팅
             mDTO.setMember_id(memberinfo.get(0));

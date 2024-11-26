@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.backbookmanage.member.DAO.MemberInformationDAO;
+import com.backbookmanage.member.DTO.MemberInformationDTO;
+
 @WebServlet("/login.do")
 public class LoginController extends HttpServlet {
 
@@ -21,14 +24,14 @@ public class LoginController extends HttpServlet {
         String member_password = request.getParameter("member_password");
 
         // DTO 객체 생성
-        MemberDTO mDto = new MemberDTO(); // 기본 생성자 사용
+        MemberInformationDTO mDto = new MemberInformationDTO(); // 기본 생성자 사용
 
         // set 메서드를 사용하여 값을 설정
         mDto.setMember_id(member_id);
         mDto.setMember_password(member_password);
 
         // DAO 객체 생성하여 로그인 검증
-        MemberDAO mDao = new MemberDAO();
+        MemberInformationDAO mDao = new MemberInformationDAO();
         boolean loginCheck = mDao.memberLoginCheck(mDto.getMember_id(), mDto.getMember_password());
         boolean is_manager = mDao.isAdmin(mDto.getMember_id());
 
@@ -41,7 +44,7 @@ public class LoginController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         } else {
             // 로그인 실패 시 에러 페이지로 리다이렉트
-        	response.sendRedirect(request.getContextPath() + "/LogError.jsp");
+        	response.sendRedirect(request.getContextPath() + "/member/LogError.jsp");
         }
     }
 }

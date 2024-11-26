@@ -97,7 +97,7 @@
         </table>
         <div class="form-actions">
             <input type="submit" value="수정하기">
-            <input type="reset" value="취소" onClick="window.location.href='mypage.jsp';">
+            <input type="reset" value="취소" onClick="window.location.href='<%= request.getContextPath() %>/member/mypage.jsp';">
         </div>
     </form>
     

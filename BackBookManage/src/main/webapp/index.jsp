@@ -15,23 +15,7 @@
 </head>
 <body>
 <main>
-        <!--header-->
-        <header class="header">
-            <div class="header-inner">
-                <div class="logo">웹사이트이름</div>
-                <div class="search-bar">
-                    <input type="text" placeholder="도서 검색">
-                    <button>🔍</button>
-                </div>
-                <!--menu-->
-                <nav class="nav-links">
-                    <a href="#">서비스소개</a>
-                    <a href="#">공지사항</a>
-                    <a href="#">도서관찾기</a>
-                    <a href="#">고객센터</a>
-                </nav>
-            </div>
-        </header>
+        <%@ include file="main/header.jsp" %>
         
         <!--banner-->
         <div class="banner"></div>
@@ -56,7 +40,7 @@
 					                <a href="#" id="forget">아이디/비밀번호 찾기</a>
 					            </div>
 					        </form>
-					        <button class="signup" onclick="window.location.href='Register.jsp';">회원가입</button>
+					        <button class="signup" onclick="window.location.href='<%= request.getContextPath() %>/member/Register.jsp';">회원가입</button>
 					    </div>
 					<%
 					    } else {
@@ -70,9 +54,9 @@
 					        <p>최근 독서 기록: 푸른 사자 와니니</p>
 					        <button onclick="window.location.href='record.jsp'">기록하러 가기</button>
 						<% if (isManager) { %>
-					        <button onclick="window.location.href='adminpage.jsp'">관리자페이지</button>
+					        <button onclick="window.location.href='<%= request.getContextPath() %>/member/adminpage.jsp'">관리자페이지</button>
 						<% } else { %>
-							<button onclick="window.location.href='mypage.jsp'">마이페이지</button>
+							<button onclick="window.location.href='<%= request.getContextPath() %>/member/mypage.jsp'">마이페이지</button>
 						<%
 							} 
 						%>
@@ -84,52 +68,7 @@
 					    }
 					%>
             <!--book-section-->
-            <section class="book-section">
-                <!--book-container-->
-                <div class="book-container">
-                    <div class="tab-menu">
-                        <button>신규 도서</button>
-                        <button>베스트 도서</button>
-                        <button>베스트 리뷰</button>
-                        <button>나의 즐겨찾기</button>
-                    </div>
-                    <!--book-cards-->
-                    <div class="book-cards">
-                        <div class="book-card">
-                            <img src="<%=request.getContextPath() %>/image/1.png" alt="리뷰 1 이미지">
-                            <ul class="book-info">
-                                <li class="bReview-title">소설 ABCD를 읽고...</li>
-                                <li class="bReview-booktitle">ABCD, 김OO 지음</li>
-                                <li class="bReview-writer">User1님의 리뷰</li>
-                            </ul>
-                        </div>
-                        <div class="book-card">
-                            <img src="<%=request.getContextPath() %>/image/2.png" alt="리뷰 2 이미지">
-                            <ul class="book-info">
-                                <li class="bReview-title">알을 깨는 새가 되어</li>
-                                <li class="bReview-booktitle">데미안, 헤르만 헤세</li>
-                                <li class="bReview-writer">토리님의 리뷰</li>
-                            </ul>
-                        </div>
-                        <div class="book-card">
-                            <img src="<%=request.getContextPath() %>/image/3.png" alt="리뷰 3 이미지">
-                            <ul class="book-info">
-                                <li class="bReview-title">사랑이란 무엇인가</li>
-                                <li class="bReview-booktitle">소나기, 황순원 지음</li>
-                                <li class="bReview-writer">가나다님의 리뷰</li>
-                            </ul>
-                        </div>
-                        <div class="book-card">
-                            <img src="<%=request.getContextPath() %>/image/4.png" alt="리뷰 4 이미지">
-                            <ul class="book-info">
-                                <li class="bReview-title">당신의 하트에 니코마코스</li>
-                                <li class="bReview-booktitle">니코마코스 윤리학, 아리스토텔레스 지음</li>
-                                <li class="bReview-writer">윤리좋아님의 리뷰</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <%@include file="main/book_section.jsp" %>
         </div>
         <!--info-section-->
         <div class="info-section">
@@ -172,18 +111,7 @@
     </main>
     <!-- 메인 콘텐츠 끝 -->
 
-    <!-- 푸터 시작 -->
-    <footer>
-        <div id="footerdiv">
-            <ul>    
-                <li>웹사이트이름</li>
-                <li>Contact Us</li>
-                <li>TEL   010-XXXX-XXXX</li>
-                <li>EMAIL   X@XXX.com</li>
-                <li>COPYRIGHT (C) 1조 서윤정, 김하늘, 김민지 ALL RIGHTS RESERVED</li>
-            </ul>
-        </div>
-    </footer>
+    <%@include file="main/footer.jsp" %>
     <!-- 푸터 끝 -->
 </body>
 </html>

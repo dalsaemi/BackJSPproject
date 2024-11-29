@@ -33,7 +33,7 @@ public class LoginController extends HttpServlet {
         // DAO 객체 생성하여 로그인 검증
         MemberInformationDAO mDao = new MemberInformationDAO();
         boolean loginCheck = mDao.memberLoginCheck(mDto.getMember_id(), mDto.getMember_password());
-        boolean is_manager = mDao.isAdmin(mDto.getMember_id());
+        boolean is_manager = mDao.isManager(mDto.getMember_id());
 
         if (loginCheck) {
             // 로그인 성공 시 세션에 사용자 정보 저장

@@ -36,9 +36,19 @@ public class MemberAddManageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-String member_id = request.getParameter("member_id"); // 세션에서 ID 가져오기
-        
-        if (member_id != null) {
+		String member_id = request.getParameter("member_id"); // 세션에서 ID 가져오기
+		String is_Manager_str = request.getParameter("isManager"); // 세션에서 manager값 가져오기
+		boolean is_Manager = false;
+		System.out.println("addManage.do 컨트롤러 실행");
+		
+		if(is_Manager_str.equals("true")) {
+			is_Manager = true;
+		}else if(is_Manager_str.equals("false")) {
+			is_Manager = false;
+		}else {
+			System.out.println("addManage.do 파라미터 설정에 오류가 발생했습니다");
+		}
+		if (member_id != null) {
             // DAO와 DTO 사용
             MemberInformationDAO memberDAO = new MemberInformationDAO();
             MemberInformationDTO mDTO = new MemberInformationDTO();
@@ -58,7 +68,7 @@ String member_id = request.getParameter("member_id"); // 세션에서 ID 가져�
             } catch (Exception e) {
                 e.printStackTrace(); // 예외가 발생하면 출력
             }
-            mDTO.setIs_manager(true);
+            mDTO.setIs_manager(is_Manager);
             char gender = memberinfo.get(6).charAt(0);
             mDTO.setMember_gender(gender);
 
@@ -74,7 +84,7 @@ String member_id = request.getParameter("member_id"); // 세션에서 ID 가져�
         	System.out.print("로그인이 필요합니다");
         }
         // JSP로 포워딩
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminpage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("member/adminpage.jsp");
         dispatcher.forward(request, response);
 	}
 

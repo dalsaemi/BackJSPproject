@@ -79,7 +79,7 @@
                 <div class="details-section">
                     <h3>계정 관리</h3>
                     <ul>
-                        <li><a href="<%=request.getContextPath() %>/memberUpdate.jsp">회원정보 변경</a></li>
+                        <li><a href="<%=request.getContextPath() %>/member/memberUpdate.jsp">회원정보 변경</a></li>
                         <li><a href="#">비밀번호 변경</a></li>
                         <li><a href="#">로그아웃</a></li>
                         <li><a href="#">계정 탈퇴</a></li>

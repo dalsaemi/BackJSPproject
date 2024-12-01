@@ -5,14 +5,14 @@ public class PagingBean {
     private int totalRecord; // 총 레코드 수
     private int pagePerRecordCnt; // 페이지 당 레코드 수
     private int groupPerPageCnt; // 페이지 당 보여줄 번호 수
-    private int recordStartNo;
-    private int recordEndNo;
-    private int totalPage;
-    private int groupNo;
-    private int pageSno;
-    private int pageEno;
-    private int prevPageno;
-    private int nextPageno;
+    private int recordStartNo; // 현재 페이지에서 시작하는 레코드
+    private int recordEndNo; // 현재 페이지에서 끝나는 레코드
+    private int totalPage; // 맨 끝 페이지
+    private int groupNo; // 그룹 개수 groupPerPageCnt 개수가 그룹 1개
+    private int pageSno; // 페이지에서 시작하는 번호 1(이거), 2, 3, 4, 5
+    private int pageEno; // 페이지에서 끝나는 번호 1, 2, 3, 4, 5(이거)
+    private int prevPageno; // 이전 페이지 6~10 -> 1~5
+    private int nextPageno; // 다음 페이지 1~5 -> 6~10
 
     public PagingBean(int pageno, int totalRecord, int pagePerRecordCnt, int groupPerPageCnt) {
         this.pageno = pageno;

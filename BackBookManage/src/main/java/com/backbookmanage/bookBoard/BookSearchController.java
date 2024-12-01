@@ -36,8 +36,9 @@ public class BookSearchController extends HttpServlet {
         StringBuilder urlBuilder = new StringBuilder("http://www.aladin.co.kr/ttb/api/ItemSearch.aspx");
         urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "=" + URLEncoder.encode(apikey, "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("Query", "UTF-8") + "=" + URLEncoder.encode(inputSearch, "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("MaxResults", "UTF-8") + "=" + URLEncoder.encode(maxResults, "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("start", "UTF-8") + "=" + URLEncoder.encode(currentPage, "UTF-8"));
+	    urlBuilder.append("&" + URLEncoder.encode("MaxResults", "UTF-8") + "=" + URLEncoder.encode(maxResults, "UTF-8"));
+	    urlBuilder.append("&" + URLEncoder.encode("Sort", "UTF-8") + "=" + URLEncoder.encode("Accuracy", "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("output", "UTF-8") + "=" + URLEncoder.encode("js", "UTF-8"));
 	    
 	    String result = APIbuilder.apibuilder(urlBuilder);

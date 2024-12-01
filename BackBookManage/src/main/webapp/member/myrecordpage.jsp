@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/myrecordpage.do");
+	dispatcher.include(request, response);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,6 +13,7 @@ request.setCharacterEncoding("UTF-8");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/myrecordpage.css">
     <title>독서 기록 웹사이트</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container"> <!-- 헤더 -->
@@ -54,16 +58,28 @@ request.setCharacterEncoding("UTF-8");
                     <div class="goal-box">
                         <h3>이번 달 나의 목표</h3>
                         <p>독서 목표: 10권</p>
-                        <p>읽은 책: 5권</p>
-                        <p>목표 달성까지 5권 남았어요!</p>
+                        <p>읽은 책: <%= request.getAttribute("booksRead") %>권</p>
+                        <p>목표 달성까지 <%= request.getAttribute("booksRemaining") %>권 남았어요!</p>
                     </div>
                     <div class="goal-box">
-                        <h3>기록 목표</h3>
-                        <p>이번 달 목표: 3편</p>
-                        <p>기록한 서평: 3편</p>
-                        <p>축하합니다! 목표를 달성했어요!</p>
+                        <h3>목표 달성치</h3>
+                        <!-- 아래에 그래프를 넣겠습니다! -->
+                        <canvas id="goalChart" width="100" height="100"></canvas>
                     </div>
                 </div>
+                
+                <!-- 서버 데이터를 JavaScript로 전달 -->
+             <script>
+                 const booksRead = <%= request.getAttribute("booksRead") %>;
+                 const booksRemaining = <%= request.getAttribute("booksRemaining") %>;
+                 
+                 // 자꾸 null값 들어가서 확인용
+                 console.log("읽은 책 수:", booksRead);
+                 console.log("남은 책 수:", booksRemaining);
+             </script>
+         
+             <!-- JavaScript 파일 로드 -->
+             <script src="<%= request.getContextPath() %>/js/recordpageChart.js"></script>
 
                 <div class="section stats-section">
                     <div class="section-title">독서 통계</div>

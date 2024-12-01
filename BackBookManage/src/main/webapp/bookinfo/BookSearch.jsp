@@ -1,18 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="org.json.JSONObject, org.json.JSONArray" %>
+<%@ page import="org.json.JSONObject, org.json.JSONArray, com.backbookmanage.common.PagingBean" %>
 <%! 
 	JSONArray itemResult; 
-	JSONObject obj;%>
+	JSONObject obj;
+	int itemNum;
+	PagingBean pg;
+	String inputSearch;
+%>
 <%
 	request.setCharacterEncoding("UTF-8");
-
+	
+	inputSearch = (String)request.getAttribute("inputSearch");
 	String result = (String)request.getAttribute("responseBody");
+	String currentPageStr = (String)request.getAttribute("currentPage");
+	String maxResultsStr = (String)request.getAttribute("maxResults");
+	int currentPage = Integer.parseInt(currentPageStr);
+	int maxResults = Integer.parseInt(maxResultsStr);
+	int groupPerPageCnt = 5;
 	if(result == null) {
 		result = null;
 	} else {
 		JSONObject jsonObject = new JSONObject(result);
+		itemNum =  jsonObject.getInt("totalResults");
         itemResult = jsonObject.getJSONArray("item");
+        pg = new PagingBean(currentPage, itemNum, maxResults, groupPerPageCnt);
 	}
 
 %>
@@ -27,7 +39,7 @@
 	<%@ include file="/main/header.jsp" %>
 	<!-- 정렬 기능 - API 확인 후 추가 -->
     <table border="1" summary="책 검색 API 결과" class="tb_type">
-    <caption>검색 결과</caption>
+    <caption>검색 결과 <%= itemNum %>개</caption>
       <colgroup>
         <col width="10%">
         <col width="20%">
@@ -50,7 +62,7 @@
       </thead>
       <tbody id="result">
       <% 
-      	if (result == null) { 
+      	if (result == null || itemResult == null) { 
       %>
         <tr class="oldlist">
           <td colspan="8">검색 결과가 없습니다.</td>
@@ -78,12 +90,36 @@
 			</form>	
 		  </td>
         </tr>
+        
       <% 
-      		} 
+      		}
       	}
       %>
       </tbody>
     </table>
+    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
+    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
+    <%
+    	for(int i = pg.getPageSno(); i <= pg.getPageEno(); i++) {
+	%>
+		<a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>">
+	<% 			
+      	
+      		if(pg.getPageno() == i) {
+     %>
+      		[<%=i %>]		
+   	<%
+     		} else { 
+     %>
+     	 <%= i %>		
+   	<%
+     		}
+    	}
+     %>
+
+    	</a> 
+    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">[다음]</a>
+    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">[맨뒤로]</a>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/myrecordpage.do");
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/chart.do");
 	dispatcher.include(request, response);
 %>
 <!DOCTYPE html>
@@ -64,28 +64,74 @@
                     <div class="goal-box">
                         <h3>목표 달성치</h3>
                         <!-- 아래에 그래프를 넣겠습니다! -->
-                        <canvas id="goalChart" width="100" height="100"></canvas>
+                        <canvas id="goalChart" width="100px" height="100px"></canvas>
                     </div>
                 </div>
                 
                 <!-- 서버 데이터를 JavaScript로 전달 -->
-             <script>
-                 const booksRead = <%= request.getAttribute("booksRead") %>;
-                 const booksRemaining = <%= request.getAttribute("booksRemaining") %>;
-                 
-                 // 자꾸 null값 들어가서 확인용
-                 console.log("읽은 책 수:", booksRead);
-                 console.log("남은 책 수:", booksRemaining);
-             </script>
+             	<script>
+	                const booksRead = <%= request.getAttribute("booksRead") %>
+	                const booksRemaining = <%= request.getAttribute("booksRemaining") %>
+	                 
+	                 // 자꾸 null값 들어가서 확인용
+	                console.log("읽은 책 수:", booksRead);
+	                console.log("남은 책 수:", booksRemaining);
+            	 </script>
          
-             <!-- JavaScript 파일 로드 -->
-             <script src="<%= request.getContextPath() %>/js/recordpageChart.js"></script>
+	             <!-- JavaScript 파일 로드 -->
+	             <script src="<%= request.getContextPath() %>/js/recordpageChart.js"></script>
 
-                <div class="section stats-section">
+                 	<div class="section stats-section">
                     <div class="section-title">독서 통계</div>
-                    <div class="chart-placeholder">[그래프 자리]</div>
+                    <div class="chart-placeholder">
+                    	<canvas id="lineChart" width="800" height="400"></canvas>
+                  	</div>
+                  	
+                  	<script>
+	                 // JSP에서 Java 배열을 JavaScript 배열로 변환
+	                    const lineChartData = [
+	                        <% 
+	                            int[] data = (int[]) request.getAttribute("lineChartData");
+	                            for (int i = 0; i < data.length; i++) {
+	                                out.print(data[i]);
+	                                if (i < data.length - 1) out.print(", ");
+	                            }
+	                        %>
+	                    ];
+	
+	                    console.log("라인 차트 데이터:", lineChartData);
+					</script>
+
+                  	<script>
+					    const six = document.getElementById('lineChart').getContext('2d');
+					    new Chart(six, {
+					        type: 'line',
+					        data: {
+					            labels: ['7', '8', '9', '10', '11', '12'], // 예시 라벨
+					            datasets: [{
+					                label: '하반기 독서량',
+					                data: lineChartData, // 서버에서 받은 데이터 사용
+					                borderColor: '#42A5F5',
+					                backgroundColor: 'rgba(66, 165, 245, 0.2)',
+					                borderWidth: 1
+					            }]
+					        },
+					        options: {
+					            responsive: true,
+					            plugins: {
+					                legend: {
+					                    position: 'top',
+					                },
+					                title: {
+					                    display: true,
+					                    text: '라인 차트 - 독서 통계'
+					                }
+					            }
+					        }
+					    });
+					</script>
                 </div>
-              </div>
+             </div>
         </div>
     </div>
 </body>

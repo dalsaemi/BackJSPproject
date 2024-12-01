@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: [booksRead, booksRemaining], // 서버에서 전달된 데이터 사용
                 backgroundColor: ['#FFD700', '#FFFFFF'], // 노란색, 하얀색
                 borderColor: ['#FFD700', '#CCCCCC'],     // 테두리 색상
-                borderWidth: 1
+                borderWidth: 1,
+				radius: 150
             }]
         },
         options: {

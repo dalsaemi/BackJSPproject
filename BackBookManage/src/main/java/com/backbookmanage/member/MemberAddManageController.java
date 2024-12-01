@@ -36,6 +36,14 @@ public class MemberAddManageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String member_id = request.getParameter("member_id"); // 세션에서 ID 가져오기
 		String is_Manager_str = request.getParameter("isManager"); // 세션에서 manager값 가져오기
 		boolean is_Manager = false;
@@ -86,14 +94,6 @@ public class MemberAddManageController extends HttpServlet {
         // JSP로 포워딩
         RequestDispatcher dispatcher = request.getRequestDispatcher("member/adminpage.jsp");
         dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

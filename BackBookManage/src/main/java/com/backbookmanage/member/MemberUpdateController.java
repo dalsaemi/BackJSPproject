@@ -20,7 +20,7 @@ import com.backbookmanage.member.DTO.MemberInformationDTO;
 /**
  * Servlet implementation class MemberUpdateController
  */
-@WebServlet("/memberUpdateaction.do")
+@WebServlet("/memberUpdate.do")
 public class MemberUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,6 +38,7 @@ public class MemberUpdateController extends HttpServlet {
 		String member_gender = request.getParameter("member_gender");
 		
 		MemberInformationDTO mDto = new MemberInformationDTO();
+		System.out.println("memberUpdate.do 컨트롤러 실행");
 		
 		mDto.setMember_id(member_id);
 		mDto.setMember_name(member_name);
@@ -68,10 +69,10 @@ public class MemberUpdateController extends HttpServlet {
                 request.setAttribute("memberInfo", memberInfo);
             }
 			HttpSession session = request.getSession();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/mypage.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/mypage.jsp");
 			dispatcher.forward(request, response);
 		} else {		
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/memberUpdate.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/memberUpdate.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

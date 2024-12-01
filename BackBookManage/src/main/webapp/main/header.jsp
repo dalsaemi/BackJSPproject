@@ -12,8 +12,10 @@
             <div class="header-inner">
                 <div class="logo">웹사이트이름</div>
                 <div class="search-bar">
-                    <input type="text" placeholder="도서 검색">
-                    <button>🔍</button>
+	                <form action="<%= request.getContextPath() %>/bookSearch.do" method="get" id="search-form">
+					    <input type="text" name="inputSearch" placeholder="도서 검색">
+					    <button type="submit">🔍</button>
+					</form>
                 </div>
                 <!--menu-->
                 <nav class="nav-links">

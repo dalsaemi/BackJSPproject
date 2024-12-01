@@ -56,7 +56,7 @@ public class MemberSearchController extends HttpServlet {
         	System.out.print("로그인이 필요합니다");
         }
         // JSP로 포워딩
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminpage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/member/adminpage.jsp");
         dispatcher.forward(request, response);
 	}
 

@@ -43,25 +43,34 @@
         <tbody>
             <%
                 for (String member : members) {
+                	dispatcher = request.getRequestDispatcher("/checkManager.do");
+                	request.setAttribute("member_id", member);
+                	dispatcher.include(request, response);
+                	boolean isManager = (boolean) request.getAttribute("isManager");
             %>
             <tr> <!-- DB 연동되면 수정해야 함 -->
                 <td><%= member %></td>
                 <td><a href="viewMember.jsp?id=<%= member %>">바로가기</a></td>
                 <td>2024-10-10 18:00</td>
                 <td>
-                    <% if (!member.equals("admin")) { %>
-                    	<!-- 다중 클래스 적용~~ -->
-                    	<form method="get" action="<%= request.getContextPath() %>/memberDelete.do">
+                    <% if (isManager) { %>
+                    	<form method="post" action="<%= request.getContextPath() %>/addManage.do">
+                        	<input type="hidden" name="member_id" value="<%= member %>">
+                        	<input type="hidden" name="isManager" value="false">
+                        	<input id="<%= member %>_admin" class="btn admin-btn" type="submit" value="관리자 권한 해제">
+                    	</form>
+                    <% } else { %>
+                        <!-- 다중 클래스 적용~~ -->
+                    	<form method="post" action="<%= request.getContextPath() %>/memberDelete.do">
                         	<input type="hidden" name="member_id" value="<%= member %>">
                         	<input id="<%= member %>_delete" class="btn delete-btn" type="submit" value="회원 삭제">
                     	</form>
                         
-                        <form method="get" action="<%= request.getContextPath() %>/addManage.do">
+                        <form method="post" action="<%= request.getContextPath() %>/addManage.do">
                         	<input type="hidden" name="member_id" value="<%= member %>">
+                        	<input type="hidden" name="isManager" value="true">
                         	<input id="<%= member %>_admin" class="btn admin-btn" type="submit" value="관리자 권한 부여">
                     	</form>
-                    <% } else { %>
-                        
                     <% } %>
 	                    <form method="get" action="<%= request.getContextPath() %>/memberSearch.do">
 	                    	<input type="hidden" name="member_id" value="<%= member %>">

@@ -34,11 +34,12 @@ public class MemberInformationDAO {
         return loginCon;
 	}
 	
-	public boolean isAdmin(String getMember_id) {
+	public boolean isManager(String getMember_id) {
 		Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         boolean is_manager = false;
+        System.out.println("is_manager 구하기"); //확인용 로그
         try {
 			conn = JDBCUtil.getConnection();
             String strQuery = "select is_manager from member_information where member_id = ?";
@@ -46,16 +47,26 @@ public class MemberInformationDAO {
             pstmt = conn.prepareStatement(strQuery);
             pstmt.setString(1, getMember_id);
             rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                is_manager = rs.getBoolean("is_manager");
+            while(rs.next()) {
+            	is_manager = rs.getBoolean("is_manager");
             }
             
+            //-----확인용 로그-----
+            /*
+            if(is_manager) {
+            	System.out.println("is_manager : true");
+            }
+            else {
+            	System.out.println("is_manager : false");
+            }
+            */
+            //------------------
         } catch (Exception ex) {
             System.out.println("Exception" + ex);
         } finally {
         	JDBCUtil.close(rs, pstmt, conn);
         }
+        
         return is_manager;
 	}
 
@@ -136,8 +147,9 @@ public class MemberInformationDAO {
             pstmt.setString(6, String.valueOf(mDTO.getMember_gender()));
             pstmt.setString(7, mDTO.getMember_id());
             
-            System.out.println(mDTO.getMember_gender());
-            System.out.print(pstmt);
+            //확인용 로그
+            //System.out.println(mDTO.getMember_gender());
+            //System.out.print(pstmt);
 
             int count = pstmt.executeUpdate();
 

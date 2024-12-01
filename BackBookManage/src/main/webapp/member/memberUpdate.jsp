@@ -9,7 +9,7 @@
 	ArrayList<String> memberInfo = (ArrayList<String>) request.getAttribute("memberInfo");
 	if (memberInfo == null) {
 	    memberInfo = new ArrayList<>();
-}
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -19,29 +19,17 @@
     <script>
 	let isCheck = false;
 	
-    function validateForm() {
-        const password = document.querySelector('input[name="member_password"]').value;
-        const confirmPassword = document.querySelector('input[name="member_password_confirm"]').value;
-        
-        if (password.length < 8 || password.length > 20) {
-        	alert("비밀번호를 8~20자로 입력해주세요.");
-            return false;
-        }
-        
-        if (password !== confirmPassword) {
-            alert("비밀번호가 일치하지 않습니다.");
-            return false;
-        }
-
-        alert("회원 정보 수정이 완료되었습니다.");
-        return true;
-    }
-    
-</script>
+	function infoUpdateForm(){
+		alert("회원 정보 수정이 완료되었습니다.");
+	    return true;
+	}
+	</script>
 </head>
 <body>
     <h3>회원 정보 수정</h3>
-    <form method="POST" action="memberUpdateaction.do" onsubmit="return validateForm()">
+    <form method="POST" action="<%= request.getContextPath() %>/memberUpdate.do" onsubmit="return infoUpdateForm()">
+    	<!-- 비밀번호 넘기기 -->
+        <input type="hidden" name="member_password" value="<%=memberInfo.get(2)%>">
         <table>
             <!-- 이름 -->
             <tr>
@@ -55,19 +43,6 @@
                 <th>아이디</th>
                 <td>
                     <input type="text" name="member_id" value="<%=memberInfo.get(0)%>" readonly>
-                </td>
-            </tr>
-            <!-- 암호 -->
-            <tr>
-                <th>암호</th>
-                <td>
-                    <input type="password" name="member_password" placeholder="새 암호 입력">
-                </td>
-            </tr>
-            <tr>
-                <th>암호 확인</th>
-                <td>
-                    <input type="password" name="member_password_confirm" placeholder="암호 다시 입력">
                 </td>
             </tr>
             <!-- 이메일 -->

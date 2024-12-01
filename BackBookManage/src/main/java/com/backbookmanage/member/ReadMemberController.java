@@ -22,6 +22,8 @@ public class ReadMemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("readMember.do컨트롤러 실행");
 		String member_id = (String) request.getSession().getAttribute("member_id"); // 세션에서 ID 가져오기
         
         if (member_id != null) {

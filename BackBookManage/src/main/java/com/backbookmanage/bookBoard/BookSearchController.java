@@ -28,7 +28,7 @@ public class BookSearchController extends HttpServlet {
 		String inputSearch = request.getParameter("inputSearch");
 		
         StringBuilder urlBuilder = new StringBuilder("http://www.aladin.co.kr/ttb/api/ItemSearch.aspx");
-	    urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "=ttbkminjee11302037001"); // 서비스키
+	    urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "="); // 서비스키
 	    urlBuilder.append("&" + URLEncoder.encode("Query", "UTF-8") + "=" + URLEncoder.encode(inputSearch, "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("MaxResults", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("start", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));

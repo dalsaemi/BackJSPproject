@@ -101,11 +101,9 @@
                     <h3>계정 관리</h3>
                     <ul>
                         <li><a href="<%=request.getContextPath() %>/member/memberPasswordUpdate.jsp">회원정보 변경</a></li>
-<<<<<<< HEAD
                         <li><a href="#">비밀번호 변경</a></li>
                         <li><a href="#">로그아웃</a></li>
                         <li><a href="#">계정 탈퇴</a></li>
-=======
                         <li><a href="<%=request.getContextPath() %>/member/memberPasswordUpdate.jsp">비밀번호 변경</a></li>
                         <form action="<%=request.getContextPath() %>/logout.do" method="get">
 					        <button type="submit">로그아웃</button>
@@ -116,7 +114,6 @@
 					   		<input type="hidden" name="fowardURL" value="index.jsp">
 					        <input type="button" onClick="return memberDeleteForm()" value="계정 탈퇴">
 					   	</form>
->>>>>>> 92d5bd551b50db91d7d8d2e5d0a0b8fabf47d4e6
                     </ul>
                 </div>
             </section>

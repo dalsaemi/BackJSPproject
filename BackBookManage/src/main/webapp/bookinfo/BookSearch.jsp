@@ -1,24 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.json.JSONObject, org.json.JSONArray" %>
+<%! 
+	JSONArray itemResult; 
+	JSONObject obj;%>
 <%
-request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+
+	String result = (String)request.getAttribute("responseBody");
+	if(result == null) {
+		result = null;
+	} else {
+		JSONObject jsonObject = new JSONObject(result);
+        itemResult = jsonObject.getJSONArray("item");
+	}
+
 %>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <title>책 검색</title>
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/index_styles.css">
 </head>
 <body>
+	<%@ include file="/main/header.jsp" %>
 	<!-- 정렬 기능 - API 확인 후 추가 -->
-    <div class="search_book">
-        <form class="srch" action="#" method="get">
-          <label for="query">도서 검색</label>
-          <input type="text" name="book_query" id="query" title="검색어" class="keyword" placeholder="검색할 단어를 입력하세요" value="">
-          <input type="submit" id="search" name="search" value="검색" />
-        </form>
-    </div>
-    
     <table border="1" summary="책 검색 API 결과" class="tb_type">
     <caption>검색 결과</caption>
       <colgroup>
@@ -42,15 +49,23 @@ request.setCharacterEncoding("UTF-8");
         </tr>
       </thead>
       <tbody id="result">
+      <% 
+      	if (result == null) { 
+      %>
         <tr class="oldlist">
           <td colspan="8">검색 결과가 없습니다.</td>
         </tr>
-        <tr class="template" style="display: none">
-          <td><img src="#" height="80px" width="50px"/></td>
-          <td>title</td>
-          <td>author</td>
-          <td>publisher</td>
-          <td>pubDate</td>
+      <% 
+      	} else { 
+      		for (int i = 0; i < itemResult.length(); i++) {
+      			obj = itemResult.getJSONObject(i);
+      %>
+        <tr class="template">
+          <td><img src="<%= obj.getString("cover") %>" height="80px" width="50px"/></td>
+          <td><%= obj.getString("title") %></td>
+          <td><%= obj.getString("author") %></td>
+          <td><%= obj.getString("publisher") %></td>
+          <td><%= obj.getString("pubDate") %></td>
           <td>star</td>
           <td>
           	<form>
@@ -63,6 +78,10 @@ request.setCharacterEncoding("UTF-8");
 			</form>	
 		  </td>
         </tr>
+      <% 
+      		} 
+      	}
+      %>
       </tbody>
     </table>
 </body>

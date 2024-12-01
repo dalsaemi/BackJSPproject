@@ -53,6 +53,11 @@ body, html {
     background-color: #a3ccfb;
 }
 
+#search-form {
+	display: flex!important;
+	width: 100%;
+}
+
 .nav-links a {
     margin: 10px 10px 10px 20px;
     text-decoration: none;

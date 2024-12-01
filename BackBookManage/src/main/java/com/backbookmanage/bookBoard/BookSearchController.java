@@ -15,20 +15,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.backbookmanage.common.APIbuilder;
-
+import com.backbookmanage.common.Config;
 /**
  * Servlet implementation class BookSearchServlet
  */
 @WebServlet("/bookSearch.do")
 public class BookSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	String apikey = Config.API_KEY; 
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String inputSearch = request.getParameter("inputSearch");
 		
         StringBuilder urlBuilder = new StringBuilder("http://www.aladin.co.kr/ttb/api/ItemSearch.aspx");
-	    urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "="); // 서비스키
+        urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "=" + URLEncoder.encode(apikey, "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("Query", "UTF-8") + "=" + URLEncoder.encode(inputSearch, "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("MaxResults", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("start", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));

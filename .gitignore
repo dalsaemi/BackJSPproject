@@ -16,6 +16,7 @@ local.properties
 .classpath
 .project
 JDBCUtil.java
+Config.java
 
 # External tool builders
 .externalToolBuilders/

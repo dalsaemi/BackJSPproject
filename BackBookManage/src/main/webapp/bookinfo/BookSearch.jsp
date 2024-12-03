@@ -71,10 +71,12 @@
       	} else { 
       		for (int i = 0; i < itemResult.length(); i++) {
       			obj = itemResult.getJSONObject(i);
+      			String cover = obj.getString("cover");
+      			String title = obj.getString("title");
       %>
         <tr class="template">
-          <td><img src="<%= obj.getString("cover") %>" height="80px" width="50px"/></td>
-          <td><%= obj.getString("title") %></td>
+          <td><img src="<%=cover%>" height="80px" width="50px"/></td>
+          <td><%= title %></td>
           <td><%= obj.getString("author") %></td>
           <td><%= obj.getString("publisher") %></td>
           <td><%= obj.getString("pubDate") %></td>
@@ -87,6 +89,7 @@
           <td>
 		  	<form action="<%=request.getContextPath()%>/bookinfo/recordWrt.jsp">
 		  		<input type="hidden" name="isbn" value="<%= obj.getString("isbn") %>">
+		  		<input type="hidden" name="cover" value="<%=cover%>">
 				<button type="submit">기록하기</button>
 			</form>	
 		  </td>

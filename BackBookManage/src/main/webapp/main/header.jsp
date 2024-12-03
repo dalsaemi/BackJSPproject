@@ -11,7 +11,7 @@
 	<!--header-->
         <header class="header">
             <div class="header-inner">
-                <div class="logo">웹사이트이름</div>
+                <div class="logo"><a class = "index-title" href="<%=request.getContextPath() %>/index.jsp">웹사이트 이름</a></div>
                 <div class="search-bar">
 	                <form action="<%= request.getContextPath() %>/bookSearch.do" method="get" id="search-form">
 					    <input type="text" name="inputSearch" placeholder="도서 검색">

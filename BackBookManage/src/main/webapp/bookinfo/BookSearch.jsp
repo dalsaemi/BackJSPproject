@@ -85,7 +85,8 @@
 			</form>	
           </td>
           <td>
-		  	<form>
+		  	<form action="<%=request.getContextPath()%>/bookinfo/recordWrt.jsp">
+		  		<input type="hidden" name="isbn" value="<%= obj.getString("isbn") %>">
 				<button type="submit">기록하기</button>
 			</form>	
 		  </td>

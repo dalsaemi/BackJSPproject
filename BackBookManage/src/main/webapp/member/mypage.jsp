@@ -43,9 +43,9 @@
     <div class="container">
         <!-- 사이드바 -->
         <nav class="sidebar">
-            <h2 class="site-name"><a href="<%=request.getContextPath() %>/index.jsp">웹사이트 이름</a></h2>
+            <h2 class="site-name"><a href="<%=request.getContextPath()%>/index.jsp">웹사이트 이름</a></h2>
             <ul class="menu">
-                <li><a href="#">나의 독서 기록</a></li>
+                <li><a href="<%=request.getContextPath()%>/myrecordpage.jsp">나의 독서 기록</a></li>
                 <li><a href="#">자주 가는 도서관</a></li>
                 <li><a href="#">작성 글 모아보기</a></li>
                 <li><a href="#">즐겨찾기 목록</a></li>

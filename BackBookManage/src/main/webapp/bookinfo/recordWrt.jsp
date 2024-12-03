@@ -41,7 +41,7 @@ String member_name = memberInfo.get(1);
 
       <!-- ISBN (수정 불가능) -->
       <label for="isbn">ISBN</label>
-      <input type="text" id="isbn" name="isbn" class="readonly-field" readonly>
+      <input type="text" id="isbn" name="isbn" class="readonly-field" value="1234" readonly>
       <br>
 
       <!-- 본문 -->

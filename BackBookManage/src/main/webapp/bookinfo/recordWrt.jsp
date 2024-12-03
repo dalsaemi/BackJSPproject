@@ -27,7 +27,9 @@ String member_name = memberInfo.get(1);
 <body>
   <div class="container">
     <h1>독서 기록 작성</h1>
-    <form action="<%=request.getContextPath()%>/boardAdd.do" method="get">
+    <form action="<%=request.getContextPath()%>/boardAdd.do" method="post">
+      <image src="<%=request.getParameter("book_cover")%>">
+      <h3>책 제목 : <%=request.getParameter("book_title")%></h3>
       <!-- 제목 -->
       <label for="title">제목</label>
       <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
@@ -41,7 +43,7 @@ String member_name = memberInfo.get(1);
 
       <!-- ISBN (수정 불가능) -->
       <label for="isbn">ISBN</label>
-      <input type="text" id="isbn" name="isbn" class="readonly-field" value="1234" readonly>
+      <input type="text" id="isbn" name="isbn" class="readonly-field" value="<%=request.getParameter("book_isbn")%>" readonly>
       <br>
 
       <!-- 본문 -->
@@ -187,6 +189,7 @@ String member_name = memberInfo.get(1);
 	
 	//클릭된 별점을 기준으로 모든 별을 채우는 함수
 	function checkedRate() {
+		
 	let checkedRadio = document.querySelectorAll('.rating input[type="radio"]:checked');
 	initStars(); // 별 초기화
 	

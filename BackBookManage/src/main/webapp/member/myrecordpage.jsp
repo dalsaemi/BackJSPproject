@@ -17,19 +17,7 @@
 </head>
 <body>
     <div class="container"> <!-- 헤더 -->
-        <header>
-            <div class="logo">
-                <img src="#" alt="로고">
-                <span>웹사이트이름</span>
-            </div>
-            <nav>
-                <a href="#">서비스소개</a>
-                <a href="#">공지사항</a>
-                <a href="#">도서관찾기</a>
-                <a href="#">고객센터</a>
-            </nav>
-        </header>
-
+        <%@ include file="/main/header.jsp" %>
         <div class="content-wrapper">
             <div class="sidebar">
                 <ul>

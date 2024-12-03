@@ -17,29 +17,10 @@ request.setCharacterEncoding("UTF-8");
 <body>
     <div class="container">
         <!-- 헤더 -->
-        <header>
-            <div class="logo">
-                <img src="#" alt="로고">
-                <span>웹사이트이름</span>
-            </div>
-            <nav>
-                <a href="#">서비스소개</a>
-                <a href="#">공지사항</a>
-                <a href="#">도서관찾기</a>
-                <a href="#">고객센터</a>
-            </nav>
-        </header>
+        <%@ include file="/main/header.jsp" %>
 
         <div class="content-wrapper">
-            <div class="sidebar">
-                <ul>
-                    <li><a href="#">나의 독서 기록</a></li>
-                    <li><a href="#">자주 가는 도서관</a></li>
-                    <li><a href="#">작성 글 모아보기</a></li>
-                    <li><a href="#">즐겨찾기 목록</a></li>
-                    <li><a href="#">회원정보 및 계정 관리</a></li>
-                </ul>
-            </div>
+            <%@ include file="/main/sidebar.jsp" %>
             <div class="myrecord">
                 <h1>내 기록 모아보기</h1> <!-- 인터페이스 보여주기 위해 임시 코드, 이후 try-catch 및 for문 응용 -->
                 <div class="post-list">

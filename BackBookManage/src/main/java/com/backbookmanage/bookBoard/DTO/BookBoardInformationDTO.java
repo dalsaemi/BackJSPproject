@@ -2,31 +2,32 @@ package com.backbookmanage.bookBoard.DTO;
 import java.sql.Clob;
 
 public class BookBoardInformationDTO {
-	private char board_id;
+	private int board_id;
 	private String member_id;
-	private char isbn;
+	private String isbn;
 	private float board_rating;
 	private int board_recommend;
-	private Clob board_contents;
+	private String board_contents;
 	private String board_title;
 	
-	public char getBoard_id() {
+	
+	public int getBoard_id() {
 		return board_id;
 	}
-	public void setBoard_id(char board_id) {
+	public void setBoard_id(int board_id) {
 		this.board_id = board_id;
+	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 	public String getMember_id() {
 		return member_id;
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
-	}
-	public char getIsbn() {
-		return isbn;
-	}
-	public void setIsbn(char isbn) {
-		this.isbn = isbn;
 	}
 	public float getBoard_rating() {
 		return board_rating;
@@ -40,10 +41,10 @@ public class BookBoardInformationDTO {
 	public void setBoard_recommend(int board_recommend) {
 		this.board_recommend = board_recommend;
 	}
-	public Clob getBoard_contents() {
+	public String getBoard_contents() {
 		return board_contents;
 	}
-	public void setBoard_contents(Clob board_contents) {
+	public void setBoard_contents(String board_contents) {
 		this.board_contents = board_contents;
 	}
 	public String getBoard_title() {

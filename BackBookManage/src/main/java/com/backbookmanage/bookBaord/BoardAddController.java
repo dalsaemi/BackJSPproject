@@ -67,6 +67,7 @@ public class BoardAddController extends HttpServlet {
 		if (insertCheck) {
 			System.out.println("게시글 등록 성공");
 			//페이지 포워딩
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/recordViewer.jsp");
 	        dispatcher.forward(request, response);
 		} else {

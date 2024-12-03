@@ -1,5 +1,6 @@
 package com.backbookmanage.bookBoard.DTO;
 import java.sql.Clob;
+import java.util.Date;
 
 public class BookBoardInformationDTO {
 	private int board_id;
@@ -7,6 +8,7 @@ public class BookBoardInformationDTO {
 	private String isbn;
 	private float board_rating;
 	private int board_recommend;
+	private Date board_date;
 	private String board_contents;
 	private String board_title;
 	
@@ -40,6 +42,12 @@ public class BookBoardInformationDTO {
 	}
 	public void setBoard_recommend(int board_recommend) {
 		this.board_recommend = board_recommend;
+	}
+	public Date getBoard_date() {
+		return board_date;
+	}
+	public void setBoard_date(Date board_date) {
+		this.board_date = board_date;
 	}
 	public String getBoard_contents() {
 		return board_contents;

@@ -17,8 +17,8 @@ request.setCharacterEncoding("UTF-8");
       </div>
 
       <div class="post-info">
-          <p><strong>글 아이디:</strong> <span id="post-id">12345</span></p>
-          <p><strong>글쓴이ID:</strong> <span id="author-id">user123</span></p>
+          <p><strong>글 아이디:</strong> <span id="board_id">12345</span></p>
+          <p><strong>글쓴이 닉네임:</strong> <span id="author_name">user123</span></p>
           <p><strong>작성시간:</strong> <span id="created-time">2024-11-29 14:30</span></p>
       </div>
 

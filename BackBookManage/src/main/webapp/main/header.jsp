@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index_styles.css">
 <title>Insert title here</title>
 </head>
 <body>

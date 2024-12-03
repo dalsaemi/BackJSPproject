@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/myrecordpage.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/myrecordpage_styles.css">
     <title>독서 기록 웹사이트</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>

@@ -24,7 +24,7 @@
     <meta charset="UTF-8">
     
     <title>회원 관리</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminpage.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/adminpage_styles.css">
 </head>
 <body>
     <h1>회원 관리</h1>

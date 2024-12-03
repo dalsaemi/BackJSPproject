@@ -7,64 +7,6 @@ body, html {
     margin: auto;
 }
 
-/* 헤더 스타일 */
-.header {
-    background-color: #f8f9fa;
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header-inner {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.search-bar {
-    display: flex;
-    flex-grow: 1;
-    margin: 0 20px;
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 10px 10px 10px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-}
-
-.search-bar button {
-    padding: 8px;
-    background-color: #b7d8fc;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    color: #fff;
-    cursor:pointer;
-}
-
-.search-bar button:hover {
-    background-color: #a3ccfb;
-}
-
-#search-form {
-	display: flex!important;
-	width: 100%;
-}
-
-.nav-links a {
-    margin: 10px 10px 10px 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 10pt;
-}
-
 /* 배너 스타일 */
 .banner {
     background-color: #dcdcdc;
@@ -168,27 +110,6 @@ body, html {
     float: right;
 }
 
-
-
-/* 도서 섹션 */
-.book-section {
-    width: 80%;
-    margin: 0 20px;
-}
-
-.tab-menu button {
-    background-color: #b7d8fc;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px 3px 0 0;
-    color: white;
-}
-
-.tab-menu button:hover {
-    background-color: #a3ccfb;
-}
-
 /* main-content: 로그인과 book-section을 가로로 배치 */
 .main-content {
     width: 100%;
@@ -198,90 +119,6 @@ body, html {
     align-items: flex-start;
 }
 
-.book-container {
-    background-color: #ffffff;
-    /* padding: 20px; */
-    border-radius: 8px;
-    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
-    display: flex;
-    flex-direction: column;
-    /* gap: 20px; */
-}
-
-.info-section {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    gap: 20px;
-    /* padding: 20px; */
-    margin-bottom: 50px;
-    justify-content: space-between;
-}
-
-.tab-menu {
-    display: flex;
-    gap: 10px;
-    padding-left: 15px;
-    margin-bottom: 0px;
-}
-
-.book-cards {
-    display: flex;
-    margin: 0;
-    gap: 30px;
-    padding: 15px;
-    border: 1px solid rgb(200, 200, 200);
-    border-radius: 10px;
-}
-
-.book-card {
-    background-color: #ecf5ff;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 150px;
-    height: 250px;
-    /* text-align: left; */
-    display: flex;
-    flex-direction: column;
-    /* align-items: left; */
-    /* gap: 10px; */
-}
-
-/* .book-image {
-    background-color: #dcdcdc;
-    height: 100px;
-    width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    margin-bottom: 8px;
-} */
-
-.book-info {
-    list-style: none;
-    font-size: 10pt;
-    color: #333;
-    padding: 0;
-    margin-top: 5px;
-}
-
-.book-info li {
-    margin: 3px 0;
-    text-overflow: ellipsis;
-    white-space : nowrap;
-    overflow: hidden;
-}
-
-.bReview-booktitle {
-    font-size: 8pt;
-}
-
-.bReview-writer {
-    font-size: 8pt;
-    color:#1d439c;
-}
 
 /* 공지사항 및 FAQ */
 .announcements-faq{
@@ -333,20 +170,4 @@ body, html {
     margin-bottom: 20px;
 }
 
-footer {
-    background-color: #1d439c;
-    color: #fff;
-    padding: 20px;
-}
-
-#footerdiv ul{
-    list-style-type: none;
-    font-size: 9pt;
-    color: rgb(213, 213, 213);
-    text-align: left;
-}
-
-#footerdiv ul li {
-    margin: 3px;
-}
 

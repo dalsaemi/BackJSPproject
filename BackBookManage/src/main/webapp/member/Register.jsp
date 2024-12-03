@@ -9,6 +9,7 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset="UTF-8">
 <title>독서 관리 서비스 회원가입</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/Register_styles.css">
 </head>
 <body>
 <form method="get" action="<%=request.getContextPath()%>/register.do" onsubmit="return validateForm()">
@@ -29,7 +30,6 @@ request.setCharacterEncoding("UTF-8");
 	<tr>
 	    <td>
 	        <select name="member_gender" required>
-	            <option value="">-- 선택 --</option> <!-- 줄 삭제 필요 -->
 	            <option value="M">남성</option>
 	            <option value="W">여성</option>
 	        </select>

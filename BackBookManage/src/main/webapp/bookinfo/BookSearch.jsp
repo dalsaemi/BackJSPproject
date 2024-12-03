@@ -39,6 +39,7 @@
 <head>
   <meta charset="UTF-8">
   <title>책 검색</title>
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/BookSearch_styles.css">
 </head>
 <body>
 	<%@ include file="/main/header.jsp" %>
@@ -115,12 +116,12 @@
 	  </div>
 	</div>
     <%-- 페이징 --%>
-    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
-    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
+    <a class = "next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
+    <a class = "next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
     <%
     	for(int i = pg.getPageSno(); i <= pg.getPageEno(); i++) {
 	%>
-		<a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>">
+		<a class = "next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>">
 	<% 			
       	
       		if(pg.getPageno() == i) {
@@ -136,8 +137,8 @@
      %>
 
     	</a> 
-    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">[다음]</a>
-    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">[맨뒤로]</a>
+    <a class = "next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">[다음]</a>
+    <a class = "next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">[맨뒤로]</a>
 </body>
 
 </html>

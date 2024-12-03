@@ -1,0 +1,104 @@
+@charset "UTF-8";
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  width: 400px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+form h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form table {
+  width: 100%;
+  border-spacing: 10px;
+}
+
+form td {
+  font-size: 1rem;
+  color: #555;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="date"],
+form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="date"]:focus,
+form select:focus {
+  border-color: #90cdf4;
+  outline: none;
+  background-color: #eef6ff;
+}
+
+form input[type="button"],
+form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #3182ce;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form input[type="button"]:hover,
+form input[type="submit"]:hover {
+  background-color: #2b6cb0;
+}
+
+form select {
+  background-color: #eef6ff;
+  border: 1px solid #b3d9ff;
+}
+
+form .email {
+  display: inline-block;
+}
+
+form select[name="domain"] {
+  display: inline-block;
+  width: calc(50% - 5px);
+  margin-left: 10px;
+}
+
+form p {
+  font-size: 0.9rem;
+  color: #888;
+  text-align: center;
+}
+
+form .error {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  margin-top: -10px;
+}

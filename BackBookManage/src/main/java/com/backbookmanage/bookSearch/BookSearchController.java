@@ -1,4 +1,4 @@
-package com.backbookmanage.bookBoard;
+package com.backbookmanage.bookSearch;
 
 import java.io.IOException;
 import java.net.URLEncoder;

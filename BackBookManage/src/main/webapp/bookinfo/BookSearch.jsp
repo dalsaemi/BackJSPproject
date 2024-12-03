@@ -22,9 +22,15 @@
 		result = null;
 	} else {
 		JSONObject jsonObject = new JSONObject(result);
-		itemNum =  jsonObject.getInt("totalResults");
-        itemResult = jsonObject.getJSONArray("item");
-        pg = new PagingBean(currentPage, itemNum, maxResults, groupPerPageCnt);
+		try {
+			itemNum =  jsonObject.getInt("totalResults");
+			itemResult = jsonObject.getJSONArray("item");
+		}
+		catch(Exception e) {
+			itemNum = 0;
+		}
+		pg = new PagingBean(currentPage, itemNum, maxResults, groupPerPageCnt);
+        
 	}
 
 %>
@@ -62,7 +68,7 @@
       </thead>
       <tbody id="result">
       <% 
-      	if (result == null || itemResult == null) { 
+      	if (result == null || itemResult == null || itemNum == 0) { 
       %>
         <tr class="oldlist">
           <td colspan="8">검색 결과가 없습니다.</td>

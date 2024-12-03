@@ -39,7 +39,6 @@
 <head>
   <meta charset="UTF-8">
   <title>책 검색</title>
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/index_styles.css">
 </head>
 <body>
 	<%@ include file="/main/header.jsp" %>
@@ -108,6 +107,14 @@
       %>
       </tbody>
     </table>
+    <%-- 모달 창 --%>
+    <div id="modalContainer" class="hidden">
+	  <div id="modalContent">
+	    <p>모달 창 입니다.</p>
+	    <button id="modalCloseButton">닫기</button>
+	  </div>
+	</div>
+    <%-- 페이징 --%>
     <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
     <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
     <%

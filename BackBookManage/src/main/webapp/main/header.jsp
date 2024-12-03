@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/main/header_styles.css">
 </head>
 <body>
 	<!--header-->

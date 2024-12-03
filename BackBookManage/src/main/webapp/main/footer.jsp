@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/main/footer_styles.css">
 </head>
 <body>
 <!-- 푸터 시작 -->

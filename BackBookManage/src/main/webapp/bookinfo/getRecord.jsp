@@ -8,7 +8,7 @@ request.setCharacterEncoding("UTF-8");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/getRecord.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/getRecord_styles.css">
     <title>내 기록 모아보기</title>
     <style>
         

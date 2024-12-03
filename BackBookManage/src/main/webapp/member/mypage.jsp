@@ -18,7 +18,7 @@
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/member/mypage_styles.css">
     <script type="text/javascript">
     function memberDeleteForm(){
     	if(confirm("정말 탈퇴하시겠습니까? 확인 버튼 선택 시, 계정은 삭제되며 복구되지 않습니다.")){

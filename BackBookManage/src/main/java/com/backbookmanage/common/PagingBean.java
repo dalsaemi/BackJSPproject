@@ -41,6 +41,9 @@ public class PagingBean {
         groupNo = pageno / groupPerPageCnt + (pageno % groupPerPageCnt > 0 ? 1 : 0);
         pageEno = groupNo * groupPerPageCnt;
         pageSno = pageEno - (groupPerPageCnt - 1);
+        if(pageSno < 0) {
+        	pageSno = 0;
+        }
 
         if (pageEno > totalPage) {
             pageEno = totalPage;

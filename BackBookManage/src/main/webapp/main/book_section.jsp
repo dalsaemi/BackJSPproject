@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.json.JSONObject, org.json.JSONArray" %>
+<%! 
+	JSONArray itemResult; 
+	JSONObject obj;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,49 +12,49 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String result = (String)request.getAttribute("responseBody");
+	if(result != null) {
+		JSONObject jsonObject = new JSONObject(result);
+		System.out.println(jsonObject);
+		try {
+			itemResult = jsonObject.getJSONArray("item");
+		} catch(Exception e) {
+			System.out.println("API 호출 에러");
+		}
+        
+        
+	} else {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/bookSection.do?bookSection=new");
+		dispatcher.include(request, response);
+	}
+%>
 	<section class="book-section">
         <!--book-container-->
         <div class="book-container">
             <div class="tab-menu">
-                <button>신규 도서</button>
-                <button>베스트 도서</button>
-                <button>베스트 리뷰</button>
-                <button>나의 즐겨찾기</button>
+                <button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=new'">신규 도서</button>
+                <button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=bestBook'">베스트 도서</button>
+                <button>베스트 리뷰</button> <%--기능 추가하기 --%>
             </div>
             <!--book-cards-->
             <div class="book-cards">
+            <% 
+            	for (int i = 0; i < itemResult.length(); i++) {
+      				obj = itemResult.getJSONObject(i);
+      		%>
                 <div class="book-card">
-                    <img src="<%=request.getContextPath() %>/image/1.png" alt="리뷰 1 이미지">
+                    <img src="<%= obj.getString("cover") %> " height="200px" width="150px" alt="리뷰 1 이미지">
                     <ul class="book-info">
-                        <li class="bReview-title">소설 ABCD를 읽고...</li>
-                        <li class="bReview-booktitle">ABCD, 김OO 지음</li>
-                        <li class="bReview-writer">User1님의 리뷰</li>
+                        <li class="bReview-title"><%= obj.getString("title") %></li>
+                        <li class="bReview-booktitle"><%= obj.getString("author") %></li>
+                        <li class="bReview-writer"><%= obj.getString("pubDate") %></li>
                     </ul>
                 </div>
-                <div class="book-card">
-                    <img src="<%=request.getContextPath() %>/image/2.png" alt="리뷰 2 이미지">
-                    <ul class="book-info">
-                        <li class="bReview-title">알을 깨는 새가 되어</li>
-                        <li class="bReview-booktitle">데미안, 헤르만 헤세</li>
-                        <li class="bReview-writer">토리님의 리뷰</li>
-                    </ul>
-                </div>
-                <div class="book-card">
-                    <img src="<%=request.getContextPath() %>/image/3.png" alt="리뷰 3 이미지">
-                    <ul class="book-info">
-                        <li class="bReview-title">사랑이란 무엇인가</li>
-                        <li class="bReview-booktitle">소나기, 황순원 지음</li>
-                        <li class="bReview-writer">가나다님의 리뷰</li>
-                    </ul>
-                </div>
-                <div class="book-card">
-                    <img src="<%=request.getContextPath() %>/image/4.png" alt="리뷰 4 이미지">
-                    <ul class="book-info">
-                        <li class="bReview-title">당신의 하트에 니코마코스</li>
-                        <li class="bReview-booktitle">니코마코스 윤리학, 아리스토텔레스 지음</li>
-                        <li class="bReview-writer">윤리좋아님의 리뷰</li>
-                    </ul>
-                </div>
+             <% 
+             	} 
+             %>   
             </div>
         </div>
       </section>

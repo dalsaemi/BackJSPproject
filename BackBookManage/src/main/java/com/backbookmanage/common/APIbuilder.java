@@ -35,10 +35,6 @@ public class APIbuilder {
             responseCode = String.valueOf(apiResponse.statusCode());
             responseBody = apiResponse.body();
 
-            // Log the response for debugging
-            System.out.println("API Response Code: " + responseCode);
-            System.out.println("API Response Body: " + responseBody);
-
             // 상태 코드가 200이 아닌 경우 예외 처리
             if (apiResponse.statusCode() != 200) {
                 throw new Exception("API 호출 실패: " + apiResponse.statusCode() + " - " + apiResponse.body());

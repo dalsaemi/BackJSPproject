@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %>
 <%! 
-	JSONArray itemResult; 
+	JSONArray itemResults; 
 	JSONObject obj;
 %>
 <!DOCTYPE html>
@@ -15,12 +15,11 @@
 <body>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String result = (String)request.getAttribute("responseBody");
-	if(result != null) {
-		JSONObject jsonObject = new JSONObject(result);
-		System.out.println(jsonObject);
+	String results = (String)request.getAttribute("responseBody");
+	if(results != null) {
+		JSONObject jsonObject = new JSONObject(results);
 		try {
-			itemResult = jsonObject.getJSONArray("item");
+			itemResults = jsonObject.getJSONArray("item");
 		} catch(Exception e) {
 			System.out.println("API 호출 에러");
 		}
@@ -42,10 +41,10 @@
             <!--book-cards-->
             <div class="book-cards">
             <% 
-            	for (int i = 0; i < itemResult.length(); i++) {
-      				obj = itemResult.getJSONObject(i);
+            	for (int i = 0; i < itemResults.length(); i++) {
+      				obj = itemResults.getJSONObject(i);
       		%>
-                <div class="book-card">
+                <div class="book-card modalOpenButton" data-id='<%= obj.getString("isbn")%>'>
                     <img src="<%= obj.getString("cover") %> " height="200px" width="150px" alt="리뷰 1 이미지">
                     <ul class="book-info">
                         <li class="bReview-title"><%= obj.getString("title") %></li>
@@ -58,6 +57,9 @@
              %>   
             </div>
         </div>
-      </section>
+        <%-- 모달 창 --%>
+		<%@include file="/bookinfo/modal.jsp" %>
+		<script src="<%= request.getContextPath() %>/js/modal_js.js" type="module"></script>
+    </section>
 </body>
 </html>

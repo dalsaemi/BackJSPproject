@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="org.json.JSONObject, org.json.JSONArray, com.backbookmanage.common.PagingBean" %>
 <%! 
-	JSONArray itemResult; 
+	JSONArray itemResults; 
 	JSONObject obj;
 	int itemNum;
 	PagingBean pg;
@@ -12,19 +12,19 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	inputSearch = (String)request.getAttribute("inputSearch");
-	String result = (String)request.getAttribute("responseBody");
+	String results = (String)request.getAttribute("responseBody");
 	String currentPageStr = (String)request.getAttribute("currentPage");
 	String maxResultsStr = (String)request.getAttribute("maxResults");
 	int currentPage = Integer.parseInt(currentPageStr);
 	int maxResults = Integer.parseInt(maxResultsStr);
 	int groupPerPageCnt = 5;
-	if(result == null) {
-		result = null;
+	if(results == null) {
+		results = null;
 	} else {
-		JSONObject jsonObject = new JSONObject(result);
+		JSONObject jsonObject = new JSONObject(results);
 		try {
 			itemNum =  jsonObject.getInt("totalResults");
-			itemResult = jsonObject.getJSONArray("item");
+			itemResults = jsonObject.getJSONArray("item");
 		}
 		catch(Exception e) {
 			itemNum = 0;
@@ -67,15 +67,15 @@
       </thead>
       <tbody id="result">
       <% 
-      	if (result == null || itemResult == null || itemNum == 0) { 
+      	if (results == null || itemResults == null || itemNum == 0) { 
       %>
         <tr class="oldlist">
           <td colspan="8">검색 결과가 없습니다.</td>
         </tr>
       <% 
       	} else { 
-      		for (int i = 0; i < itemResult.length(); i++) {
-      			obj = itemResult.getJSONObject(i);
+      		for (int i = 0; i < itemResults.length(); i++) {
+      			obj = itemResults.getJSONObject(i);
       %>
         <tr class="template">
           <td><img src="<%= obj.getString("cover") %>" height="80px" width="50px"/></td>
@@ -85,9 +85,9 @@
           <td><%= obj.getString("pubDate") %></td>
           <td>star</td>
           <td>
-          	<form>
-				<button type="submit">세부페이지</button>
-			</form>	
+		  	<button class="modalOpenButton" data-id='<%= obj.getString("isbn")%>'>
+		  		세부페이지
+		  	</button>
           </td>
           <td>
 		  	<form>
@@ -103,14 +103,10 @@
       </tbody>
     </table>
     <%-- 모달 창 --%>
-    <div id="modalContainer" class="hidden">
-	  <div id="modalContent">
-	    <p>모달 창 입니다.</p>
-	    <button id="modalCloseButton">닫기</button>
-	  </div>
-	</div>
+	<%@include file="/bookinfo/modal.jsp" %>
+	<script src="<%= request.getContextPath() %>/js/modal_js.js" type="module"></script>
     <%-- 페이징 --%>
-    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
+    <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>">[맨앞으로]</a>
     <a href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
     <%
     	for(int i = pg.getPageSno(); i <= pg.getPageEno(); i++) {

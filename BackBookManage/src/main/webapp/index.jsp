@@ -69,6 +69,7 @@
 					%>
             <!--book-section-->
             <%@include file="main/book_section.jsp" %>
+            
         </div>
         <!--info-section-->
         <div class="info-section">

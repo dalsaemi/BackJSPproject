@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.modalOpenButton, #modalCloseButton, .book-card {
+  cursor: pointer;
+}
+
+#modalContainer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#modalContent {
+  position: absolute;
+  background-color: #ffffff;
+  width: 80%; /* 더 넓은 너비 설정 */
+  max-width: 500px; /* 최대 너비 제한 */
+  height: auto;
+  padding: 15px;
+}
+
+#modalContainer.active {
+  display: flex;
+   
+}

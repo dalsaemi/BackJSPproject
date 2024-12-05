@@ -51,7 +51,7 @@ public class BoardAddController extends HttpServlet {
 		float board_rating = Float.parseFloat(request.getParameter("rating"));
 		int board_recommend = 0;
 		String board_contents = request.getParameter("content");
-		String board_title = request.getParameter("isbn");
+		String board_title = request.getParameter("title");
 		
 		BookBoardInformationDTO bDTO = new BookBoardInformationDTO();
 		bDTO.setMember_id(member_id);

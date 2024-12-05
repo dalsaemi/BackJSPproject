@@ -77,8 +77,9 @@ public class BookBoardInformationDAO {
             pstmt.setString(1, member_id);
             
             rs = pstmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
             	myBoardList.add(Integer.parseInt(rs.getString("board_id")));
+            	System.out.println("rs.next()"+rs.getString("board_id"));
             }
         } catch (Exception ex) {
         	System.out.println("내 작성글 리스트 불러오기 실패");

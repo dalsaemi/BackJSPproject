@@ -31,7 +31,7 @@ String member_id = bDTO.getMember_id();
 <body>
   <div class="container">
       <div class="post-header">
-          <h1>게시글 상세 정보</h1>
+          <h1>게시글 제목 :<%=board_title%></h1>
       </div>
 
       <div class="post-info">
@@ -41,7 +41,7 @@ String member_id = bDTO.getMember_id();
       </div>
 
       <div class="post-info">
-          <p><strong>제목:</strong> <span id="title"><%=isbn %>을 사용하여 제목 구하기</span></p>
+          <p><strong>책 제목:</strong> <span id="title"><%=isbn %>을 사용하여 제목 구하기</span></p>
           <p class="content"><strong>내용:</strong><br> <span id="content"><%=board_contents %></span></p>
       </div>
 

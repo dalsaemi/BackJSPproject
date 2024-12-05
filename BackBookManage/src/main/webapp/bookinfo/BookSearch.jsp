@@ -75,7 +75,7 @@
         </tr>
       <% 
       	} else { 
-      		for (int i = 0; i < itemResult.length(); i++) {
+      		for (int i = 0; i < itemResults.length(); i++) {
       			obj = itemResults.getJSONObject(i);
       			String cover = obj.getString("cover");
       			String title = obj.getString("title");

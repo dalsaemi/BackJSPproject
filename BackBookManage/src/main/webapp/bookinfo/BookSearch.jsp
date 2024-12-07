@@ -1,3 +1,4 @@
+<%@page import="com.backbookmanage.bookBoard.DAO.BookBoardInformationDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="org.json.JSONObject, org.json.JSONArray, com.backbookmanage.common.PagingBean" %>
@@ -32,7 +33,6 @@
 		pg = new PagingBean(currentPage, itemNum, maxResults, groupPerPageCnt);
         
 	}
-
 %>
 <!DOCTYPE html>
 <html>
@@ -79,7 +79,9 @@
       			obj = itemResults.getJSONObject(i);
       			String cover = obj.getString("cover");
       			String title = obj.getString("title");
-
+      			
+      			BookBoardInformationDAO boardinfo = new BookBoardInformationDAO();
+      			float avgRate = boardinfo.avgBoardRating(obj.getString("isbn"));
       %>
         <tr class="template">
           <td><img src="<%=cover%>" height="80px" width="50px"/></td>
@@ -87,7 +89,11 @@
           <td><%= obj.getString("author") %></td>
           <td><%= obj.getString("publisher") %></td>
           <td><%= obj.getString("pubDate") %></td>
-          <td>star</td>
+          <% if(avgRate > 0) { %>
+          <td><%= avgRate %></td>
+          <% } else { %>
+          <td>리뷰가 없습니다.</td>
+          <% } %>
           <td>
 		  	<button class="modalOpenButton" data-id='<%= obj.getString("isbn")%>'>
 		  		세부페이지

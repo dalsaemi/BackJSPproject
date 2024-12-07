@@ -27,7 +27,7 @@ Array.from(modalOpenButtons).forEach(button => {
     const id = button.getAttribute('data-id');
     console.log('모달 열기 버튼 클릭:', id);
 
-    fetch(`/BackBookManage/bookSelect.do?id=${id}`)
+    fetch(`/BackBookManage/bookSelect.do?id=${id}&command=modal`)
       .then(response => response.text())
       .then(html => {
         const parser = new DOMParser();

@@ -1,6 +1,9 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList, org.json.JSONObject, org.json.JSONArray"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%! 
+	JSONObject itemResult; 
+%>
 <%
 request.setCharacterEncoding("UTF-8");
 RequestDispatcher dispatcher = request.getRequestDispatcher("/myBoardSearch.do");
@@ -45,16 +48,31 @@ int myBoardCount = myBoards.size();
     	                	dispatcher = request.getRequestDispatcher("/boardSimpleShow.do");
     	                	dispatcher.include(request, response);
     	                	ArrayList<String> boardInfo = (ArrayList<String>)request.getAttribute("boardInfo");
+    	                	dispatcher = request.getRequestDispatcher("/bookSelect.do?id=" + boardInfo.get(2) + "&command=record");
+    	                	dispatcher.include(request, response);
+    	                	String result = (String)request.getAttribute("responseBody");
+    	                	if (result != null) {
+    	                		try {
+    	                			JSONObject jsonObject = new JSONObject(result);
+    	                			JSONArray itemArray = jsonObject.getJSONArray("item");
+    	                			if (itemArray.length() > 0) {
+    	                	            itemResult = itemArray.getJSONObject(0);  // 첫 번째 요소
+    	                	        }
+    	                		} catch(Exception e) {
+    	                			System.out.println("item 객체를 가져오는데 오류 발생: " + e.getMessage());
+    	                		}
+    	                	}
+    	                	if (result != null && itemResult != null) {
 	            %>
                     <!-- 글 생성 -->
                     <div class="post-item" onclick="location.href='<%=request.getContextPath()%>/bookinfo/recordViewer.jsp?board_id=<%=myBoard%>'">
-                        <img src="#" alt="글 1 이미지">
-                        <h3>책isbn : <%=boardInfo.get(2)%></h3>
+                        <img src="<%= itemResult.getString("cover") %>" alt="글 1 이미지">
+                        <h3>책 제목 : <%=itemResult.getString("title")%></h3>
                         <p>책 별점 : <%=boardInfo.get(3)%></p>
                         <p><%=boardInfo.get(0)%></p>
                         <div class="date"><%=boardInfo.get(1)%></div>
                     </div>
-                <% }} %>
+                <% }}} %>
                 </div>
             </div>
         </div>

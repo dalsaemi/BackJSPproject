@@ -25,6 +25,7 @@ public class BookSelectController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String bookId = request.getParameter("id");
+		String command = request.getParameter("command");
 		if (bookId == null || bookId.isEmpty()) {
 			System.out.println("isbn 값이 null입니다.");
 			bookId = "K142934245"; // 기본값 설정
@@ -52,8 +53,10 @@ public class BookSelectController extends HttpServlet {
 	    else {
 	    	request.setAttribute("bookId", null);
 	    }
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/modal.jsp");
-		dispatcher.forward(request, response);
+	    
+	    if (command.equals("modal")) {
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/modal.jsp");
+	    	dispatcher.forward(request, response);
+	    }
 	}
 }

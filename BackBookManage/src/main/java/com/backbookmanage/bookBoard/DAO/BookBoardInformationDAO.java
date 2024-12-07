@@ -3,7 +3,9 @@ import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.backbookmanage.bookBoard.DTO.BookBoardInformationDTO;
 import com.backbookmanage.common.JDBCUtil;
@@ -156,7 +158,11 @@ public class BookBoardInformationDAO {
             bDTO.setBoard_title(board_title);
             bDTO.setBoard_contents(board_contents);
             bDTO.setBoard_recommend(Integer.parseInt(board_recommend));
-            bDTO.setBoard_date(null);
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date strtodate = formatter.parse(board_date);
+            bDTO.setBoard_date(strtodate);
+            
             bDTO.setIsbn(isbn);
             bDTO.setBoard_rating(Float.parseFloat(board_rating));
             bDTO.setMember_id(member_id);
@@ -167,5 +173,39 @@ public class BookBoardInformationDAO {
         	JDBCUtil.close(rs, pstmt, conn);
         }
 		return bDTO; //DTO형식으로 return
+	}
+	
+	public float avgBoardRating(String isbn) {
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        float avgRate = -1;
+        try {
+        	conn = JDBCUtil.getConnection();
+        	
+        	String strQueryISBN = "select * from bookBoard_information where isbn = ?;";
+        	pstmt = conn.prepareStatement(strQueryISBN);
+        	pstmt.setString(1, isbn);
+            rs = pstmt.executeQuery();
+            
+            if(rs.next()) {
+            	String strQueryAVG = "select avg(board_rating) from bookBoard_information where isbn = ?;";
+                pstmt = conn.prepareStatement(strQueryAVG);
+                pstmt.setString(1, isbn);
+                rs = pstmt.executeQuery();
+                
+                if (rs.next()) {
+                	avgRate = rs.getFloat("avg(board_rating)");
+                } 
+            }
+
+        } catch (Exception ex) {
+        	System.out.println("별점 평균 불러오기 실패");
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+        return avgRate;
 	}
 }

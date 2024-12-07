@@ -1,4 +1,4 @@
-package com.backbookmanage.bookBaord;
+package com.backbookmanage.bookBoard;
 
 import java.io.IOException;
 import java.sql.Clob;
@@ -51,7 +51,7 @@ public class BoardAddController extends HttpServlet {
 		float board_rating = Float.parseFloat(request.getParameter("rating"));
 		int board_recommend = 0;
 		String board_contents = request.getParameter("content");
-		String board_title = request.getParameter("isbn");
+		String board_title = request.getParameter("title");
 		
 		BookBoardInformationDTO bDTO = new BookBoardInformationDTO();
 		bDTO.setMember_id(member_id);
@@ -66,9 +66,16 @@ public class BoardAddController extends HttpServlet {
 		
 		if (insertCheck) {
 			System.out.println("게시글 등록 성공");
+			
+			//저장된 페이지 id값 찾기
+			int board_id = bDAO.boardIdSearch(member_id);
+			//System.out.println("board_id: "+board_id);
+			
 			//페이지 포워딩
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/recordViewer.jsp");
-	        dispatcher.forward(request, response);
+			request.setAttribute("board_id", board_id);
+			//RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/recordViewer.jsp");
+			response.sendRedirect(request.getContextPath() + "/bookinfo/recordViewer.jsp?board_id=" + board_id);
+	        //dispatcher.forward(request, response);
 		} else {
 			System.out.println("게시글 등록 실패");
 		}

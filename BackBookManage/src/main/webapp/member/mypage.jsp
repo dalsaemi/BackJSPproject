@@ -43,7 +43,9 @@
 	<%@ include file="/main/header.jsp" %>
     <div class="container">
         <!-- 사이드바 -->
+
         <%@ include file="/main/sidebar.jsp" %>
+
         <div class="main-content">
             <header>
                 <h1>회원정보 및 계정 관리</h1>

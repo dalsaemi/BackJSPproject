@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.modalOpenButton, #modalCloseButton, .book-card {
+.modalOpenButton, #modalCloseButton, .book-card, #review-list {
   cursor: pointer;
 }
 
@@ -27,5 +27,31 @@
 
 #modalContainer.active {
   display: flex;
-   
+}
+
+#review-list:hover {
+	background-color: lightgray;
+}
+
+#modal-review {
+	width: 100%;
+	text-align: center;
+}
+
+#review-list {
+	text-overflow: ellipsis;
+    white-space : nowrap;
+    overflow: hidden;
+}
+
+#modalCloseButton {
+	float: right;
+	background-color: white;
+	border: none;
+}
+
+#modalCloseButton:after {
+	content: "\00d7"; 
+	font-size: 20pt;
+
 }

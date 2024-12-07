@@ -80,8 +80,9 @@
       			String cover = obj.getString("cover");
       			String title = obj.getString("title");
       			
-      			BookBoardInformationDAO boardinfo = new BookBoardInformationDAO();
-      			float avgRate = boardinfo.avgBoardRating(obj.getString("isbn"));
+      			RequestDispatcher dispatcher = request.getRequestDispatcher("/avgRating.do?isbn="+ obj.getString("isbn"));
+      			dispatcher.include(request, response);
+      			float avgRate = (float)request.getAttribute("avgRate");
       %>
         <tr class="template">
           <td><img src="<%=cover%>" height="80px" width="50px"/></td>
@@ -89,7 +90,7 @@
           <td><%= obj.getString("author") %></td>
           <td><%= obj.getString("publisher") %></td>
           <td><%= obj.getString("pubDate") %></td>
-          <% if(avgRate > 0) { %>
+          <% if (avgRate > 0) { %>
           <td><%= avgRate %></td>
           <% } else { %>
           <td>리뷰가 없습니다.</td>

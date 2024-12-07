@@ -104,22 +104,23 @@ public class BookBoardInformationDAO {
             pstmt = conn.prepareStatement(strQuery);
             pstmt.setString(1, Integer.toString(board_id));
             
-            /*String member_id="";*/ String board_title=""; /*String board_contents=""; String board_recommend="";*/
+            /*String member_id="";*/ String board_title=""; /*String board_contents="";*/ int board_recommend = -1;
             String board_date=""; String isbn=""; String board_rating="";
             rs = pstmt.executeQuery();
             if (rs.next()) {
             	board_title = rs.getString("board_title");
             	//board_contents = rs.getString("board_contents");
-            	//board_recommend = rs.getString("board_recommend");
             	board_date = rs.getString("board_date");
             	isbn = rs.getString("isbn");
             	board_rating = rs.getString("board_rating");
+            	board_recommend = rs.getInt("board_recommend");
             	//member_id = rs.getString("member_id");
             }
             boardSList.add(board_title);
             boardSList.add(board_date);
             boardSList.add(isbn);
             boardSList.add(board_rating);
+            boardSList.add(String.valueOf(board_recommend));
         } catch (Exception ex) {
         	System.out.println("작성글 간단 정보 불러오기 실패");
             System.out.println("Exception" + ex);
@@ -175,6 +176,7 @@ public class BookBoardInformationDAO {
 		return bDTO; //DTO형식으로 return
 	}
 	
+	// 해당 책 리뷰의 평균 평점 계산 (BookSearch.jsp)
 	public float avgBoardRating(String isbn) {
 		Connection conn = null;
         PreparedStatement pstmt = null;
@@ -207,5 +209,49 @@ public class BookBoardInformationDAO {
         }
         
         return avgRate;
+	}
+	
+	// 모달창에서 해당 책 리뷰 모아보기
+	public ArrayList<BookBoardInformationDTO> selectBookReview(String isbn) {
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        ArrayList<BookBoardInformationDTO> listBoardInfo = new ArrayList<BookBoardInformationDTO>();
+        
+        try {
+        	conn = JDBCUtil.getConnection();
+        	
+        	String strQuery = "select * from bookBoard_information where isbn = ? order by board_recommend desc;";
+        	pstmt = conn.prepareStatement(strQuery);
+        	pstmt.setString(1, isbn);
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+            	// 객체 참조가 추가되는 것이라서 루프 안에서 새로운 객체를 만들어내야 함
+            	// 밖에서 새로운 객체를 만들면 마지막으로 설정한 객체만 동일하게 반복해서 참조하게 됨
+            	BookBoardInformationDTO bDTO = new BookBoardInformationDTO();
+            	
+            	bDTO.setBoard_id(rs.getInt("board_id"));
+            	bDTO.setBoard_title(rs.getString("board_title"));
+            	bDTO.setBoard_contents(rs.getString("board_contents"));
+            	bDTO.setBoard_recommend(rs.getInt("board_recommend"));
+            	bDTO.setBoard_date(rs.getDate("board_date"));
+            	bDTO.setIsbn(rs.getString("isbn"));
+            	bDTO.setBoard_rating(rs.getFloat("board_rating"));
+            	bDTO.setMember_id(rs.getString("member_id"));
+            	
+            	listBoardInfo.add(bDTO);
+            }
+//            for(BookBoardInformationDTO board: listBoardInfo)
+//            	System.out.println(board.getBoard_title());
+        } catch (Exception e) {
+        	System.out.println("리뷰 불러오기 실패");
+            System.out.println("Exception" + e);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+        return listBoardInfo;
 	}
 }

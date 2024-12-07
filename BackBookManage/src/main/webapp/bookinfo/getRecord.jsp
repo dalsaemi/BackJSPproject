@@ -16,25 +16,18 @@ int myBoardCount = myBoards.size();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/getRecord_styles.css">
-=======
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/getRecord.css">
->>>>>>> 8c967c53902a24a0f00587cbc513f5ac3450ed9b
     <title>내 기록 모아보기</title>
     <style>
         
     </style>
 </head>
 <body>
-	<jsp:include page="${request.getContextPath()}/main/header.jsp" />
+	
     <div class="container">
-<<<<<<< HEAD
         <!-- 헤더 -->
         <%@ include file="/main/header.jsp" %>
 
-=======
->>>>>>> 8c967c53902a24a0f00587cbc513f5ac3450ed9b
         <div class="content-wrapper">
             <%@ include file="/main/sidebar.jsp" %>
             <div class="myrecord">

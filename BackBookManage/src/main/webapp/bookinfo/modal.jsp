@@ -10,6 +10,7 @@
 	// RequestDispatcher dispatcher = request.getRequestDispatcher("/bookSelect.do");
 	// dispatcher.include(request, response);
 	String result = (String)request.getAttribute("responseBody");
+
 	if (result != null) {
 		try {
 			JSONObject jsonObject = new JSONObject(result);
@@ -24,7 +25,7 @@
 	
 	RequestDispatcher dispatcher = request.getRequestDispatcher("/avgRating.do?isbn="+ itemResult.getString("isbn"));
 	dispatcher.include(request, response);
-	float avgRating = (float) request.getAttribute("avgRate");
+	float avgRating = (float)request.getAttribute("avgRate");
 %>
 <!DOCTYPE html>
 <html>
@@ -59,26 +60,30 @@
     
     <table id="modal-review">
 	    <colgroup>
-	        <col width="25%">
-	        <col width="40%">
+	        <col width="20%">
+	        <col width="35%">
 	        <col width="20%">
 	        <col width="15%">
+	        <col width="10%">
 	      </colgroup>
     	<tr>
 	      <th scope="col">작성자</th>
 	      <th scope="col">제목</th>
 	      <th scope="col">작성날짜</th>
 	      <th scope="col">추천수</th>
+	      <th scope="col">평점</th>
     	</tr>
     <% 
-    		for (BookBoardInformationDTO board : listResults) {
+    	int maxLoops = Math.min(5, listResults.size());
+    	for (int i = 0; i < maxLoops; i++) { 
 				if(listResults.size() != 0) {	
 	%>
-		<tr id="review-list" onClick="location.href='<%= request.getContextPath() %>/bookinfo/recordViewer.jsp?board_id=<%= board.getBoard_id() %>'">
-    		<td><%= board.getMember_id() %></td>
-    		<td><%= board.getBoard_title() %></td>
-    		<td><%= board.getBoard_date() %></td>
-    		<td><%= board.getBoard_recommend() %></td>
+		<tr id="review-list" onClick="location.href='<%= request.getContextPath() %>/bookinfo/recordViewer.jsp?board_id=<%= listResults.get(i).getBoard_id() %>'">
+    		<td><%= listResults.get(i).getMember_id() %></td>
+    		<td><%= listResults.get(i).getBoard_title() %></td>
+    		<td><%= listResults.get(i).getBoard_date() %></td>
+    		<td><%= listResults.get(i).getBoard_recommend() %></td>
+    		<td><%= listResults.get(i).getBoard_rating() %></td>
 		</tr>
 	<%	
 				}

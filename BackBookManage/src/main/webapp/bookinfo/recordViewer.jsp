@@ -44,6 +44,19 @@ if (result != null) {
 	}
 }
 
+// 추천 누르기 위한 로그인 체크
+HttpSession callSession = request.getSession();
+String loginmember = (String) callSession.getAttribute("member_id"); // 로그인 시 저장된 사용자 이름
+if(loginmember == null) {
+	loginmember = "none";
+}
+
+boolean isLiked = false;
+dispatcher = request.getRequestDispatcher("/boardLike.do?board_id=" + board_id + "&member_id=" + member_id);
+dispatcher.include(request, response);
+if (request.getAttribute("isLiked") != null) {
+	isLiked = (Boolean) request.getAttribute("isLiked");
+}
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -78,7 +91,10 @@ if (result != null) {
           <p><strong>책 ID:</strong> <span class="book-id" id="book-id"><%=isbn %></span></p>
           <p><strong>평점:</strong> <span class="rating" id="rating"><%=Board_rating%></span> 점</p>
       </div>
-      <button onClick="location.href='<%=request.getContextPath()%>/bookinfo/getRecord.jsp'">내 페이지로 돌아가기</button>
+      <script src="<%= request.getContextPath() %>/js/like_js.js" type="module"></script>
+      <button id="likeButton" class="<%= isLiked ? "liked" : "" %>"
+       data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">추천</button>
+      <button onClick="location.href='<%= request.getContextPath()%>/index.jsp'">메인 화면으로</button>
   </div>
 </body>
 </html>

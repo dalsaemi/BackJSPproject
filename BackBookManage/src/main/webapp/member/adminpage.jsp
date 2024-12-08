@@ -35,9 +35,8 @@
         <thead>
             <tr>
                 <th>아이디</th>
-                <th>회원정보</th>
                 <th>마지막 로그인</th>
-                <th>삭제</th>
+                <th>회원정보 및 관리</th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +49,6 @@
             %>
             <tr> <!-- DB 연동되면 수정해야 함 -->
                 <td><%= member %></td>
-                <td><a href="viewMember.jsp?id=<%= member %>">바로가기</a></td>
                 <td>2024-10-10 18:00</td>
                 <td>
                     <% if (isManager) { %>

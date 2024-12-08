@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, org.json.JSONObject, org.json.JSONArray, com.backbookmanage.bookBoard.DTO.BookBoardInformationDTO" %>
 <%! 
-	JSONObject itemResult; 
+	JSONObject itemResult;
+	RequestDispatcher dispatcher;
+	float avgRating;
 %>
 <%
 	// BookSearch 페이지에서 상세 보기 버튼 누르면 나오는 컨텐츠
@@ -18,14 +20,14 @@
 			if (itemArray.length() > 0) {
 	            itemResult = itemArray.getJSONObject(0);  // 첫 번째 요소
 	        }
+			dispatcher = request.getRequestDispatcher("/avgRating.do?isbn="+ itemResult.getString("isbn"));
+			dispatcher.include(request, response);
+			avgRating = (float)request.getAttribute("avgRate");
 		} catch(Exception e) {
 			System.out.println("item 객체를 가져오는데 오류 발생: " + e.getMessage());
 		}
-	}
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/avgRating.do?isbn="+ itemResult.getString("isbn"));
-	dispatcher.include(request, response);
-	float avgRating = (float)request.getAttribute("avgRate");
+	} 
+
 %>
 <!DOCTYPE html>
 <html>

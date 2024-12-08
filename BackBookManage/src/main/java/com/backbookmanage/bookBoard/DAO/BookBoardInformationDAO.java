@@ -254,4 +254,66 @@ public class BookBoardInformationDAO {
         
         return listBoardInfo;
 	}
+	
+	// 좋아요 개수 1 늘리기/줄이기
+	public boolean likeCalc(boolean isLike, int board_id) {
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean updateCheck = false;
+        
+        try {
+        	conn = JDBCUtil.getConnection();
+        	String strQuery = null;
+        	if (!isLike) {
+        		strQuery = "update bookboard_information set board_recommend = board_recommend + 1 where board_id = ?";
+        	} else {
+        		strQuery = "update bookboard_information set board_recommend = board_recommend - 1 where board_id = ?";
+        	}
+            
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setInt(1, board_id);
+            
+            int count = pstmt.executeUpdate();
+
+            if (count == 1) {
+            	updateCheck = true;
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        return updateCheck;
+	}
+	// 좋아요 개수 가져오기 
+	public int getRecommendCount(int board_id) {
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int recommend_count = -1;
+        
+        try {
+        	conn = JDBCUtil.getConnection();
+        	
+        	String strQuery = "select * from bookBoard_information where board_id = ?;";
+        	pstmt = conn.prepareStatement(strQuery);
+        	pstmt.setInt(1, board_id);
+            rs = pstmt.executeQuery();
+            
+            if(rs.next()) {
+            	recommend_count = rs.getInt("board_recommend");
+            }
+
+        } catch (Exception ex) {
+        	System.out.println("별점 평균 불러오기 실패");
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+        return recommend_count;
+	}
+	
 }

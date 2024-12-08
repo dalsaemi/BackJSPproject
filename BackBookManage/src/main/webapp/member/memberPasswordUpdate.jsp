@@ -36,34 +36,36 @@ function validateForm() {
     return true;
 }
 </script>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/member/memberUpdate_styles.css?2">
 </head>
 <body>
-	<h3>비밀번호 변경</h3>
-	<!-- 암호 -->
-	    <form method="POST" action="<%= request.getContextPath() %>/memberUpdate.do" onsubmit="return validateForm()">
-	    	<input type="hidden" name="member_name" value="<%=memberInfo.get(1)%>">
-	    	<input type="hidden" name="member_id" value="<%=memberInfo.get(0)%>">
-	    	<input type="hidden" name="member_email" value="<%=memberInfo.get(3)%>">
-	    	<input type="hidden" name="member_birth" value="<%=memberInfo.get(4)%>">
-	    	<input type="hidden" name="member_gender" value="<%=memberInfo.get(6)%>">
-	        <table>
-	            <tr>
-	                <th>암호</th>
-	                <td>
-	                    <input type="password" name="member_password" placeholder="새 암호 입력">
-	                </td>
-	            </tr>
-	            <tr>
-	                <th>암호 확인</th>
-	                <td>
-	                    <input type="password" name="member_password_confirm" placeholder="암호 다시 입력">
-	                </td>
-	            </tr>
-	        </table>
-	        <div class="form-actions">
-	            <input type="submit" value="수정하기">
-	            <input type="reset" value="취소" onClick="window.location.href='<%= request.getContextPath() %>/member/mypage.jsp';">
-	        </div>
-	    </form>
+		<div class="password-edit-container">
+			<h3>비밀번호 변경</h3>
+		    <form method="POST" action="<%= request.getContextPath() %>/memberUpdate.do" onsubmit="return validateForm()">
+		    	<input type="hidden" name="member_name" value="<%=memberInfo.get(1)%>">
+		    	<input type="hidden" name="member_id" value="<%=memberInfo.get(0)%>">
+		    	<input type="hidden" name="member_email" value="<%=memberInfo.get(3)%>">
+		    	<input type="hidden" name="member_birth" value="<%=memberInfo.get(4)%>">
+		    	<input type="hidden" name="member_gender" value="<%=memberInfo.get(6)%>">
+		        <table class ="input-table">
+		            <tr>
+		                <th>암호</th>
+		                <td>
+		                    <input type="password" name="member_password" placeholder="새 암호 입력">
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>암호 확인</th>
+		                <td>
+		                    <input type="password" name="member_password_confirm" placeholder="암호 다시 입력">
+		                </td>
+		            </tr>
+		        </table>
+		        <div class="form-actions">
+		            <input class="btn-submit" type="submit" value="수정하기">
+		            <input class ="btn-cancel" type="reset" value="취소" onClick="window.location.href='<%= request.getContextPath() %>/member/mypage.jsp';">
+		        </div>
+		    </form>
+		</div>
 </body>
 </html>

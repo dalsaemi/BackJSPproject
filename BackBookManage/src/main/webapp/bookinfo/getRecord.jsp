@@ -42,7 +42,7 @@ int myBoardCount = myBoards.size();
                 %>
                 <p>내 기록이 없습니다.<p>
                 <%
-                	}else{
+                	} else {
                 		for (int myBoard : myBoards) {
                         	request.setAttribute("myBoard", myBoard);
     	                	dispatcher = request.getRequestDispatcher("/boardSimpleShow.do");
@@ -67,9 +67,10 @@ int myBoardCount = myBoards.size();
                     <!-- 글 생성 -->
                     <div class="post-item" onclick="location.href='<%=request.getContextPath()%>/bookinfo/recordViewer.jsp?board_id=<%=myBoard%>'">
                         <img src="<%= itemResult.getString("cover") %>" alt="글 1 이미지">
-                        <h3>책 제목 : <%=itemResult.getString("title")%></h3>
+                        <h3><%=itemResult.getString("title")%></h3>
                         <p>책 별점 : <%=boardInfo.get(3)%></p>
                         <p><%=boardInfo.get(0)%></p>
+                        <p>추천 수 : <%= boardInfo.get(4) %></p>
                         <div class="date"><%=boardInfo.get(1)%></div>
                     </div>
                 <% }}} %>

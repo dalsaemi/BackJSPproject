@@ -254,6 +254,48 @@ public class BookBoardInformationDAO {
         
         return listBoardInfo;
 	}
+	// 메인 베스트 리뷰 섹션
+	public ArrayList<BookBoardInformationDTO> selectBestReview() {
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        ArrayList<BookBoardInformationDTO> listBoardInfo = new ArrayList<BookBoardInformationDTO>();
+        
+        try {
+        	conn = JDBCUtil.getConnection();
+        	
+        	String strQuery = "select * from bookBoard_information order by board_recommend desc limit 4;";
+        	pstmt = conn.prepareStatement(strQuery);
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+            	// 객체 참조가 추가되는 것이라서 루프 안에서 새로운 객체를 만들어내야 함
+            	// 밖에서 새로운 객체를 만들면 마지막으로 설정한 객체만 동일하게 반복해서 참조하게 됨
+            	BookBoardInformationDTO bDTO = new BookBoardInformationDTO();
+            	
+            	bDTO.setBoard_id(rs.getInt("board_id"));
+            	bDTO.setBoard_title(rs.getString("board_title"));
+            	bDTO.setBoard_contents(rs.getString("board_contents"));
+            	bDTO.setBoard_recommend(rs.getInt("board_recommend"));
+            	bDTO.setBoard_date(rs.getDate("board_date"));
+            	bDTO.setIsbn(rs.getString("isbn"));
+            	bDTO.setBoard_rating(rs.getFloat("board_rating"));
+            	bDTO.setMember_id(rs.getString("member_id"));
+            	
+            	listBoardInfo.add(bDTO);
+            }
+//            for(BookBoardInformationDTO board: listBoardInfo)
+//            	System.out.println(board.getBoard_title());
+        } catch (Exception e) {
+        	System.out.println("리뷰 불러오기 실패");
+            System.out.println("Exception" + e);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+        return listBoardInfo;
+	}
 	
 	// 좋아요 개수 1 늘리기/줄이기
 	public boolean likeCalc(boolean isLike, int board_id) {

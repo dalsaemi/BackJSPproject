@@ -17,12 +17,13 @@
 }
 
 #modalContent {
-  position: absolute;
+  position: relative;
   background-color: #ffffff;
   width: 80%; /* 더 넓은 너비 설정 */
   max-width: 500px; /* 최대 너비 제한 */
   height: auto;
   padding: 15px;
+  margin: 0 auto;
 }
 
 #modalContainer.active {

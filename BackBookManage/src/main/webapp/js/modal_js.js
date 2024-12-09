@@ -6,24 +6,6 @@ const modalContainer = document.getElementById('modalContainer');
 // 모달 열기 이벤트
 Array.from(modalOpenButtons).forEach(button => {
   button.addEventListener('click', () => {
-	const id = button.getAttribute('data-id');
-    modalContainer.classList.add('active'); // 'active' 클래스 추가
-  });
-});
-
-// 모달 닫기 이벤트
-modalCloseButton.addEventListener('click', () => {
-  modalContainer.classList.remove('active'); // 'active' 클래스 제거
-});
-*/
-
-const modalOpenButtons = document.getElementsByClassName('modalOpenButton');
-const modalCloseButton = document.getElementById('modalCloseButton');
-const modalContainer = document.getElementById('modalContainer');
-
-// 모달 열기 이벤트
-Array.from(modalOpenButtons).forEach(button => {
-  button.addEventListener('click', () => {
     const id = button.getAttribute('data-id');
     console.log('모달 열기 버튼 클릭:', id);
 
@@ -56,6 +38,39 @@ modalContainer.addEventListener('click', (event) => {
 	modalContainer.classList.remove('active');
   }
 });
+*/
+const modalContainer = document.getElementById('modalContainer');
 
+// 모달 열기 이벤트 (이벤트 위임 방식)
+document.body.addEventListener('click', (event) => {
+    if (event.target && event.target.classList.contains('modalOpenButton')) {
+        const id = event.target.getAttribute('data-id');
+        console.log('모달 열기 버튼 클릭:', id);
+
+        fetch(`/BackBookManage/bookSelect.do?id=${id}&command=modal`)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const modalContent = doc.querySelector('#modalContent');
+
+                if (modalContent) {
+                    console.log('모달 콘텐츠 렌더링 성공');
+                    modalContainer.innerHTML = ''; // 기존 내용 삭제
+                    modalContainer.appendChild(modalContent);
+                    modalContainer.classList.add('active');
+                } else {
+                    console.error('모달 콘텐츠 렌더링 실패');
+                }
+            })
+            .catch(error => console.error('모달 로딩 실패:', error));
+    }
+
+    // 닫기 버튼 클릭 이벤트 (이벤트 위임)
+    if (event.target && event.target.id === 'modalCloseButton') {
+        console.log('닫기 버튼 클릭!');
+        modalContainer.classList.remove('active');
+    }
+});
 
 

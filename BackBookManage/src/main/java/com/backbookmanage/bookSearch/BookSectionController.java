@@ -2,6 +2,7 @@ package com.backbookmanage.bookSearch;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.backbookmanage.bookBoard.DAO.BookBoardInformationDAO;
+import com.backbookmanage.bookBoard.DTO.BookBoardInformationDTO;
 import com.backbookmanage.common.APIbuilder;
 import com.backbookmanage.common.Config;
 
@@ -40,26 +43,40 @@ public class BookSectionController extends HttpServlet {
 			query = "Bestseller";
 		}
 		
-		StringBuilder urlBuilder = new StringBuilder("http://www.aladin.co.kr/ttb/api/ItemList.aspx");
-        urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "=" + URLEncoder.encode(apikey, "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("QueryType", "UTF-8") + "=" + URLEncoder.encode(query, "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("Start", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("MaxResults", "UTF-8") + "=" + URLEncoder.encode("4", "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("SearchTarget", "UTF-8") + "=" + URLEncoder.encode("Book", "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("Cover", "UTF-8") + "=" + URLEncoder.encode("MidBig", "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("output", "UTF-8") + "=" + URLEncoder.encode("js", "UTF-8"));
-	    urlBuilder.append("&" + URLEncoder.encode("Version", "UTF-8") + "=" + URLEncoder.encode("20131101", "UTF-8"));
-	    
-	    String result = APIbuilder.apibuilder(urlBuilder);
-	    
-	    if (result != null) {
-	    	request.setAttribute("responseBody", result);
-	    }
-	    else {
-	    	request.setAttribute("responseBody", null);
-	    }
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-		dispatcher.forward(request, response);
+		if (command.equals("new") || command.equals("bestBook"))
+		{
+			StringBuilder urlBuilder = new StringBuilder("http://www.aladin.co.kr/ttb/api/ItemList.aspx");
+	        urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "=" + URLEncoder.encode(apikey, "UTF-8"));
+		    urlBuilder.append("&" + URLEncoder.encode("QueryType", "UTF-8") + "=" + URLEncoder.encode(query, "UTF-8"));
+		    urlBuilder.append("&" + URLEncoder.encode("Start", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
+		    urlBuilder.append("&" + URLEncoder.encode("MaxResults", "UTF-8") + "=" + URLEncoder.encode("4", "UTF-8"));
+		    urlBuilder.append("&" + URLEncoder.encode("SearchTarget", "UTF-8") + "=" + URLEncoder.encode("Book", "UTF-8"));
+		    urlBuilder.append("&" + URLEncoder.encode("Cover", "UTF-8") + "=" + URLEncoder.encode("MidBig", "UTF-8"));
+		    urlBuilder.append("&" + URLEncoder.encode("output", "UTF-8") + "=" + URLEncoder.encode("js", "UTF-8"));
+		    urlBuilder.append("&" + URLEncoder.encode("Version", "UTF-8") + "=" + URLEncoder.encode("20131101", "UTF-8"));
+		    
+		    String result = APIbuilder.apibuilder(urlBuilder);
+		    
+		    if (result != null) {
+		    	if(command.equals("new"))
+		    		request.setAttribute("bookSection", "new");
+		    	else if(command.equals("bestBook"))
+		    		request.setAttribute("bookSection", "bestBook");
+		    	request.setAttribute("responseBody", result);
+		    }
+		    else {
+		    	request.setAttribute("responseBody", null);
+		    }
+		} else {
+			BookBoardInformationDAO bDAO = new BookBoardInformationDAO();
+			ArrayList<BookBoardInformationDTO> bestReviewList = bDAO.selectBestReview();
+			request.setAttribute("bookSection", "bestReview");
+			request.setAttribute("bestReviewList", bestReviewList);
+		}
+		
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        dispatcher.forward(request, response);
+
 	}
 
 

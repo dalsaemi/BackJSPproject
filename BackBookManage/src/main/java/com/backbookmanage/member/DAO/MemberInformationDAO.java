@@ -34,6 +34,7 @@ public class MemberInformationDAO {
         return loginCon;
 	}
 	
+	//관리자 확인
 	public boolean isManager(String getMember_id) {
 		Connection conn = null;
         PreparedStatement pstmt = null;
@@ -69,7 +70,6 @@ public class MemberInformationDAO {
         
         return is_manager;
 	}
-
 	
 	//멤버 추가 (회원가입)
     public boolean memberInsert(MemberInformationDTO mDTO) {
@@ -164,6 +164,7 @@ public class MemberInformationDAO {
         }
         return updateCheck;
     }
+    
     //멤버 정보 보기
     public ArrayList<String> memberSelect(String member_id) {
        Connection conn = null;
@@ -217,5 +218,83 @@ public class MemberInformationDAO {
         }
         
         return members;
+    }
+    
+    //멤버 한 달간 게시글 갯수 받기
+    public int memberMonthlyBoard(String member_id) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int boardcount = 0;
+        try {
+        	conn = JDBCUtil.getConnection();
+        	String strQuery = "select count(*) as MBcount from bookboard_information where member_id = ? and board_date >= curdate() - interval 1 month and board_date < curdate() + interval 1 day";
+        	pstmt = conn.prepareStatement(strQuery);
+        	pstmt.setString(1, member_id);
+            rs = pstmt.executeQuery();
+            
+            while(rs.next()) {
+            	boardcount = Integer.parseInt(rs.getString("MBcount"));
+            }
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+        return boardcount;
+    }
+    
+    //멤버 한 달간 목표 얻기
+    public int memberMonthlyBoardGet(String member_id) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int MonthlyGoal = 0;
+        try {
+        	conn = JDBCUtil.getConnection();
+        	String strQuery = "select member_monthly_board from member_goal where member_id = ?";
+        	pstmt = conn.prepareStatement(strQuery);
+        	pstmt.setString(1, member_id);
+            rs = pstmt.executeQuery();
+            
+            while(rs.next()) {
+            	MonthlyGoal = Integer.parseInt(rs.getString("member_monthly_board"));
+            }
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+    	
+    	return MonthlyGoal;
+    }
+    
+    //멤버 한 달간 목표 업데이트
+    public boolean memberMonthlyBoardUpdate(int MonthlyGoal, String member_id) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean updateCheck = false;
+        try {
+        	conn = JDBCUtil.getConnection();
+            String strQuery = "update member_goal set member_monthly_board = ? where member_id = ?";
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setString(1, String.valueOf(MonthlyGoal));
+            pstmt.setString(2, member_id);
+
+            int count = pstmt.executeUpdate();
+
+            if (count == 1) {
+            	updateCheck = true;
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+    	return updateCheck;
     }
 }

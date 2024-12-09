@@ -40,7 +40,7 @@ request.setCharacterEncoding("UTF-8");
     <tr><td>이메일</td></tr>
     <tr>
         <td>
-            <input type="text" class="email" name="member_email" required> @ 
+            <input id = "email" type="text" class="email" name="member_email" required> @ 
             <select name="domain">
                 <option>naver.com</option>
                 <option>gmail.com</option>

@@ -10,7 +10,7 @@ body {
 }
 
 form {
-  width: 400px;
+  width: 500px;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
@@ -81,8 +81,9 @@ form select {
   border: 1px solid #b3d9ff;
 }
 
-form .email {
+#email {
   display: inline-block;
+  width: 40%
 }
 
 form select[name="domain"] {

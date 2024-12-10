@@ -96,8 +96,10 @@ if (request.getAttribute("isLiked") != null) {
       <button id="likeButton" class="<%= isLiked ? "liked" : "" %>"
        data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">추천</button>
       <button onClick="location.href='<%= request.getContextPath()%>/index.jsp'">메인 화면으로</button>
+      <% if (!loginmember.equals("none")) { %>
+		<button onClick="location.href='<%= request.getContextPath()%>/bookinfo/getRecord.jsp'">작성 글 모아보기</button>
+      <% } %>
       <% if (loginmember.equals(member_id)) { %>
-      <button onClick="location.href='<%= request.getContextPath()%>/bookinfo/getRecord.jsp'">작성 글 모아보기</button>
       <%--
       <form action="<%=request.getContextPath()%>/bookinfo/recordUpdate.jsp">
 	  		<input type="hidden" name="book_isbn" value="<%=isbn %>">

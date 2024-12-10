@@ -25,13 +25,15 @@ public class BoardLikeController extends HttpServlet {
 	
 	// GET 방식으로 좋아요 상태 확인
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BookBoardLikeDAO lDAO = new BookBoardLikeDAO();
+        System.out.println("boardLike.do 컨트롤러 실행");
+    	BookBoardLikeDAO lDAO = new BookBoardLikeDAO();
         BookBoardInformationDAO bDAO = new BookBoardInformationDAO();
-
+        
         // 요청 파라미터 가져오기
         String boardIdParam = request.getParameter("board_id");
         String member_id = request.getParameter("member_id");
 
+        System.out.println("boardIdParam: " + boardIdParam + ", member_id: " + member_id);
         JSONObject responseJson = new JSONObject();
 
         try {
@@ -51,10 +53,13 @@ public class BoardLikeController extends HttpServlet {
                 responseJson.put("success", true);
                 responseJson.put("isLiked", isLiked);
                 responseJson.put("board_recommend", board_recommend); // 추천 수 추가
+                
+                request.setAttribute("isLiked", isLiked);
                 System.out.println("isLiked: " + isLiked);
             }
         } catch (Exception e) {
             // 에러 발생 시 처리
+        	System.out.println("에러 발생");
             responseJson.put("success", false);
             responseJson.put("message", "서버 오류: " + e.getMessage());
             e.printStackTrace();
@@ -64,6 +69,7 @@ public class BoardLikeController extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(responseJson.toString());
+        System.out.println("컨트롤러 끝 responseJson: " + responseJson.toString());
     }
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

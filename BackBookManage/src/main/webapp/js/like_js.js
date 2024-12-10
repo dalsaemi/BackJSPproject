@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 좋아요 상태 확인 요청
     fetch(`/BackBookManage/boardLike.do?board_id=${board_id}&member_id=${member_id}`)
         .then((response) => {
+			console.log('json 실행');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

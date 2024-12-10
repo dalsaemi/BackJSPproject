@@ -52,6 +52,7 @@ if(loginmember == null) {
 }
 
 boolean isLiked = false;
+System.out.println("board_id: " + board_id + ", member_id: " + member_id);
 dispatcher = request.getRequestDispatcher("/boardLike.do?board_id=" + board_id + "&member_id=" + member_id);
 dispatcher.include(request, response);
 if (request.getAttribute("isLiked") != null) {
@@ -95,6 +96,46 @@ if (request.getAttribute("isLiked") != null) {
       <button id="likeButton" class="<%= isLiked ? "liked" : "" %>"
        data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">추천</button>
       <button onClick="location.href='<%= request.getContextPath()%>/index.jsp'">메인 화면으로</button>
+      <% if (loginmember.equals(member_id)) { %>
+      <button onClick="location.href='<%= request.getContextPath()%>/bookinfo/getRecord.jsp'">작성 글 모아보기</button>
+      <%--
+      <form action="<%=request.getContextPath()%>/bookinfo/recordUpdate.jsp">
+	  		<input type="hidden" name="book_isbn" value="<%=isbn %>">
+	  		<input type="hidden" name="book_cover" value="<%=itemResult.getString("cover")%>">
+	  		<input type="hidden" name="book_title" value="<%=itemResult.getString("title") %>">
+	  		<input type="hidden" name="board_title" value="<%= board_title %>">
+	  		<input type="hidden" name="board_contents" value="<%=board_contents %>">
+	  		<input type="hidden" name="board_rating" value="<%= Board_rating %>">
+	  		<input type="hidden" name="board_id" value="<%= board_id %>">
+			<button type="submit">수정</button>
+	  </form>
+       --%>
+      <button onClick="confirmDelete(<%= board_id %>)">삭제</button>
+      <% } %>
   </div>
+  <script>
+	//삭제 확인 함수
+	function confirmDelete(boardId) {
+	    if (confirm("게시물을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.")) {
+	        // 삭제 요청 전송
+	        fetch("<%= request.getContextPath() %>/boardDelete.do", {
+	            method: "POST",
+	            headers: {
+	                "Content-Type": "application/x-www-form-urlencoded"
+	            },
+	            body: "boardId=" + boardId
+	        })
+	        .then(response => response.text())
+	        .then(data => {
+	            alert(data); // 서버에서 받은 메시지 출력
+	            window.location.href = "<%= request.getContextPath() %>/bookinfo/getRecord.jsp";
+	        })
+	        .catch(error => {
+	            alert("오류가 발생했습니다. 다시 시도해주세요.");
+	            console.error(error);
+	        });
+	    }
+	}
+  </script>
 </body>
 </html>

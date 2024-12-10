@@ -34,6 +34,10 @@
         
 	}
 	
+	// 세션에서 로그인 상태를 확인합니다.
+    HttpSession callSession = request.getSession();
+    String member_id = (String) callSession.getAttribute("member_id"); // 로그인 시 저장된 사용자 이름
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -103,7 +107,7 @@
 		  	</button>
           </td>
           <td>
-		  	<form action="<%=request.getContextPath()%>/bookinfo/recordWrt.jsp">
+		  	<form action="<%=request.getContextPath()%>/bookinfo/recordWrt.jsp" onsubmit="return loginCheck()">
 		  		<input type="hidden" name="book_isbn" value="<%= obj.getString("isbn") %>">
 		  		<input type="hidden" name="book_cover" value="<%=cover%>">
 		  		<input type="hidden" name="book_title" value="<%=title%>">
@@ -146,6 +150,64 @@
     	</a> 
     <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">[다음]</a>
     <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">[맨뒤로]</a>
+    
+    <script type="text/javascript">
+	const memberId = "<%= member_id %>";
+	function loginCheck() {
+	    // 로그인 여부 확인
+		if (!memberId || memberId === "null") {
+		    alert("로그인 후에 리뷰를 작성할 수 있습니다.");
+		    return false;
+		}
+		return true; // 폼 제출 허용
+	}
+	
+	const rateWrap = document.querySelectorAll('.rating'),
+	label = document.querySelectorAll('.rating .rating__label'),
+	input = document.querySelectorAll('.rating .rating__input'),
+	scoreDisplay = document.getElementById('scoreDisplay'),  // 점수 표시 요소
+	opacityHover = '0.5'; // Hover 불투명도
+	
+	let stars = document.querySelectorAll('.rating .star-icon');
+	
+	//초기 상태 확인
+	checkedRate();
+	
+	//별점 클릭 이벤트 처리
+	input.forEach((radio) => {
+	radio.addEventListener('change', () => {
+	    checkedRate();
+	    updateScore();  // 점수 업데이트 함수 호출
+	});
+	});
+	
+	rateWrap.forEach(wrap => {
+	wrap.addEventListener('mouseenter', () => {
+	    stars = wrap.querySelectorAll('.star-icon');
+	
+	    stars.forEach((starIcon, idx) => {
+	        starIcon.addEventListener('mouseenter', () => {
+	            initStars(); 
+	            filledRate(idx); 
+	            updateHoverOpacity(idx); // hover 상태에서 별의 투명도를 처리
+	
+	            // Hover 상태에서 점수 업데이트 (마우스 올린 별점)
+	            updateScore(idx); 
+	        });
+	
+	        starIcon.addEventListener('mouseleave', () => {
+	            starIcon.style.opacity = '1';
+	            checkedRate();  // 원래 상태로 돌아감
+	            updateScore();   // 선택된 점수로 업데이트
+	        });
+	
+	        wrap.addEventListener('mouseleave', () => {
+	            starIcon.style.opacity = '1';
+	        });
+	    });
+	});
+	});
+	</script>
 </body>
 
 </html>

@@ -6,15 +6,13 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
+ArrayList<String> memberInfo;
+String member_id = "";
+String member_name = "";
+
 RequestDispatcher dispatcher = request.getRequestDispatcher("/readMember.do");
 dispatcher.include(request, response);
 
-ArrayList<String> memberInfo = (ArrayList<String>) request.getAttribute("memberInfo");
-if (memberInfo == null) {
-    memberInfo = new ArrayList<>();
-}
-String member_id = memberInfo.get(0);
-String member_name = memberInfo.get(1);
 %>
 <!DOCTYPE html>
 <html>
@@ -25,9 +23,24 @@ String member_name = memberInfo.get(1);
   <title>독서 기록 작성</title>
 </head>
 <body>
+<%
+if (request.getAttribute("error") != null) {
+%>
+<p> 로그인을 해주세요 </p>
+<button onclick="history.back()">뒤로가기</button>
+<%	
+} else {
+	memberInfo = (ArrayList<String>) request.getAttribute("memberInfo");
+	if (memberInfo == null) {
+	    memberInfo = new ArrayList<>();
+	}
+	member_id = memberInfo.get(0);
+	member_name = memberInfo.get(1);
+
+%>
   <div class="container">
     <h1>독서 기록 작성</h1>
-    <form action="<%=request.getContextPath()%>/boardAdd.do" method="post">
+    <form action="<%=request.getContextPath()%>/boardAdd.do" method="post" onsubmit="return radioCheck()">
       <image src="<%=request.getParameter("book_cover")%>">
       <h3>책 제목 : <%=request.getParameter("book_title")%></h3>
       <!-- 제목 -->
@@ -110,8 +123,32 @@ String member_name = memberInfo.get(1);
 	     </div>
     </form>
   </div>
+ <% } %>
   <!-- 별점기능 구현 -->
   <script type="text/javascript">
+  function radioCheck() {
+      // 모든 라디오 버튼 선택
+      const radios = document.getElementsByName("option");
+      let isChecked = false;
+
+      // 라디오 버튼 중 하나라도 체크되었는지 확인
+      for (const radio of radios) {
+          if (radio.checked) {
+              isChecked = true;
+              break;
+          }
+      }
+
+      // 체크되지 않았을 경우 경고창을 띄우고 제출을 막음
+      if (!isChecked) {
+          alert("별점을 입력해주세요!");
+          return false; // 폼 제출 방지
+      }
+
+      // 체크된 경우 폼 제출 허용
+      return true;
+  }
+  
   const rateWrap = document.querySelectorAll('.rating'),
   label = document.querySelectorAll('.rating .rating__label'),
   input = document.querySelectorAll('.rating .rating__input'),

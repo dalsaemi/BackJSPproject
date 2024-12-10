@@ -8,6 +8,11 @@
    dispatcher.include(request, response);
    int booksRead = (int)request.getAttribute("booksRead");
    
+   //dispatcher = request.getRequestDispatcher("/recentBoardSearch.do");
+   //dispatcher.include(request, response);
+   //int recentBoards = (int)request.getAttribute("recentBoards");
+   //System.out.println("이거 맞아요? :" +recentBoards);
+   
    //멤버 목표 설정값 불러오기
    dispatcher = request.getRequestDispatcher("/monthlyBoardGet.do");
    dispatcher.include(request, response);

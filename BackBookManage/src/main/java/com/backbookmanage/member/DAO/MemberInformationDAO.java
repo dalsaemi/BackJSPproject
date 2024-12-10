@@ -110,12 +110,24 @@ public class MemberInformationDAO {
         ResultSet rs = null;
         boolean deleteCheck = false;
         try {
-           conn = JDBCUtil.getConnection();
-            String strQuery = "delete from member_information where Member_id = ?";
-            pstmt = conn.prepareStatement(strQuery);
-            pstmt.setString(1, member_id);
+        	conn = JDBCUtil.getConnection();
+        	int count = 0;
 
-            int count = pstmt.executeUpdate();
+        	// 외래 키 체크 비활성화
+        	String query1 = "set foreign_key_checks = 0;";
+        	pstmt = conn.prepareStatement(query1);
+        	pstmt.executeUpdate();
+
+        	// 삭제 쿼리 실행
+        	String query2 = "delete from member_information where member_id = ?";
+        	pstmt = conn.prepareStatement(query2);
+        	pstmt.setString(1, member_id);
+        	count = pstmt.executeUpdate();
+
+        	// 외래 키 체크 활성화
+        	String query3 = "set foreign_key_checks = 1;";
+        	pstmt = conn.prepareStatement(query3);
+        	pstmt.executeUpdate();
 
             if (count == 1) {
                deleteCheck = true;
@@ -243,6 +255,57 @@ public class MemberInformationDAO {
         }
         
         return boardcount;
+    }
+    
+    //멤버 최근 게시글 id 받기
+    public int memberRecentBoard(String member_id) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int board_id = 0;
+        try {
+        	conn = JDBCUtil.getConnection();
+        	String strQuery = "select board_id from bookboard_information where board_date = (select max(board_date) from bookboard_information where member_id = ?) limit 1";
+        	pstmt = conn.prepareStatement(strQuery);
+        	pstmt.setString(1, member_id);
+            rs = pstmt.executeQuery();
+            
+            while(rs.next()) {
+            	board_id = Integer.parseInt(rs.getString("MBcount"));
+            }
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+        return board_id;
+    }
+    
+    //멤버 한 달간 목표 추가
+    public boolean memberMonthlyBoardInsert(String member_id) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean insertCheck = false;
+        try {
+        	conn = JDBCUtil.getConnection();
+            String strQuery = "insert into member_goal values(?,10)";
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setString(1, member_id);
+
+            int count = pstmt.executeUpdate();
+
+            if (count == 1) {
+            	insertCheck = true;
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        return insertCheck;
     }
     
     //멤버 한 달간 목표 얻기

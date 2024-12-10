@@ -56,10 +56,11 @@ public class JoinController extends HttpServlet {
 		mDto.setIs_manager(false); // 회원가입할 때는 관리자말고 일반 유저로
 		mDto.setMember_gender(member_gender.charAt(0));
 		
-		MemberInformationDAO mDao = new MemberInformationDAO();
-		boolean insertCheck = mDao.memberInsert(mDto);
+		MemberInformationDAO mDAO = new MemberInformationDAO();
+		boolean insertCheck = mDAO.memberInsert(mDto);
+		boolean boardInsertCheck = mDAO.memberMonthlyBoardInsert(member_id);
 		
-		if (insertCheck) {
+		if (insertCheck&&boardInsertCheck) {
 			request.setAttribute("joinResult", insertCheck);
 			HttpSession session = request.getSession();
 			session.setAttribute("idKey", member_id);

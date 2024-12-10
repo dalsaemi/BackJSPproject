@@ -176,6 +176,61 @@ public class BookBoardInformationDAO {
 		return bDTO; //DTO형식으로 return
 	}
 	
+	public boolean boardUpdate(String board_title, String board_contents, float board_rating, int board_id) {
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean updateCheck = false;
+        
+        try {
+        	conn = JDBCUtil.getConnection();
+            String strQuery = "update bookBoard_information set board_title=?, board_contents=?, board_rating=? where board_id=?";
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setString(1, board_title);
+            pstmt.setString(2, board_contents);
+            pstmt.setFloat(3, board_rating);
+            pstmt.setInt(4, board_id);
+
+            int count = pstmt.executeUpdate();
+
+            if (count == 1) {
+            	updateCheck = true;
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        return updateCheck;
+	}
+	
+	// 게시판 삭제
+    public boolean boardDelete(String board_id) {
+       Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean deleteCheck = false;
+        try {
+           conn = JDBCUtil.getConnection();
+            String strQuery = "delete from bookboard_information where board_id = ?";
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setString(1, board_id);
+
+            int count = pstmt.executeUpdate();
+
+            if (count == 1) {
+               deleteCheck = true;
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+           JDBCUtil.close(rs, pstmt, conn);
+        }
+        return deleteCheck;
+    }
+	
 	// 해당 책 리뷰의 평균 평점 계산 (BookSearch.jsp)
 	public float avgBoardRating(String isbn) {
 		Connection conn = null;

@@ -59,7 +59,7 @@ JDBCUtil.getConnection();
 	StringBuffer values = new StringBuffer();
 	for(int i=0; i < members.size(); i++) {
 		if(values.length()>0) {
-	values.append(',');
+			values.append(',');
 		}
 		values.append('"').append(members.get(i)).append('"');
 	}

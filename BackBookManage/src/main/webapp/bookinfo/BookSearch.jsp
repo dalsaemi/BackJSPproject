@@ -33,6 +33,7 @@
 		pg = new PagingBean(currentPage, itemNum, maxResults, groupPerPageCnt);
         
 	}
+	
 %>
 <!DOCTYPE html>
 <html>

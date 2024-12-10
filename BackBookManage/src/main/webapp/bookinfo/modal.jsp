@@ -27,6 +27,10 @@
 			System.out.println("item 객체를 가져오는데 오류 발생: " + e.getMessage());
 		}
 	} 
+	
+	// 기록하기 로그인했을 때만 뜨게
+	HttpSession sessioncall = request.getSession();
+	String memberlogin = (String) sessioncall.getAttribute("member_id");
 
 %>
 <!DOCTYPE html>
@@ -76,8 +80,8 @@
 	      <th scope="col">평점</th>
     	</tr>
     <% 
-    	int maxLoops = Math.min(5, listResults.size());
-    	for (int i = 0; i < maxLoops; i++) { 
+	    	int maxLoops = Math.min(5, listResults.size());
+	    	for (int i = 0; i < maxLoops; i++) { 
 				if(listResults.size() != 0) {	
 	%>
 		<tr id="review-list" onClick="location.href='<%= request.getContextPath() %>/bookinfo/recordViewer.jsp?board_id=<%= listResults.get(i).getBoard_id() %>'">
@@ -89,15 +93,25 @@
 		</tr>
 	<%	
 				}
-    		}
+	    	}
 	%>
 	
     </table>
-
+	
 	<% 
 		} else { // if avgRate end
 	%>
 	<p>작성된 리뷰가 없습니다.</p>
+	<%
+		}
+		if (memberlogin != null) {
+	%>
+	<form action="<%=request.getContextPath()%>/bookinfo/recordWrt.jsp">
+  		<input type="hidden" name="book_isbn" value="<%= itemResult.getString("isbn") %>">
+  		<input type="hidden" name="book_cover" value="<%= itemResult.getString("cover") %>">
+  		<input type="hidden" name="book_title" value="<%= itemResult.getString("title") %>">
+		<button type="submit">기록하기</button>
+	</form>
 	<%
 		}
     } else { 
@@ -106,6 +120,7 @@
 	<% 	
 	} 
 	%>
+	
   </div>
 </div>
 </body>

@@ -1,4 +1,3 @@
-<%@page import="jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%

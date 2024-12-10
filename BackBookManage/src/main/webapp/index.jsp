@@ -58,7 +58,7 @@
 						<% } else { %>
 							<button onclick="window.location.href='<%= request.getContextPath() %>/member/mypage.jsp'">마이페이지</button>
 						<%
-							} 
+							}
 						%>
 					        <form action="logout.do" method="get">
 					        	<button type="submit">로그아웃</button>

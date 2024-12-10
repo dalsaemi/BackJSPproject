@@ -69,13 +69,10 @@ public class BoardAddController extends HttpServlet {
 			
 			//저장된 페이지 id값 찾기
 			int board_id = bDAO.boardIdSearch(member_id);
-			//System.out.println("board_id: "+board_id);
 			
 			//페이지 포워딩
 			request.setAttribute("board_id", board_id);
-			//RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/recordViewer.jsp");
 			response.sendRedirect(request.getContextPath() + "/bookinfo/recordViewer.jsp?board_id=" + board_id);
-	        //dispatcher.forward(request, response);
 		} else {
 			System.out.println("게시글 등록 실패");
 		}

@@ -34,14 +34,21 @@ public class RecentBoardSearchController extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("/recentBoardSearch.do컨트롤러 실행");
 		
-		MemberInformationDAO mDAO = new MemberInformationDAO();
+		BookBoardInformationDAO bDAO = new BookBoardInformationDAO();
 		String member_id = (String) request.getSession().getAttribute("member_id");
-		Integer recentBoards = mDAO.memberRecentBoard(member_id);
-		if (recentBoards == null) {
+		Integer recentBoards = bDAO.boardIdSearch(member_id);
+		if (recentBoards == 0) {
 			System.out.println("멤버의 최근 게시글 내역을 찾을 수 없습니다.");
-			recentBoards = 0;
+			request.setAttribute("recentBook", "noBoard");
+			request.setAttribute("myrat", 0);
+		}else {
+			ArrayList<String> BoardInfo = bDAO.boardSimpleShow((int)recentBoards);
+			String isbn = BoardInfo.get(2);
+			String myrat = BoardInfo.get(3);
+			request.setAttribute("recentBook", isbn);
+			request.setAttribute("myrat", myrat);
 		}
-		request.setAttribute("recentBoards", (int)recentBoards);
+		
 	}
 
 	/**

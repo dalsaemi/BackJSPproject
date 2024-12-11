@@ -1,5 +1,10 @@
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%! 
+	JSONObject itemResult; 
+%>
 <%
    request.setCharacterEncoding("UTF-8");
    
@@ -8,10 +13,11 @@
    dispatcher.include(request, response);
    int booksRead = (int)request.getAttribute("booksRead");
    
-   //dispatcher = request.getRequestDispatcher("/recentBoardSearch.do");
-   //dispatcher.include(request, response);
-   //int recentBoards = (int)request.getAttribute("recentBoards");
-   //System.out.println("이거 맞아요? :" +recentBoards);
+   //멤버 최근 읽은 책 정보 불러오기
+   dispatcher = request.getRequestDispatcher("/recentBoardSearch.do");
+   dispatcher.include(request, response);
+   String recentBook = (request.getAttribute("recentBook")).toString();
+   float myrat = Float.parseFloat(request.getAttribute("myrat").toString());
    
    //멤버 목표 설정값 불러오기
    dispatcher = request.getRequestDispatcher("/monthlyBoardGet.do");
@@ -44,16 +50,38 @@
             <%@ include file="/main/sidebar.jsp" %>
 
             <div class="main-content">
-                <div class="section recent-book">
-                    <img name="book_image" src="#" alt="책 이미지"> <!-- 이미지 받아와서 배치하도록 추후 수정 -->
-                    <div class="info">
-                        <p>최근 읽은 책</p>
-                        <p><strong>책 이름</strong></p>
-                        <p>저자</p>
-                        <p>출판사</p>
-                        <p>출판년도</p>
-                        <p>별점</p>
-                    </div>
+           		<div class="section recent-book">
+                    <%if(recentBook.equals("noBoard")){%>
+	                	<div class="info">
+	                		<p>최근에 읽은 책이 없습니다.</p>
+	                	</div>
+		           	<%}else{ 
+		           		dispatcher = request.getRequestDispatcher("/bookSelect.do?id=" + recentBook + "&command=record");
+	                	dispatcher.include(request, response);
+	                	String result = (String)request.getAttribute("responseBody");
+	                	if (result != null) {
+	                		try {
+	                			JSONObject jsonObject = new JSONObject(result);
+	                			JSONArray itemArray = jsonObject.getJSONArray("item");
+	                			if (itemArray.length() > 0) {
+	                	            itemResult = itemArray.getJSONObject(0);  // 첫 번째 요소
+	                	        }
+	                		} catch(Exception e) {
+	                			System.out.println("item 객체를 가져오는데 오류 발생: " + e.getMessage());
+	                		}
+	                	}
+	                	if (result != null && itemResult != null) {
+		           	%>
+		           		<img name="book_image" src="<%= itemResult.getString("cover") %>" alt="책 이미지"> <!-- 이미지 받아와서 배치하도록 추후 수정 -->
+	                    <div class="info">
+	                        <p>최근 읽은 책</p>
+	                        <p><strong><%=itemResult.getString("title")%></strong></p>
+	                        <p>저자:<%=itemResult.getString("author")%></p>
+	                        <p>출판사:<%=itemResult.getString("publisher")%></p>
+	                        <p>출판년도:<%=itemResult.getString("pubDate")%></p>
+	                        <p>나의 평가:<%=myrat%></p>
+	                    </div>
+		           	<% }}%>
                 </div>
 
                 <div class="section goal-section">
@@ -76,7 +104,12 @@
                         <canvas id="goalChart" width="100px" height="100px"></canvas>
                     </div>
                 </div>
-                
+                <div class="section stats-section">
+                    <div class="section-title">독서 통계</div>
+                    <div class="chart-placeholder">
+                        <canvas id="lineChart" width="800" height="400"></canvas>
+                    </div>
+                </div>
                 <script>
 				    document.addEventListener("DOMContentLoaded", function () {
 				        const booksRead = <%= booksRead %>;
@@ -143,13 +176,36 @@
 				        });
 				    });
 				</script>
-
-                <div class="section stats-section">
-                    <div class="section-title">독서 통계</div>
-                    <div class="chart-placeholder">
-                        <canvas id="lineChart" width="800" height="400"></canvas>
-                    </div>
-                </div>
+				<script>
+				document.addEventListener("DOMContentLoaded", function () {
+				    const ctx = document.getElementById('lineChart').getContext('2d');
+				    const lineChart = new Chart(ctx, {
+				        type: 'line',
+				        data: {
+				            labels: ['7', '8', '9', '10', '11', '12'],
+				            datasets: [{
+				                label: '하반기 독서량',
+				                data: [12, 6, 3, 5, 2, 5],
+				                borderColor: '#42A5F5',
+				                backgroundColor: 'rgba(66, 165, 245, 0.2)',
+	                            borderWidth: 1
+				            }]
+				        },
+				        options: {
+	                           responsive: true,
+	                           plugins: {
+	                               legend: {
+	                                   position: 'top',
+	                               },
+	                               title: {
+	                                   display: true,
+	                                   text: '라인 차트 - 독서 통계'
+	                               }
+	                           }
+	                       }
+				    });
+				});
+               </script>
              </div>
         </div>
     </div>

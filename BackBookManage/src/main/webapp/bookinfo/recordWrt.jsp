@@ -21,7 +21,7 @@ String member_name = memberInfo.get(1);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/recordWrt.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordWrt.css">
   <title>독서 기록 작성</title>
 </head>
 <body>
@@ -51,12 +51,6 @@ String member_name = memberInfo.get(1);
       <textarea id="content" name="content" placeholder="내용을 입력하세요" required></textarea>
       <br>
 
-      <!-- 파일 첨부 -->
-      <!-- 
-      <label for="file">파일 첨부</label>
-      <input type="file" id="file" name="file">
-      <br>
-       -->
       <!-- 별점 표시 -->
 		<label for="file">책 평점</label>
 		<div class="rating">

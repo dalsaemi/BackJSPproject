@@ -64,12 +64,6 @@ if (request.getAttribute("error") != null) {
       <textarea id="content" name="content" placeholder="내용을 입력하세요" required></textarea>
       <br>
 
-      <!-- 파일 첨부 -->
-      <!-- 
-      <label for="file">파일 첨부</label>
-      <input type="file" id="file" name="file">
-      <br>
-       -->
       <!-- 별점 표시 -->
 		<label for="file">책 평점</label>
 		<div class="rating">

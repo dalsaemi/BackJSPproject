@@ -252,31 +252,6 @@ public class MemberInformationDAO {
         return boardcount;
     }
     
-    //멤버 최근 게시글 id 받기
-    public int memberRecentBoard(String member_id) {
-    	Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        int board_id = 0;
-        try {
-        	conn = JDBCUtil.getConnection();
-        	String strQuery = "select board_id from bookboard_information where board_date = (select max(board_date) from bookboard_information where member_id = ?) limit 1";
-        	pstmt = conn.prepareStatement(strQuery);
-        	pstmt.setString(1, member_id);
-            rs = pstmt.executeQuery();
-            
-            while(rs.next()) {
-            	board_id = Integer.parseInt(rs.getString("MBcount"));
-            }
-        } catch (Exception ex) {
-            System.out.println("Exception" + ex);
-        } finally {
-        	JDBCUtil.close(rs, pstmt, conn);
-        }
-        
-        return board_id;
-    }
-    
     //멤버 한 달간 목표 추가
     public boolean memberMonthlyBoardInsert(String member_id) {
     	Connection conn = null;

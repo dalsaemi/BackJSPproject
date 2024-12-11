@@ -10,6 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordWrt.css">
 <title>Insert title here</title>
 </head>
 <body>

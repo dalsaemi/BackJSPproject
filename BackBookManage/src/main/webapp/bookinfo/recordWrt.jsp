@@ -19,7 +19,7 @@ dispatcher.include(request, response);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/recordWrt.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordWrt.css">
   <title>독서 기록 작성</title>
 </head>
 <body>
@@ -128,7 +128,7 @@ if (request.getAttribute("error") != null) {
   <script type="text/javascript">
   function radioCheck() {
       // 모든 라디오 버튼 선택
-      const radios = document.getElementsByName("option");
+      const radios = document.getElementsByName("rating");
       let isChecked = false;
 
       // 라디오 버튼 중 하나라도 체크되었는지 확인

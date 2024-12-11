@@ -112,10 +112,10 @@ public class MemberInformationDAO {
         try {
         	conn = JDBCUtil.getConnection();
         	int count = 0;
-
-        	// 외래 키 체크 비활성화
-        	String query1 = "set foreign_key_checks = 0;";
-        	pstmt = conn.prepareStatement(query1);
+        	
+        	// 외래 키 체크 활성화
+        	String query3 = "set foreign_key_checks = 1;";
+        	pstmt = conn.prepareStatement(query3);
         	pstmt.executeUpdate();
 
         	// 삭제 쿼리 실행
@@ -123,11 +123,6 @@ public class MemberInformationDAO {
         	pstmt = conn.prepareStatement(query2);
         	pstmt.setString(1, member_id);
         	count = pstmt.executeUpdate();
-
-        	// 외래 키 체크 활성화
-        	String query3 = "set foreign_key_checks = 1;";
-        	pstmt = conn.prepareStatement(query3);
-        	pstmt.executeUpdate();
 
             if (count == 1) {
                deleteCheck = true;

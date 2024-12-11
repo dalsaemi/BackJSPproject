@@ -90,7 +90,7 @@
                         <h3>계정 관리</h3>
                         <ul>
                             <div><li><a href="<%=request.getContextPath() %>/member/memberUpdate.jsp">회원정보 변경</a></li></div>
-                            <div><li><a href="<%=request.getContextPath() %>/member/memberPasswordUpdate.jsp">비밀번호 변경</a></li></div>  
+                            <div><li><a href="<%=request.getContextPath() %>/member/memberPasswordCheck.jsp">비밀번호 변경</a></li></div>  
                             <form action="<%=request.getContextPath() %>/logout.do" method="get">
                                     <button type="submit">로그아웃</button>
                             </form>

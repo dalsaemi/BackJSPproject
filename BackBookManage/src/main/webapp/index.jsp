@@ -30,6 +30,7 @@
 					    <div class="login">
 					        <h2>로그인</h2>
 					        <form method="post" action="<%= request.getContextPath() %>/login.do">
+					        	<input type="hidden" name="mode" value="login">
 					            <input type="text" id="username" name="member_id" placeholder="사용자 아이디" required>
 					            <input type="password" id="password" name="member_password" placeholder="비밀번호" required>
 					            <button type="submit">로그인</button>
@@ -52,7 +53,6 @@
 					        <p>서울도서관</p>
 					        <p>최근 읽은 책: 꽃을 보듯 너를 본다</p>
 					        <p>최근 독서 기록: 푸른 사자 와니니</p>
-					        <button onclick="window.location.href='record.jsp'">기록하러 가기</button>
 						<% if (isManager) { %>
 					        <button onclick="window.location.href='<%= request.getContextPath() %>/member/adminpage.jsp'">관리자페이지</button>
 						<% } else { %>

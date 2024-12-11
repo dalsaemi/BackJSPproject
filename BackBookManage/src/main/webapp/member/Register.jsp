@@ -95,6 +95,7 @@ JDBCUtil.getConnection();
     	// 아이디 입력칸이 빈칸일 경우
     	if(id.length < 6 || id.length > 12) {
     		alert("아이디를 6~12자로 입력해주세요.");
+    		isCheck = false;
     		return;
     	}
     	// 아이디 중복 검사

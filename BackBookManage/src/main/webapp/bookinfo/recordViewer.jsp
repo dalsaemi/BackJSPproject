@@ -50,7 +50,7 @@ String loginmember = (String) callSession.getAttribute("member_id"); // 로그�
 if(loginmember == null) {
 	loginmember = "none";
 }
-
+// 추천 중복 체크
 boolean isLiked = false;
 System.out.println("board_id: " + board_id + ", member_id: " + member_id);
 dispatcher = request.getRequestDispatcher("/boardLike.do?board_id=" + board_id + "&member_id=" + member_id);
@@ -58,6 +58,9 @@ dispatcher.include(request, response);
 if (request.getAttribute("isLiked") != null) {
 	isLiked = (Boolean) request.getAttribute("isLiked");
 }
+
+//관리자는 삭제 버튼 뜨게
+boolean isManager = (Boolean) session.getAttribute("is_manager");
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -96,10 +99,13 @@ if (request.getAttribute("isLiked") != null) {
       <button id="likeButton" class="<%= isLiked ? "liked" : "" %>"
        data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">추천</button>
       <button onClick="location.href='<%= request.getContextPath()%>/index.jsp'">메인 화면으로</button>
-      <% if (!loginmember.equals("none")) { %>
+      <% if (!loginmember.equals("none") && !isManager) { %>
 		<button onClick="location.href='<%= request.getContextPath()%>/bookinfo/getRecord.jsp'">작성 글 모아보기</button>
       <% } %>
-      <% if (loginmember.equals(member_id)) { %>
+      <% if (isManager) { %>
+      	<button onClick="location.href='<%= request.getContextPath()%>/adminBoard.do'">게시판 관리창으로</button>
+      <% } %>
+      <% if (loginmember.equals(member_id) || isManager) { %>
       <%--
       <form action="<%=request.getContextPath()%>/bookinfo/recordUpdate.jsp">
 	  		<input type="hidden" name="book_isbn" value="<%=isbn %>">
@@ -117,6 +123,7 @@ if (request.getAttribute("isLiked") != null) {
   </div>
   <script>
 	//삭제 확인 함수
+	var isManager = <%= isManager %>;
 	function confirmDelete(boardId) {
 	    if (confirm("게시물을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.")) {
 	        // 삭제 요청 전송
@@ -130,7 +137,11 @@ if (request.getAttribute("isLiked") != null) {
 	        .then(response => response.text())
 	        .then(data => {
 	            alert(data); // 서버에서 받은 메시지 출력
-	            window.location.href = "<%= request.getContextPath() %>/bookinfo/getRecord.jsp";
+	            if (isManager) {
+	            	window.location.href = "<%= request.getContextPath() %>/adminBoard.do";
+	            } else {
+	            	window.location.href = "<%= request.getContextPath() %>/bookinfo/getRecord.jsp";
+	            }
 	        })
 	        .catch(error => {
 	            alert("오류가 발생했습니다. 다시 시도해주세요.");

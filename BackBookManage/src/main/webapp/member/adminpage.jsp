@@ -24,11 +24,21 @@
     <meta charset="UTF-8">
     
     <title>회원 관리</title>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/main/header_styles.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/adminpage_styles.css">
 </head>
 <body>
-    <h1>회원 관리</h1>
-    
+	<header class="header">
+        <div class="header-inner">
+            <div class="logo"><a class = "index-title" href="<%=request.getContextPath() %>/index.jsp">웹사이트 이름</a></div>
+            <!--menu-->
+            <nav class="nav-links">
+                <a href="<%=request.getContextPath() %>/member/adminpage.jsp">회원 관리</a>
+                <a href="<%=request.getContextPath() %>/adminBoard.do">게시판 관리</a>
+            </nav>
+        </div>
+    </header>
+    <h2>회원 관리</h2>
     <p>회원 수: <%= memberCount %></p>
 
     <table>

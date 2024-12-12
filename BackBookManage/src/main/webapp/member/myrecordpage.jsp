@@ -11,7 +11,7 @@
 <%
    request.setCharacterEncoding("UTF-8");
    
-   //멤버 한달 읽은 수 불러오기
+   //멤버 월별 읽은 책 불러오기
    RequestDispatcher dispatcher = request.getRequestDispatcher("/chart.do");
    dispatcher.include(request, response);
    ArrayList<Integer> booksRead = (ArrayList<Integer>)request.getAttribute("booksRead");
@@ -39,14 +39,12 @@
    */
    
  	//6개월 값 가져오기
-	LocalDate currentDate = LocalDate.now();
-	int currentMonth = currentDate.getMonthValue();
+	LocalDate currentDate = LocalDate.now(); //현재 날짜값 받아오기
+	int currentMonth = currentDate.getMonthValue(); //현재 월 받아오기
 	
 	ArrayList<Integer> lastSixMonths = new ArrayList<Integer>();
 	
-	//currentMonth = 2; //값 확인용
-	
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 6; i++) { //이전 5개월 숫자 불러와서 list에 넣기
 	       int month = currentMonth - i;
 	       if (month <= 0) {
 	           month += 12; // 1월 이전으로 넘어가면 12월로 순환
@@ -54,7 +52,7 @@
 	       lastSixMonths.add(month);
 	   }
 	   
-	// 리스트를 뒤집어서 최신 월부터 표시되도록 정렬 (내림차순)
+	// 리스트를 뒤집어서 최신 월부터 표시되도록 정렬
 	Collections.reverse(lastSixMonths);
 %>
 <!DOCTYPE html>

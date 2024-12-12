@@ -1,6 +1,8 @@
 package com.backbookmanage.member;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,7 @@ public class ChartController extends HttpServlet {
 		String member_id = String.valueOf(request.getSession().getAttribute("member_id"));
         
         MemberInformationDAO mDAO = new MemberInformationDAO();
-        int booksRead = mDAO.memberMonthlyBoard(member_id);
+        ArrayList<Integer> booksRead = mDAO.member6MonthBoardCount(member_id);
 		
         // 데이터를 JSP에 전달
         request.setAttribute("booksRead", booksRead);

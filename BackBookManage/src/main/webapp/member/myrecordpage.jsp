@@ -1,5 +1,8 @@
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
+<%@ page import="java.time.LocalDate" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%! 
@@ -11,7 +14,8 @@
    //멤버 한달 읽은 수 불러오기
    RequestDispatcher dispatcher = request.getRequestDispatcher("/chart.do");
    dispatcher.include(request, response);
-   int booksRead = (int)request.getAttribute("booksRead");
+   ArrayList<Integer> booksRead = (ArrayList<Integer>)request.getAttribute("booksRead");
+   int thisMonthRead = booksRead.get(5); //이번달에 읽은 책
    
    //멤버 최근 읽은 책 정보 불러오기
    dispatcher = request.getRequestDispatcher("/recentBoardSearch.do");
@@ -25,7 +29,7 @@
    int bookGoal = (int)request.getAttribute("bookGoal");
    
    //남은 책 수 초기화
-   int booksRemaining = bookGoal - booksRead;
+   int booksRemaining = bookGoal - thisMonthRead;
    
    //확인용 로그
    /*
@@ -33,6 +37,25 @@
    System.out.println("bookGoal : "+bookGoal);
    System.out.println("booksRemaining : "+booksRemaining);
    */
+   
+ 	//6개월 값 가져오기
+	LocalDate currentDate = LocalDate.now();
+	int currentMonth = currentDate.getMonthValue();
+	
+	ArrayList<Integer> lastSixMonths = new ArrayList<Integer>();
+	
+	//currentMonth = 2; //값 확인용
+	
+	for (int i = 0; i < 6; i++) {
+	       int month = currentMonth - i;
+	       if (month <= 0) {
+	           month += 12; // 1월 이전으로 넘어가면 12월로 순환
+	       }
+	       lastSixMonths.add(month);
+	   }
+	   
+	// 리스트를 뒤집어서 최신 월부터 표시되도록 정렬 (내림차순)
+	Collections.reverse(lastSixMonths);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -95,7 +118,7 @@
                             <option value="20" <%if(bookGoal == 20){%>selected="selected"<%}%>>20</option>
                         </select>
                         권</p>
-                        <p>읽은 책: <%= booksRead %>권</p>
+                        <p>읽은 책: <%= thisMonthRead %>권</p>
                         <p>목표 달성까지 <span id="remainingBooks"><%= booksRemaining %></span>권 남았어요!</p>
                     </div>
                     <div class="goal-box">
@@ -112,7 +135,7 @@
                 </div>
                 <script>
 				    document.addEventListener("DOMContentLoaded", function () {
-				        const booksRead = <%= booksRead %>;
+				        const thisMonthRead = <%= thisMonthRead %>;
 				        let booksRemaining = <%= booksRemaining %>;
 				
 				        // 차트 컨텍스트
@@ -124,7 +147,7 @@
 				            data: {
 				                labels: ['읽은 책', '남은 책'],
 				                datasets: [{
-				                    data: [booksRead, booksRemaining], // 서버에서 전달된 데이터 사용
+				                    data: [thisMonthRead, booksRemaining], // 서버에서 전달된 데이터 사용
 				                    backgroundColor: ['#FFD700', '#FFFFFF'], // 노란색, 하얀색
 				                    borderColor: ['#FFD700', '#CCCCCC'],     // 테두리 색상
 				                    borderWidth: 1,
@@ -144,7 +167,7 @@
 				        // 책 목표와 목표 달성까지 남은 권수 실시간 업데이트
 				        document.querySelector("#bookGoal").addEventListener("change", function() {
 				            const selectedOption = document.querySelector("#bookGoal > option:checked").value;
-				            booksRemaining = selectedOption - booksRead; // 남은 책 수 재계산
+				            booksRemaining = selectedOption - thisMonthRead; // 남은 책 수 재계산
 				
 				            // 실시간으로 남은 책 수 업데이트
 				            document.getElementById("remainingBooks").textContent = booksRemaining;
@@ -171,40 +194,56 @@
    							%>
 				
 				            // 차트 데이터 갱신
-				            goalChart.data.datasets[0].data = [booksRead, booksRemaining]; // 차트의 데이터 배열 갱신
+				            goalChart.data.datasets[0].data = [thisMonthRead, booksRemaining]; // 차트의 데이터 배열 갱신
 				            goalChart.update(); // 차트 업데이트
 				        });
 				    });
-				</script>
-				<script>
-				document.addEventListener("DOMContentLoaded", function () {
-				    const ctx = document.getElementById('lineChart').getContext('2d');
-				    const lineChart = new Chart(ctx, {
-				        type: 'line',
-				        data: {
-				            labels: ['7', '8', '9', '10', '11', '12'],
-				            datasets: [{
-				                label: '하반기 독서량',
-				                data: [12, 6, 3, 5, 2, 5],
-				                borderColor: '#42A5F5',
-				                backgroundColor: 'rgba(66, 165, 245, 0.2)',
-	                            borderWidth: 1
-				            }]
-				        },
-				        options: {
-	                           responsive: true,
-	                           plugins: {
-	                               legend: {
-	                                   position: 'top',
-	                               },
-	                               title: {
-	                                   display: true,
-	                                   text: '라인 차트 - 독서 통계'
-	                               }
-	                           }
-	                       }
-				    });
-				});
+					    
+					//6개월 값 받기
+					var lastSixMonths = <%= lastSixMonths.toString() %>;
+					var labels = lastSixMonths;
+					var booksReadList = <%= booksRead %>;
+					
+					//6개월간의 독서량 표시
+					document.addEventListener("DOMContentLoaded", function () {
+					    const ctx = document.getElementById('lineChart').getContext('2d');
+					    const lineChart = new Chart(ctx, {
+					        type: 'line',
+					        data: {
+					            labels: lastSixMonths,
+					            datasets: [{
+					                label: '지난 6개월 독서량',
+					                data: booksReadList,
+					                borderColor: '#42A5F5',
+					                backgroundColor: 'rgba(66, 165, 245, 0.2)',
+		                            borderWidth: 1
+					            }]
+					        },
+					        options: {
+					            responsive: true,
+					            plugins: {
+					                legend: {
+					                    position: 'top',
+					                },
+					                title: {
+					                    display: true,
+					                    text: '라인 차트 - 독서 통계'
+					                }
+					            },
+					            scales: {
+					            	y: {
+					                    min: 0,
+					                    // 데이터의 최대값이 10보다 적을 경우 10을 최대값으로
+						                max: Math.max(10, Math.max(...booksReadList)),
+						                beginAtZero: true,
+						                ticks: {
+						                    stepSize: 1
+					                    }
+					                }
+					            }
+					        }
+					    });
+					});
                </script>
              </div>
         </div>

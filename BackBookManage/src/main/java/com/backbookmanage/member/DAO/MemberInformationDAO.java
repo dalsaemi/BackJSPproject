@@ -227,21 +227,22 @@ public class MemberInformationDAO {
         return members;
     }
     
-    //멤버 한 달간 게시글 갯수 받기
-    public int memberMonthlyBoard(String member_id) {
+    //멤버 하반기 게시글 갯수 받기
+    public ArrayList<Integer> member6MonthBoardCount (String member_id) {
     	Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        int boardcount = 0;
+        ArrayList<Integer> boardCounts = new ArrayList<>();
         try {
         	conn = JDBCUtil.getConnection();
-        	String strQuery = "select count(*) as MBcount from bookboard_information where member_id = ? and board_date >= curdate() - interval 1 month and board_date < curdate() + interval 1 day";
+        	String strQuery = "with months as (select date_format(curdate() - interval n month, '%Y-%m') as month from (select 0 as n union all select 1 union all select 2 union all select 3 union all select 4 union all select 5) as numbers) select m.month, count(b.board_id) as count from months m left join bookBoard_information b on date_format(b.board_date, '%Y-%m') = m.month and b.board_date >= curdate() - interval 6 month and b.member_id = ? group by m.month order by m.month asc";
         	pstmt = conn.prepareStatement(strQuery);
         	pstmt.setString(1, member_id);
             rs = pstmt.executeQuery();
             
-            while(rs.next()) {
-            	boardcount = Integer.parseInt(rs.getString("MBcount"));
+            while (rs.next()) {
+                int count = rs.getInt("count");
+                boardCounts.add(count);
             }
         } catch (Exception ex) {
             System.out.println("Exception" + ex);
@@ -249,7 +250,7 @@ public class MemberInformationDAO {
         	JDBCUtil.close(rs, pstmt, conn);
         }
         
-        return boardcount;
+        return boardCounts;
     }
     
     //멤버 한 달간 목표 추가

@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+/* 기본 배경 스타일 */
+body {
+    background-color: #f0f8ff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 컨테이너 스타일 */
+.wrt-container {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+.wrt-container h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+/* 폼 스타일 */
+form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #555;
+}
+
+form input, form textarea {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+form input.readonly-field {
+    background-color: #f9f9f9;
+    color: #666;
+}
+
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.button-container button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+    background-color: #0056b3;
+}
+
+/* 별점 컨테이너 스타일 */
+.rating {
+    width: 200px;
+    display: flex;
+}
+
+.rating__input {
+    display: none;
+}
+
+.rating__label {
+    width: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.rating__label .star-icon {
+    width: 20px;
+    height: 40px;
+    display: block;
+    position: relative;
+    left: 0;
+    background-image: url('https://velog.velcdn.com/images/jellykelly/post/9957327f-f358-4c25-9989-5bb3dd5755d6/image.svg');
+    background-repeat: no-repeat;
+    background-size: 40px;
+}
+
+/* 별이 채워졌을 때의 스타일 */
+.rating__label .star-icon.filled {
+    background-image: url('https://velog.velcdn.com/images/jellykelly/post/10caf033-b0ef-4d58-804b-6e33395e4ea5/image.svg');
+}
+
+/* 반별 / 전체별의 위치 설정 */
+.rating__label--full .star-icon {
+    background-position: right;
+}
+
+.rating__label--half .star-icon {
+    background-position: left;
+}
+
+/* 읽기 전용 상태에서 스타일 (마우스를 올렸을 때 불투명도 감소) */
+.rating.readonly .star-icon {
+    opacity: 0.7;
+    cursor: default;
+}
+
+/* 마우스를 올렸을 때 별의 불투명도 */
+.star-icon:hover {
+    opacity: 0.8;
+}

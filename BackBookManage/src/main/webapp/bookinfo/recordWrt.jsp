@@ -19,7 +19,7 @@ dispatcher.include(request, response);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordWrt.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordWrt_styles.css">
   <title>독서 기록 작성</title>
 </head>
 <body>
@@ -38,7 +38,7 @@ if (request.getAttribute("error") != null) {
 	member_name = memberInfo.get(1);
 
 %>
-  <div class="container">
+  <div class="wrt-container">
     <h1>독서 기록 작성</h1>
     <form action="<%=request.getContextPath()%>/boardAdd.do" method="post" onsubmit="return radioCheck()">
       <image src="<%=request.getParameter("book_cover")%>">

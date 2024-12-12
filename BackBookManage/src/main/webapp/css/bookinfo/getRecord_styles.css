@@ -15,64 +15,16 @@
             margin: 0 auto;
         }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: white;
-            padding: 20px;
-            border-bottom: 1px solid #ccc;
-            flex-shrink: 0; /* 헤더 크기 고정 */
-        }
-
-        header .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        header .logo img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        header nav a {
-            margin-left: 20px;
-            color: black;
-            text-decoration: none;
-        }
-
         .content-wrapper {
             display: flex;
             flex: 1; /* 남은 공간을 채우도록 설정 */
             overflow: hidden; /* 내부 스크롤 숨김 */
         }
 
-        .sidebar {
-            width: 250px;
-            background-color: #dbeafe;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 20px 0;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: black;
-        }
-
         .myrecord {
             flex: 1;
             padding: 20px;
-            background-color: white;
+            background-color: #eef4ff;
             overflow-y: auto; /* 콘텐츠가 넘칠 경우 스크롤 */
         }
 
@@ -120,3 +72,9 @@
             color: #999;
             margin-top: 5px;
         }
+        
+        h1 {
+	    font-size: 24px;
+	    color: #333;
+	    text-align: center;
+		}

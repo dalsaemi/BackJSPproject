@@ -72,36 +72,37 @@ if(session.getAttribute("is_manager") != null) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 상세 보기</title>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordViewer_styles.css">
 </head>
 <body>
-  <div class="container">
+  <div class="viewer-container">
       <div class="post-header">
-          <h1>게시글 제목 :<%=board_title%></h1>
+          <h1>게시글 제목 : <%=board_title%></h1>
       </div>
 
       <div class="post-info">
-          <p><strong>글 아이디:</strong> <span id="board_id"><%=board_id%></span></p>
-          <p><strong>글쓴이 닉네임:</strong> <span id="author_name"><%=member_id %></span></p>
-          <p><strong>작성시간:</strong> <span id="created-time"><%= datetostr %></span></p>
+          <p><strong>글 아이디: </strong> <span id="board_id"><%=board_id%></span></p>
+          <p><strong>글쓴이 닉네임: </strong> <span id="author_name"><%=member_id %></span></p>
+          <p><strong>작성시간: </strong> <span id="created-time"><%= datetostr %></span></p>
       </div>
 
       <div class="post-info">
-          <p><strong>책 제목:</strong> <span id="title">
+          <p><strong>책 제목: </strong> <span id="title">
           <% if (result != null && itemResult != null) { %>
           	<%= itemResult.getString("title") %>
           <%} %>
           </span></p>
-          <p class="content"><strong>내용:</strong><br> <span id="content"><%=board_contents %></span></p>
+          <p class="content"><strong>내용: </strong><br> <span id="content"><%=board_contents %></span></p>
       </div>
 
       <div class="post-info">
-          <p><strong>좋아요:</strong> <span class="likes" id="likes"><%=board_recommend %></span> 개</p>
-          <p><strong>책 ID:</strong> <span class="book-id" id="book-id"><%=isbn %></span></p>
-          <p><strong>평점:</strong> <span class="rating" id="rating"><%=Board_rating%></span> 점</p>
+          <p><strong>좋아요: </strong> <span class="likes" id="likes"><%=board_recommend %></span> 개</p>
+          <p><strong>책 ID: </strong> <span class="book-id" id="book-id"><%=isbn %></span></p>
+          <p><strong>평점: </strong> <span class="rating" id="rating"><%=Board_rating%></span> 점</p>
       </div>
       
       <button id="likeButton" class="<%= isLiked ? "liked" : "" %>"
-       data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">추천</button>
+       data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">♡</button>
       <button onClick="location.href='<%= request.getContextPath()%>/index.jsp'">메인 화면으로</button>
       <% if (!loginmember.equals("none") && !isManager) { %>
 		<button onClick="location.href='<%= request.getContextPath()%>/bookinfo/getRecord.jsp'">작성 글 모아보기</button>

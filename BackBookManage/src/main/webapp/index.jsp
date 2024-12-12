@@ -50,12 +50,12 @@
 					%>
 					    <div class="welcome">
 					        <h2><%= member_id %>님, 환영합니다</h2>
-					        <p>서울도서관</p>
-					        <p>최근 읽은 책: 꽃을 보듯 너를 본다</p>
-					        <p>최근 독서 기록: 푸른 사자 와니니</p>
 						<% if (isManager) { %>
 					        <button onclick="window.location.href='<%= request.getContextPath() %>/member/adminpage.jsp'">관리자페이지</button>
 						<% } else { %>
+							<p>서울도서관</p>
+					        <p>최근 읽은 책: 꽃을 보듯 너를 본다</p>
+					        <p>최근 독서 기록: 푸른 사자 와니니</p>
 							<button onclick="window.location.href='<%= request.getContextPath() %>/member/mypage.jsp'">마이페이지</button>
 						<%
 							}

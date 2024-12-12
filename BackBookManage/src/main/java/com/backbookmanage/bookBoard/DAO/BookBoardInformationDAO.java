@@ -175,7 +175,7 @@ public class BookBoardInformationDAO {
         }
 		return bDTO; //DTO형식으로 return
 	}
-	
+	// 게시판 수정
 	public boolean boardUpdate(String board_title, String board_contents, float board_rating, int board_id) {
 		Connection conn = null;
         PreparedStatement pstmt = null;
@@ -412,5 +412,42 @@ public class BookBoardInformationDAO {
         
         return recommend_count;
 	}
-	
+	// 관리자 게시판에서 글 모두 모으기
+	public ArrayList<BookBoardInformationDTO> selectAllBoard() {
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        ArrayList<BookBoardInformationDTO> listBoardInfo = new ArrayList<BookBoardInformationDTO>();
+        
+        try {
+        	conn = JDBCUtil.getConnection();
+        	
+        	String strQuery = "select * from bookBoard_information order by board_id desc;";
+        	pstmt = conn.prepareStatement(strQuery);
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+            	BookBoardInformationDTO bDTO = new BookBoardInformationDTO();
+            	
+            	bDTO.setBoard_id(rs.getInt("board_id"));
+            	bDTO.setBoard_title(rs.getString("board_title"));
+            	bDTO.setBoard_contents(rs.getString("board_contents"));
+            	bDTO.setBoard_recommend(rs.getInt("board_recommend"));
+            	bDTO.setBoard_date(rs.getDate("board_date"));
+            	bDTO.setIsbn(rs.getString("isbn"));
+            	bDTO.setBoard_rating(rs.getFloat("board_rating"));
+            	bDTO.setMember_id(rs.getString("member_id"));
+            	
+            	listBoardInfo.add(bDTO);
+            }
+        } catch (Exception e) {
+        	System.out.println("리뷰 불러오기 실패");
+            System.out.println("Exception" + e);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+        
+        return listBoardInfo;
+	}
 }

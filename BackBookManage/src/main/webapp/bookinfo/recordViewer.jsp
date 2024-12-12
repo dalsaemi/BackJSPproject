@@ -95,7 +95,7 @@ boolean isManager = (Boolean) session.getAttribute("is_manager");
           <p><strong>책 ID:</strong> <span class="book-id" id="book-id"><%=isbn %></span></p>
           <p><strong>평점:</strong> <span class="rating" id="rating"><%=Board_rating%></span> 점</p>
       </div>
-      <script src="<%= request.getContextPath() %>/js/like_js.js" type="module"></script>
+      
       <button id="likeButton" class="<%= isLiked ? "liked" : "" %>"
        data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">추천</button>
       <button onClick="location.href='<%= request.getContextPath()%>/index.jsp'">메인 화면으로</button>
@@ -106,7 +106,6 @@ boolean isManager = (Boolean) session.getAttribute("is_manager");
       	<button onClick="location.href='<%= request.getContextPath()%>/adminBoard.do'">게시판 관리창으로</button>
       <% } %>
       <% if (loginmember.equals(member_id) || isManager) { %>
-      <%--
       <form action="<%=request.getContextPath()%>/bookinfo/recordUpdate.jsp">
 	  		<input type="hidden" name="book_isbn" value="<%=isbn %>">
 	  		<input type="hidden" name="book_cover" value="<%=itemResult.getString("cover")%>">
@@ -117,7 +116,6 @@ boolean isManager = (Boolean) session.getAttribute("is_manager");
 	  		<input type="hidden" name="board_id" value="<%= board_id %>">
 			<button type="submit">수정</button>
 	  </form>
-       --%>
       <button onClick="confirmDelete(<%= board_id %>)">삭제</button>
       <% } %>
   </div>
@@ -150,5 +148,6 @@ boolean isManager = (Boolean) session.getAttribute("is_manager");
 	    }
 	}
   </script>
+  <script src="<%= request.getContextPath() %>/js/like_js.js" type="module"></script>
 </body>
 </html>

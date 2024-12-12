@@ -62,71 +62,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/member/myrecordpage_styles.css?1">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/member/myrecordpage_styles.css?2">
     <title>독서 기록 웹사이트</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container"> <!-- 헤더 -->
+    <div class="recordpage-container"> <!-- 헤더 -->
         <%@ include file="/main/header.jsp" %>
-        <div class="content-wrapper">
+        <div class="recordpage-maincon">
             <%@ include file="/main/sidebar.jsp" %>
-
-            <div class="main-content">
-           		<div class="section recent-book">
-                    <%if(recentBook.equals("noBoard")){%>
-	                	<div class="info">
-	                		<p>최근에 읽은 책이 없습니다.</p>
-	                	</div>
-		           	<%}else{ 
-		           		dispatcher = request.getRequestDispatcher("/bookSelect.do?id=" + recentBook + "&command=record");
-	                	dispatcher.include(request, response);
-	                	String result = (String)request.getAttribute("responseBody");
-	                	if (result != null) {
-	                		try {
-	                			JSONObject jsonObject = new JSONObject(result);
-	                			JSONArray itemArray = jsonObject.getJSONArray("item");
-	                			if (itemArray.length() > 0) {
-	                	            itemResult = itemArray.getJSONObject(0);  // 첫 번째 요소
-	                	        }
-	                		} catch(Exception e) {
-	                			System.out.println("item 객체를 가져오는데 오류 발생: " + e.getMessage());
-	                		}
-	                	}
-	                	if (result != null && itemResult != null) {
-		           	%>
-		           		<img name="book_image" src="<%= itemResult.getString("cover") %>" alt="책 이미지"> <!-- 이미지 받아와서 배치하도록 추후 수정 -->
-	                    <div class="info">
-	                        <p>최근 읽은 책</p>
-	                        <p><strong><%=itemResult.getString("title")%></strong></p>
-	                        <p>저자:<%=itemResult.getString("author")%></p>
-	                        <p>출판사:<%=itemResult.getString("publisher")%></p>
-	                        <p>출판년도:<%=itemResult.getString("pubDate")%></p>
-	                        <p>나의 평가:<%=myrat%></p>
+			
+            <div class="recordpage-con">
+            	<div class = "line-section">
+	           		<div class="section recent-book">
+	                    <%if(recentBook.equals("noBoard")){%>
+		                	<div class="info">
+		                		<p>최근에 읽은 책이 없습니다.</p>
+		                	</div>
+			           	<%}else{ 
+			           		dispatcher = request.getRequestDispatcher("/bookSelect.do?id=" + recentBook + "&command=record");
+		                	dispatcher.include(request, response);
+		                	String result = (String)request.getAttribute("responseBody");
+		                	if (result != null) {
+		                		try {
+		                			JSONObject jsonObject = new JSONObject(result);
+		                			JSONArray itemArray = jsonObject.getJSONArray("item");
+		                			if (itemArray.length() > 0) {
+		                	            itemResult = itemArray.getJSONObject(0);  // 첫 번째 요소
+		                	        }
+		                		} catch(Exception e) {
+		                			System.out.println("item 객체를 가져오는데 오류 발생: " + e.getMessage());
+		                		}
+		                	}
+		                	if (result != null && itemResult != null) {
+			           	%>
+			           		<img name="book_image" src="<%= itemResult.getString("cover") %>" alt="책 이미지"> <!-- 이미지 받아와서 배치하도록 추후 수정 -->
+		                    <div class="info">
+		                        <p>최근 읽은 책</p>
+		                        <p><strong><%=itemResult.getString("title")%></strong></p>
+		                        <p>저자:<%=itemResult.getString("author")%></p>
+		                        <p>출판사:<%=itemResult.getString("publisher")%></p>
+		                        <p>출판년도:<%=itemResult.getString("pubDate")%></p>
+		                        <p>나의 평가:<%=myrat%></p>
+		                    </div>
+			           	<% }}%>
+	                </div>
+	
+	                <div class="section goal-section">
+	                    <div class="goal-box">
+	                        <h3>이번 달 나의 목표</h3>
+	                        <p>독서 목표: 
+	                        <select id="bookGoal" name="bookGoal" size="1">
+	                            <option value="5" <%if(bookGoal == 5){%>selected="selected"<%}%>>5</option>
+	                            <option value="10" <%if(bookGoal == 10){%>selected="selected"<%}%>>10</option>
+	                            <option value="15" <%if(bookGoal == 15){%>selected="selected"<%}%>>15</option>
+	                            <option value="20" <%if(bookGoal == 20){%>selected="selected"<%}%>>20</option>
+	                        </select>
+	                        권</p>
+	                        <p>읽은 책: <%= thisMonthRead %>권</p>
+	                        <p>목표 달성까지 <span id="remainingBooks"><%= booksRemaining %></span>권 남았어요!</p>
 	                    </div>
-		           	<% }}%>
-                </div>
-
-                <div class="section goal-section">
-                    <div class="goal-box">
-                        <h3>이번 달 나의 목표</h3>
-                        <p>독서 목표: 
-                        <select id="bookGoal" name="bookGoal" size="1">
-                            <option value="5" <%if(bookGoal == 5){%>selected="selected"<%}%>>5</option>
-                            <option value="10" <%if(bookGoal == 10){%>selected="selected"<%}%>>10</option>
-                            <option value="15" <%if(bookGoal == 15){%>selected="selected"<%}%>>15</option>
-                            <option value="20" <%if(bookGoal == 20){%>selected="selected"<%}%>>20</option>
-                        </select>
-                        권</p>
-                        <p>읽은 책: <%= thisMonthRead %>권</p>
-                        <p>목표 달성까지 <span id="remainingBooks"><%= booksRemaining %></span>권 남았어요!</p>
-                    </div>
-                    <div class="goal-box">
-                        <h3>목표 달성치</h3>
-                        <!-- chart show -->
-                        <canvas id="goalChart" width="100px" height="100px"></canvas>
-                    </div>
-                </div>
+	                    <div class="goal-box">
+	                        <h3>목표 달성치</h3>
+	                        <!-- chart show -->
+	                        <div class = "goal-placeholder">
+	                        	<canvas id="goalChart" width="100px" height="100px"></canvas>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>    
                 <div class="section stats-section">
                     <div class="section-title">독서 통계</div>
                     <div class="chart-placeholder">
@@ -151,14 +155,14 @@
 				                    backgroundColor: ['#FFD700', '#FFFFFF'], // 노란색, 하얀색
 				                    borderColor: ['#FFD700', '#CCCCCC'],     // 테두리 색상
 				                    borderWidth: 1,
-				                    radius: 150
+				                    radius: 50
 				                }]
 				            },
 				            options: {
 				                responsive: true,
 				                plugins: {
 				                    legend: {
-				                        position: 'bottom' // 범례 위치
+				                        position: 'top' // 범례 위치
 				                    }
 				                }
 				            }
@@ -247,6 +251,7 @@
                </script>
              </div>
         </div>
+        <%@ include file="/main/footer.jsp" %> <!-- 푸터 -->
     </div>
 </body>
 </html>

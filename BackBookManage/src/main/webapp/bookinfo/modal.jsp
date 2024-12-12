@@ -44,14 +44,15 @@
 <div id="modalContainer">
   <div id="modalContent">
     <button id="modalCloseButton"></button>
-    <% if (result != null && itemResult != null) { %>
-    <h3><%= itemResult.getString("title") %></h3>
-    <img src="<%= itemResult.getString("cover") %>" />
+   	<% if (result != null && itemResult != null) { %>
+    <h3 id="modalBookTitle"><%= itemResult.getString("title") %></h3>
+    <img id="modalImg" src="<%= itemResult.getString("cover") %>" />
     <p><%= itemResult.getString("author") %></p>
     <p><%= itemResult.getString("publisher") %></p>
     <p><%= itemResult.getString("pubDate") %></p>
-    <%= itemResult.getString("description") %>
-    <h3>작성된 리뷰</h3>
+    <blockquote id="modalDescription"><%= itemResult.getString("description") %></blockquote>
+    <hr id="modalHr">
+    <h3 id="modalReviewTitle">작성된 리뷰</h3>
     
 	<%
 		dispatcher = request.getRequestDispatcher("/boardReviewSelect.do?isbn="+ itemResult.getString("isbn"));
@@ -110,7 +111,7 @@
   		<input type="hidden" name="book_isbn" value="<%= itemResult.getString("isbn") %>">
   		<input type="hidden" name="book_cover" value="<%= itemResult.getString("cover") %>">
   		<input type="hidden" name="book_title" value="<%= itemResult.getString("title") %>">
-		<button type="submit">기록하기</button>
+		<button id="modalWriteButton" type="submit">기록하기</button>
 	</form>
 	<%
 		}

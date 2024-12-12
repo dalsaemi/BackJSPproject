@@ -1,42 +1,109 @@
 @charset "UTF-8";
 
 .modalOpenButton, #modalCloseButton, .book-card, #review-list {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 #modalContainer {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 #modalContent {
-  position: relative;
-  background-color: #ffffff;
-  width: 80%; /* 더 넓은 너비 설정 */
-  max-width: 500px; /* 최대 너비 제한 */
-  height: auto;
-  padding: 15px;
-  margin: 0 auto;
+	position: relative;
+	background-color: #ffffff;
+	width: 80%;
+	max-width: 500px; /* 최대 너비 제한 */
+	height: 80%;
+	max-height: 500px;
+	padding: 15px;
+	margin: 0 auto;
+	text-align: center;
+	overflow-y: scroll;
 }
 
 #modalContainer.active {
-  display: flex;
+	display: flex;
+}
+
+#modalCloseButton {
+	position: sticky; 
+	top: 0;
+	float: right;
+	background-color: transparent;
+	color: #333;
+	font-weight: bold;
+	border: none;
+	
+}
+
+#modalCloseButton:hover {
+	color: #FF6347;
+}
+
+#modalCloseButton:after {
+	content: "\00d7"; 
+	font-size: 20pt;
+
+}
+
+#modalImg {
+	max-width: 100%;
+	height: auto;
+	margin: 0 0 15px 0;
+}
+
+#modalContainer p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  margin: 2px;
+}
+
+#modalDescription {
+	text-align: justify;
+	margin-bottom: 30px;
+}
+
+#modalHr {
+	opacity: 50%;
+}
+
+#modalReviewTitle {
+	font-size: 20px;
+	margin-bottom: 10px;
+	color: #333;
 }
 
 #review-list:hover {
-	background-color: lightgray;
+	background-color: #f0f0f0;
 }
 
 #modal-review {
 	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 	text-align: center;
+}
+
+#modal-review th {
+	background-color: #b7d8fc;
+	color: white;
+	padding: 3px;
+	font-size: 16px;
+	border: 1px solid #d3e9ff;
+}
+
+#modal-review td {
+	padding: 3px;
+	font-size: 14px;
 }
 
 #review-list {
@@ -45,14 +112,18 @@
     overflow: hidden;
 }
 
-#modalCloseButton {
-	float: right;
-	background-color: white;
-	border: none;
+#modalWriteButton {
+  background-color: #79baff; 
+  color: white;
+  border: none;
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-#modalCloseButton:after {
-	content: "\00d7"; 
-	font-size: 20pt;
-
+#modalWriteButton:hover {
+  background-color: #67b0ff;
 }

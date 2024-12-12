@@ -120,7 +120,6 @@
 		     </div>
 	    </form>
 	  </div>
-	 </div>
   
   <!-- 별점기능 구현 -->
   <script type="text/javascript">

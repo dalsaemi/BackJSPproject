@@ -19,7 +19,7 @@ int myBoardCount = myBoards.size();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/getRecord_styles.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/getRecord_styles.css?2">
     <title>내 기록 모아보기</title>
     <style>
         
@@ -77,6 +77,7 @@ int myBoardCount = myBoards.size();
                 </div>
             </div>
         </div>
+        <%@ include file="/main/footer.jsp" %> <!-- 푸터 -->
     </div>
 </body>
 </html>

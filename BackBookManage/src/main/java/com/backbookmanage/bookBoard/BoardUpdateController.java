@@ -32,13 +32,8 @@ public class BoardUpdateController extends HttpServlet {
 		boolean updateCheck = bDAO.boardUpdate(board_title, board_contents, board_rating, board_id);
 
 		if (updateCheck) {
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/recordViewer.jsp?board_id="+ String.valueOf(board_id));
-			dispatcher.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/bookinfo/recordViewer.jsp?board_id=" + board_id);
 		}
-		
-		
-		
 	}
 
 }

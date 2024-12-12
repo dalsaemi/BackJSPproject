@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordWrt.css">
-<title>Insert title here</title>
+<title>게시글 수정</title>
 </head>
 <body>
 <%

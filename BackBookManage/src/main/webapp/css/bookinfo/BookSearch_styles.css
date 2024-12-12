@@ -79,10 +79,10 @@
 /* 공통 스타일 (앞으로/뒤로 가기 버튼) */
 .next {
   display: inline-block;
+  vertical-align: middle;
   padding: 8px 15px;
   margin: 10px 5px; /* 버튼 간 간격 */
   font-size: 1rem;
-  font-weight: bold;
   text-decoration: none;
   text-align: center;
   color: black;
@@ -96,4 +96,8 @@
 .next:hover {
   background-color: skyblue;
   transform: translateY(-2px);
+}
+
+.page-array {
+	text-align: center;
 }

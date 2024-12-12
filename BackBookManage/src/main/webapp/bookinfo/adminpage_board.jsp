@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>게시판 관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/main/header_styles.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/adminboard_styles.css">
 </head>
 <body>
 <%

@@ -46,7 +46,7 @@
     <button id="modalCloseButton"></button>
     <% if (result != null && itemResult != null) { %>
     <h3><%= itemResult.getString("title") %></h3>
-    <img src="<%= itemResult.getString("cover") %>" height="100px" width="60px"/>
+    <img src="<%= itemResult.getString("cover") %>" />
     <p><%= itemResult.getString("author") %></p>
     <p><%= itemResult.getString("publisher") %></p>
     <p><%= itemResult.getString("pubDate") %></p>

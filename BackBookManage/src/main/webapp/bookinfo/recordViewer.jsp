@@ -60,7 +60,11 @@ if (request.getAttribute("isLiked") != null) {
 }
 
 //관리자는 삭제 버튼 뜨게
-boolean isManager = (Boolean) session.getAttribute("is_manager");
+boolean isManager = false;
+if(session.getAttribute("is_manager") != null) {
+	isManager = (boolean) session.getAttribute("is_manager");
+}
+
 %>
 <!DOCTYPE html>
 <html lang="">

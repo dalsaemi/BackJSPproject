@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 
-h1 {
+h2 {
     color: #333;
     margin-bottom: 20px;
 }
@@ -17,20 +17,35 @@ p {
 
 /* 테이블 스타일 */
 table {
-    width: 100%;
+    width: 90%;
+    margin: 20px auto;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: center;
+    font-size: 14px;
+    color: #555;
 }
 
 th {
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
 }
 
 /* 버튼 스타일 */

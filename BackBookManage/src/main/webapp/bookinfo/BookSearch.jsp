@@ -44,7 +44,7 @@
 <head>
   <meta charset="UTF-8">
   <title>책 검색</title>
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/BookSearch_styles.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/BookSearch_styles.css?1">
 </head>
 <body>
 	<%@ include file="/main/header.jsp" %>
@@ -126,30 +126,32 @@
 	<%@include file="/bookinfo/modal.jsp" %>
 	
     <%-- 페이징 --%>
-    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
-    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
-
-    <%
-    	for(int i = pg.getPageSno(); i <= pg.getPageEno(); i++) {
-	%>
-		<a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>">
-	<% 			
-      	
-      		if(pg.getPageno() == i) {
-     %>
-      		[<%=i %>]		
-   	<%
-     		} else { 
-     %>
-     	 <%= i %>		
-   	<%
-     		}
-    	}
-     %>
+    <div class ="page-array">
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
+	
+	    <%
+	    	for(int i = pg.getPageSno(); i <= pg.getPageEno(); i++) {
+		%>
+			<a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>">
+		<% 			
+	      	
+	      		if(pg.getPageno() == i) {
+	     %>
+	      		[<%=i %>]		
+	   	<%
+	     		} else { 
+	     %>
+	     	 <%= i %>		
+	   	<%
+	     		}
+	    	}
+	     %>
 
     	</a> 
-    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">[다음]</a>
-    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">[맨뒤로]</a>
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">[다음]</a>
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">[맨뒤로]</a>
+    </div>
     
     <script type="text/javascript">
 	const memberId = "<%= member_id %>";

@@ -23,9 +23,9 @@
 <head>
     <meta charset="UTF-8">
     
-    <title>회원 관리</title>
+    <title>관리자 페이지</title>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/main/header_styles.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/adminpage_styles.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/adminpage_styles.css?1">
 </head>
 <body>
 	<header class="header">
@@ -57,7 +57,7 @@
                 	dispatcher.include(request, response);
                 	boolean isManager = (boolean) request.getAttribute("isManager");
             %>
-            <tr> <!-- DB 연동되면 수정해야 함 -->
+            <tr>
                 <td><%= member %></td>
                 <td>2024-10-10 18:00</td>
                 <td>

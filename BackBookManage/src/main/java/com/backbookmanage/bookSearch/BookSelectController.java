@@ -36,6 +36,7 @@ public class BookSelectController extends HttpServlet {
         urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "=" + URLEncoder.encode(apikey, "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("itemIdType", "UTF-8") + "=" + URLEncoder.encode("ISBN", "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("ItemId", "UTF-8") + "=" + URLEncoder.encode(bookId, "UTF-8"));
+	    urlBuilder.append("&" + URLEncoder.encode("Cover", "UTF-8") + "=" + URLEncoder.encode("MidBig", "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("output", "UTF-8") + "=" + URLEncoder.encode("js", "UTF-8"));
 	    urlBuilder.append("&" + URLEncoder.encode("Version", "UTF-8") + "=" + URLEncoder.encode("20131101", "UTF-8"));
 	    

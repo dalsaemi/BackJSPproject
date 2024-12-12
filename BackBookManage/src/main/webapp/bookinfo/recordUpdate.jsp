@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordWrt.css">
 <title>게시글 수정</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bookinfo/recordUpdate_styles.css">
 </head>
 <body>
 <%
@@ -32,92 +33,94 @@
 
 %>
 </body>
-	<h1>독서 기록 작성</h1>
-    <form action="<%=request.getContextPath()%>/boardUpdate.do" method="post">
-      <image src="<%=request.getParameter("book_cover")%>">
-      <h3>책 제목 : <%=request.getParameter("book_title")%></h3>
-      <!-- 제목 -->
-      <label for="title">제목</label>
-      <input type="text" id="title" name="title" value="<%= request.getParameter("board_title") %>" required>
-      <input type="hidden" name="board_id" value=<%= request.getParameter("board_id") %>>
-      <br>
-
-      <!-- 작성자 -->
-      <label for="author">작성자</label>
-      <input type="text" id="author" name="author" value=<%= member_name  %> readonly>
-      <input type="hidden" name="member_id" value=<%= member_id %>>
-      <br>
-
-      <!-- ISBN (수정 불가능) -->
-      <label for="isbn">ISBN</label>
-      <input type="text" id="isbn" name="isbn" class="readonly-field" value="<%= request.getParameter("book_isbn") %>" readonly>
-      <br>
-
-      <!-- 본문 -->
-      <label for="content">본문</label>
-      <textarea id="content" name="content" required><%= request.getParameter("board_contents") %></textarea>
-      <br>
-
-      <!-- 파일 첨부 -->
-      <!-- 
-      <label for="file">파일 첨부</label>
-      <input type="file" id="file" name="file">
-      <br>
-       -->
-      <!-- 별점 표시 -->
-		<label for="file">책 평점</label>
-		<div class="rating">
-		    <label class="rating__label rating__label--half" for="starhalf">
-		        <input type="radio" id="starhalf" class="rating__input" name="rating" value="0.5" <%= board_rating == 0.5 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--full" for="star1">
-		        <input type="radio" id="star1" class="rating__input" name="rating" value="1" <%= board_rating == 1.0 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--half" for="star1half">
-		        <input type="radio" id="star1half" class="rating__input" name="rating" value="1.5" <%= board_rating == 1.5 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--full" for="star2">
-		        <input type="radio" id="star2" class="rating__input" name="rating" value="2" <%= board_rating == 2.0 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--half" for="star2half">
-		        <input type="radio" id="star2half" class="rating__input" name="rating" value="2.5" <%= board_rating == 2.5 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--full" for="star3">
-		        <input type="radio" id="star3" class="rating__input" name="rating" value="3" <%= board_rating == 3.0 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--half" for="star3half">
-		        <input type="radio" id="star3half" class="rating__input" name="rating" value="3.5" <%= board_rating == 3.5 ? "checked" : "" %> >
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--full" for="star4">
-		        <input type="radio" id="star4" class="rating__input" name="rating" value="4" <%= board_rating == 4.0 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--half" for="star4half">
-		        <input type="radio" id="star4half" class="rating__input" name="rating" value="4.5" <%= board_rating == 4.5 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		    <label class="rating__label rating__label--full" for="star5">
-		        <input type="radio" id="star5" class="rating__input" name="rating" value="5" <%= board_rating == 5.0 ? "checked" : "" %>>
-		        <span class="star-icon"></span>
-		    </label>
-		</div>
-		
-		<p>선택한 점수: <span id="scoreDisplay"><%= board_rating %></span></p>
-
-	     <!-- 버튼 -->
-	     <div class="button-container">
-	       <button type="submit">작성하기</button>
-	       <button onclick="history.back()">취소</button>
-	     </div>
-    </form>
-  </div>
+	<div class="update-container">
+		<h1>독서 기록 수정</h1>
+	    <form action="<%=request.getContextPath()%>/boardUpdate.do" method="post">
+	      <image src="<%=request.getParameter("book_cover")%>">
+	      <h3>책 제목 : <%=request.getParameter("book_title")%></h3>
+	      <!-- 제목 -->
+	      <label for="title">제목</label>
+	      <input type="text" id="title" name="title" value="<%= request.getParameter("board_title") %>" required>
+	      <input type="hidden" name="board_id" value=<%= request.getParameter("board_id") %>>
+	      <br>
+	
+	      <!-- 작성자 -->
+	      <label for="author">작성자</label>
+	      <input type="text" id="author" name="author" value=<%= member_name  %> readonly>
+	      <input type="hidden" name="member_id" value=<%= member_id %>>
+	      <br>
+	
+	      <!-- ISBN (수정 불가능) -->
+	      <label for="isbn">ISBN</label>
+	      <input type="text" id="isbn" name="isbn" class="readonly-field" value="<%= request.getParameter("book_isbn") %>" readonly>
+	      <br>
+	
+	      <!-- 본문 -->
+	      <label for="content">본문</label>
+	      <textarea id="content" name="content" required><%= request.getParameter("board_contents") %></textarea>
+	      <br>
+	
+	      <!-- 파일 첨부 -->
+	      <!-- 
+	      <label for="file">파일 첨부</label>
+	      <input type="file" id="file" name="file">
+	      <br>
+	       -->
+	      <!-- 별점 표시 -->
+			<label for="file">책 평점</label>
+			<div class="rating">
+			    <label class="rating__label rating__label--half" for="starhalf">
+			        <input type="radio" id="starhalf" class="rating__input" name="rating" value="0.5" <%= board_rating == 0.5 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--full" for="star1">
+			        <input type="radio" id="star1" class="rating__input" name="rating" value="1" <%= board_rating == 1.0 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--half" for="star1half">
+			        <input type="radio" id="star1half" class="rating__input" name="rating" value="1.5" <%= board_rating == 1.5 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--full" for="star2">
+			        <input type="radio" id="star2" class="rating__input" name="rating" value="2" <%= board_rating == 2.0 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--half" for="star2half">
+			        <input type="radio" id="star2half" class="rating__input" name="rating" value="2.5" <%= board_rating == 2.5 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--full" for="star3">
+			        <input type="radio" id="star3" class="rating__input" name="rating" value="3" <%= board_rating == 3.0 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--half" for="star3half">
+			        <input type="radio" id="star3half" class="rating__input" name="rating" value="3.5" <%= board_rating == 3.5 ? "checked" : "" %> >
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--full" for="star4">
+			        <input type="radio" id="star4" class="rating__input" name="rating" value="4" <%= board_rating == 4.0 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--half" for="star4half">
+			        <input type="radio" id="star4half" class="rating__input" name="rating" value="4.5" <%= board_rating == 4.5 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			    <label class="rating__label rating__label--full" for="star5">
+			        <input type="radio" id="star5" class="rating__input" name="rating" value="5" <%= board_rating == 5.0 ? "checked" : "" %>>
+			        <span class="star-icon"></span>
+			    </label>
+			</div>
+			
+			<p>선택한 점수: <span id="scoreDisplay"><%= board_rating %></span></p>
+	
+		     <!-- 버튼 -->
+		     <div class="button-container">
+		       <button type="submit">작성하기</button>
+		       <button onclick="history.back()">취소</button>
+		     </div>
+	    </form>
+	  </div>
+	 </div>
   
   <!-- 별점기능 구현 -->
   <script type="text/javascript">

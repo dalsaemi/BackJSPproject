@@ -97,7 +97,7 @@
           <td><%= obj.getString("publisher") %></td>
           <td><%= obj.getString("pubDate") %></td>
           <% if (avgRate > 0) { %>
-          <td><%= avgRate %></td>
+          <td><%= String.format("%.2f",avgRate) %></td>
           <% } else { %>
           <td>리뷰가 없습니다.</td>
           <% } %>
@@ -111,7 +111,7 @@
 		  		<input type="hidden" name="book_isbn" value="<%= obj.getString("isbn") %>">
 		  		<input type="hidden" name="book_cover" value="<%=cover%>">
 		  		<input type="hidden" name="book_title" value="<%=title%>">
-				<button type="submit">기록하기</button>
+				<button class="writeButton" type="submit">기록하기</button>
 			</form>	
 		  </td>
         </tr>
@@ -127,30 +127,28 @@
 	
     <%-- 페이징 --%>
     <div class ="page-array">
-	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">[맨앞으로]</a>
-	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">[이전]</a> 
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=1&maxResults=<%= maxResults %>&">맨앞으로</a>
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getPrevPageno() %>&maxResults=<%= maxResults %>">이전</a> 
 	
 	    <%
 	    	for(int i = pg.getPageSno(); i <= pg.getPageEno(); i++) {
 		%>
-			<a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>">
 		<% 			
 	      	
 	      		if(pg.getPageno() == i) {
 	     %>
-	      		[<%=i %>]		
+	      	<a class="next current" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>"><%= i %></a>		
 	   	<%
 	     		} else { 
 	     %>
-	     	 <%= i %>		
+	     	<a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= i %>&maxResults=<%= maxResults %>"><%= i %></a>		
 	   	<%
 	     		}
 	    	}
 	     %>
-
-    	</a> 
-	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">[다음]</a>
-	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">[맨뒤로]</a>
+    		 
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getNextPageno() %>&maxResults=<%= maxResults %>">다음</a>
+	    <a class="next" href="<%= request.getContextPath() %>/bookSearch.do?inputSearch=<%= inputSearch %>&pageNo=<%= pg.getTotalPage() %>&maxResults=<%= maxResults %>">맨뒤로</a>
     </div>
     
     <script type="text/javascript">

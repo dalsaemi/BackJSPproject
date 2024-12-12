@@ -46,9 +46,9 @@
         <!--book-container-->
         <div class="book-container">
             <div class="tab-menu">
-                <button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=new'">신규 도서</button>
-    			<button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=bestBook'">베스트 도서</button>
-                <button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=bestReview'">베스트 리뷰</button> <%--기능 추가하기 --%>
+                <button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=new'" class='<%= bookSectionMode.equals("new") ? "currentMode" : "" %>'>신규 도서</button>
+    			<button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=bestBook'" class='<%= bookSectionMode.equals("bestBook") ? "currentMode" : "" %>'>베스트 도서</button>
+                <button onClick="location.href='<%= request.getContextPath() %>/bookSection.do?bookSection=bestReview'" class='<%= bookSectionMode.equals("bestReview") ? "currentMode" : "" %>'>베스트 리뷰</button>
             </div>
             <!--book-cards-->
             <div class="book-cards">

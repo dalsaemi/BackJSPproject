@@ -30,7 +30,7 @@ Array.from(modalOpenButtons).forEach(button => {
   });
 });
 
-// 닫기 버튼 이벤트 (이벤트 위임 방식)
+// 닫기 버튼 이벤트
 modalContainer.addEventListener('click', (event) => {
 	console.log('클릭한 요소:', event.target);
 	if (event.target && event.target.id === 'modalCloseButton') {

@@ -19,6 +19,10 @@
     background-color: #a3ccfb;
 }
 
+button.currentMode {
+	background-color: #a3ccfb;
+}
+
 /* main-content: 로그인과 book-section을 가로로 배치 */
 .main-content {
     width: 100%;

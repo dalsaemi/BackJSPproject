@@ -94,10 +94,30 @@
 
 /* 마우스 오버 효과 */
 .next:hover {
-  background-color: skyblue;
+  background-color: #79baff;
   transform: translateY(-2px);
+}
+
+.current {
+	background-color: #79baff;
 }
 
 .page-array {
 	text-align: center;
+}
+
+.modalOpenButton, .writeButton {
+	background-color: #79baff; 
+	color: white;
+	border: none;
+	margin: 10px;
+	padding: 10px 15px;
+	font-size: 10pt;
+	border-radius: 15px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.modalOpenButton:hover, .writeButton:hover {
+	background-color: #67b0ff;
 }

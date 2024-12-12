@@ -50,14 +50,8 @@ String loginmember = (String) callSession.getAttribute("member_id"); // 로그�
 if(loginmember == null) {
 	loginmember = "none";
 }
-// 추천 중복 체크
+// 추천 중복 체크 -> 자바스크립트에서 처리
 boolean isLiked = false;
-System.out.println("board_id: " + board_id + ", member_id: " + member_id);
-dispatcher = request.getRequestDispatcher("/boardLike.do?board_id=" + board_id + "&member_id=" + member_id);
-dispatcher.include(request, response);
-if (request.getAttribute("isLiked") != null) {
-	isLiked = (Boolean) request.getAttribute("isLiked");
-}
 
 //관리자는 삭제 버튼 뜨게
 boolean isManager = false;
@@ -101,8 +95,7 @@ if(session.getAttribute("is_manager") != null) {
           <p><strong>평점: </strong> <span class="rating" id="rating"><%=Board_rating%></span> 점</p>
       </div>
       
-      <button id="likeButton" class="<%= isLiked ? "liked" : "" %>"
-       data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">♡</button>
+      <button id="likeButton" data-board-id="<%= board_id %>" data-member-id="<%= loginmember %>">♡</button>
       <button onClick="location.href='<%= request.getContextPath()%>/index.jsp'">메인 화면으로</button>
       <% if (!loginmember.equals("none") && !isManager) { %>
 		<button onClick="location.href='<%= request.getContextPath()%>/bookinfo/getRecord.jsp'">작성 글 모아보기</button>
@@ -120,8 +113,9 @@ if(session.getAttribute("is_manager") != null) {
 	  		<input type="hidden" name="board_rating" value="<%= Board_rating %>">
 	  		<input type="hidden" name="board_id" value="<%= board_id %>">
 			<button type="submit">수정</button>
+			<button onClick="confirmDelete(<%= board_id %>)">삭제</button>
 	  </form>
-      <button onClick="confirmDelete(<%= board_id %>)">삭제</button>
+      
       <% } %>
   </div>
   <script>

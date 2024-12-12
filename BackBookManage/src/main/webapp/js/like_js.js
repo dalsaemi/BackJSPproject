@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     likeButton.classList.remove("liked");
                     likeButton.style.backgroundColor = "lightgray"; // 기본 회색
                 }
-
+				console.log("서버에서 받은 데이터:", data); // 디버깅용 로그
                 // 추천 수 업데이트
                 likesSpan.textContent = data.board_recommend;
             } else {

@@ -7,18 +7,16 @@
 	float avgRating;
 %>
 <%
-	// BookSearch 페이지에서 상세 보기 버튼 누르면 나오는 컨텐츠
+	// BookSearch 페이지 정보열람 버튼, index.jsp book-section에서 책 누르면 나오는 모달창
 	request.setCharacterEncoding("UTF-8");
-	// RequestDispatcher dispatcher = request.getRequestDispatcher("/bookSelect.do");
-	// dispatcher.include(request, response);
 	String result = (String)request.getAttribute("responseBody");
-
+	// json 파싱
 	if (result != null) {
 		try {
 			JSONObject jsonObject = new JSONObject(result);
 			JSONArray itemArray = jsonObject.getJSONArray("item");
 			if (itemArray.length() > 0) {
-	            itemResult = itemArray.getJSONObject(0);  // 첫 번째 요소
+	            itemResult = itemArray.getJSONObject(0);
 	        }
 			dispatcher = request.getRequestDispatcher("/avgRating.do?isbn="+ itemResult.getString("isbn"));
 			dispatcher.include(request, response);
@@ -28,7 +26,7 @@
 		}
 	} 
 	
-	// 기록하기 로그인했을 때만 뜨게
+	// 기록하기 로그인했을 때만 뜨게 하기 위해 로그인한 아이디 불러오기
 	HttpSession sessioncall = request.getSession();
 	String memberlogin = (String) sessioncall.getAttribute("member_id");
 
@@ -63,7 +61,7 @@
 
 		if (avgRating >= 0) {
 	%>
-    <p>평균 평점 : <%= avgRating %></p>
+    <p>평균 평점 : <%= String.format("%.2f",avgRating) %> </p>
     
     <table id="modal-review">
 	    <colgroup>

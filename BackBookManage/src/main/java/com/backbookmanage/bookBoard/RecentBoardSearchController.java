@@ -39,12 +39,15 @@ public class RecentBoardSearchController extends HttpServlet {
 		Integer recentBoards = bDAO.boardIdSearch(member_id);
 		if (recentBoards == 0) {
 			System.out.println("멤버의 최근 게시글 내역을 찾을 수 없습니다.");
+			request.setAttribute("title", "");
 			request.setAttribute("recentBook", "noBoard");
 			request.setAttribute("myrat", 0);
 		}else {
 			ArrayList<String> BoardInfo = bDAO.boardSimpleShow((int)recentBoards);
+			String title = BoardInfo.get(0);
 			String isbn = BoardInfo.get(2);
 			String myrat = BoardInfo.get(3);
+			request.setAttribute("title", title);
 			request.setAttribute("recentBook", isbn);
 			request.setAttribute("myrat", myrat);
 		}

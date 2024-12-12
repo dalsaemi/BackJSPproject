@@ -11,6 +11,11 @@
     // 세션에서 로그인 상태를 확인합니다.
     HttpSession callSession = request.getSession();
     String member_id = (String) callSession.getAttribute("member_id"); // 로그인 시 저장된 사용자 이름
+    
+    //멤버 최근 읽은 책 정보 불러오기
+    dispatcher = request.getRequestDispatcher("/recentBoardSearch.do");
+    dispatcher.include(request, response);
+    String title = (request.getAttribute("title")).toString();
 %>
 </head>
 <body>
@@ -51,8 +56,11 @@
 					    <div class="welcome">
 					        <h2><%= member_id %>님, 환영합니다</h2>
 					        <p>서울도서관</p>
-					        <p>최근 읽은 책: 꽃을 보듯 너를 본다</p>
-					        <p>최근 독서 기록: 푸른 사자 와니니</p>
+					        <%if(title.equals("")){ %>
+					        	<p>최근 독서 기록이 없습니다.</p>
+					        <%}else{ %>
+						        <p>최근 독서 기록: <%=title%></p>
+					        <%} %>
 						<% if (isManager) { %>
 					        <button onclick="window.location.href='<%= request.getContextPath() %>/member/adminpage.jsp'">관리자페이지</button>
 						<% } else { %>

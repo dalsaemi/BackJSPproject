@@ -103,7 +103,7 @@
           <% } %>
           <td>
 		  	<button class="modalOpenButton" data-id='<%= obj.getString("isbn")%>'>
-		  		세부페이지
+		  		정보 열람
 		  	</button>
           </td>
           <td>

@@ -137,13 +137,14 @@
                 </div>
                 <script>
 				    document.addEventListener("DOMContentLoaded", function () {
+				    	//서버에서 값 받아 변수에 넣기
 				        const thisMonthRead = <%= thisMonthRead %>;
 				        let booksRemaining = <%= booksRemaining %>;
 				
 				        // 차트 컨텍스트
 				        const ctx = document.getElementById('goalChart').getContext('2d');
 				
-				        // 도넛 차트 생성
+				        // 목표 달성치 차트 생성
 				        const goalChart = new Chart(ctx, {
 				            type: 'doughnut',
 				            data: {
@@ -201,12 +202,12 @@
 				        });
 				    });
 					    
-					//6개월 값 받기
+					//서버에서 값 받기
 					var lastSixMonths = <%= lastSixMonths.toString() %>;
 					var labels = lastSixMonths;
 					var booksReadList = <%= booksRead %>;
 					
-					//6개월간의 독서량 표시
+					//지난 6개월 독서량 차트
 					document.addEventListener("DOMContentLoaded", function () {
 					    const ctx = document.getElementById('lineChart').getContext('2d');
 					    const lineChart = new Chart(ctx, {
@@ -215,7 +216,7 @@
 					            labels: lastSixMonths,
 					            datasets: [{
 					                label: '지난 6개월 독서량',
-					                data: booksReadList,
+					                data: booksReadList, //서버에서 받은 데이터 활용
 					                borderColor: '#42A5F5',
 					                backgroundColor: 'rgba(66, 165, 245, 0.2)',
 		                            borderWidth: 1

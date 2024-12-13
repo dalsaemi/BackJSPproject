@@ -49,9 +49,10 @@ public class BookBoardInformationDAO {
         ResultSet rs = null;
         try {
         	conn = JDBCUtil.getConnection();
-            String strQuery = "select board_id from bookBoard_information where board_date = (select max(board_date) from bookBoard_information) and member_id = ? order by board_id desc limit 1;";
+            String strQuery = "select board_id from bookboard_information where board_date = (select max(board_date) from bookboard_information where member_id = ?) and member_id = ? order by board_id desc limit 1;";
             pstmt = conn.prepareStatement(strQuery);
             pstmt.setString(1, member_id);
+            pstmt.setString(2, member_id);
             
             rs = pstmt.executeQuery();
             if (rs.next()) {

@@ -104,18 +104,17 @@ if(session.getAttribute("is_manager") != null) {
       	<button onClick="location.href='<%= request.getContextPath()%>/adminBoard.do'">게시판 관리창으로</button>
       <% } %>
       <% if (loginmember.equals(member_id) || isManager) { %>
-      <form action="<%=request.getContextPath()%>/bookinfo/recordUpdate.jsp">
-	  		<input type="hidden" name="book_isbn" value="<%=isbn %>">
-	  		<input type="hidden" name="book_cover" value="<%=itemResult.getString("cover")%>">
-	  		<input type="hidden" name="book_title" value="<%=itemResult.getString("title") %>">
-	  		<input type="hidden" name="board_title" value="<%= board_title %>">
-	  		<input type="hidden" name="board_contents" value="<%=board_contents %>">
-	  		<input type="hidden" name="board_rating" value="<%= Board_rating %>">
-	  		<input type="hidden" name="board_id" value="<%= board_id %>">
-			<button type="submit">수정</button>
-			<button onClick="confirmDelete(<%= board_id %>)">삭제</button>
-	  </form>
-      
+	  <% 
+	  	String url = request.getContextPath() + "/bookinfo/recordUpdate.jsp?book_isbn=" + isbn 
+	  											+ "&book_cover=" + itemResult.getString("cover") 
+	  											+ "&book_title=" + itemResult.getString("title") 
+	  											+ "&board_title=" + board_title
+	  											+ "&board_contents=" + board_contents
+	  											+ "&board_rating=" + Board_rating
+	  											+ "&board_id=" + board_id; 
+	  %>
+	  <button onClick="location.href='<%= url %>'">수정</button>
+      <button onClick="confirmDelete(<%= board_id %>)">삭제</button>
       <% } %>
   </div>
   <script>

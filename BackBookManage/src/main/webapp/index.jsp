@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>도서관 웹사이트</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index_styles.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index_styles.css?version=1.0">
 <%
 	request.setCharacterEncoding("UTF-8");
     // 세션에서 로그인 상태를 확인합니다.
@@ -23,7 +23,9 @@
         <%@ include file="main/header.jsp" %>
         
         <!--banner-->
-        <div class="banner"></div>
+        <div class="main-banner">
+			<img src="image/banner1.png" alt="배너">
+		</div>
 
         <!--main-content-->
         <div class="main-content">

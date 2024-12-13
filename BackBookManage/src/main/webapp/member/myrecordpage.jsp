@@ -170,34 +170,34 @@
 				        document.querySelector("#bookGoal").addEventListener("change", function() {
 				            const selectedOption = document.querySelector("#bookGoal > option:checked").value;
 				            booksRemaining = selectedOption - thisMonthRead; // 남은 책 수 재계산
-				
+
 				            // 실시간으로 남은 책 수 업데이트
 				            document.getElementById("remainingBooks").textContent = booksRemaining;
-				            
-				            //한달 목표 db에 업데이트
-				            var form = document.createElement('form');
-						    form.method = 'GET';
-						    form.action = '<%= request.getContextPath() %>/monthlyBoardUpdate.do';
-						
-						    var input = document.createElement('input');
-						    input.type = 'hidden';
-						    input.name = 'bookGoal';
-						    input.value = selectedOption;
-						    console.log("bookGoal"+selectedOption);
-						
-						    form.appendChild(input);
-						    document.body.appendChild(form);
-						    form.submit();
-						    console.log("실행");
-				            <%
-					            //request.setAttribute("bookGoal", bookGoal);
-					            //dispatcher = request.getRequestDispatcher("/monthlyBoardUpdate.do");
-	   							//dispatcher.include(request, response);
-   							%>
-				
+
+				            // 한 달 목표 db에 업데이트 (비동기 요청)
+				            fetch('<%= request.getContextPath() %>/monthlyBoardUpdate.do', {
+							    method: 'POST',
+							    headers: {
+							        'Content-Type': 'application/x-www-form-urlencoded', //url 인코딩 방식
+							    },
+							    body: new URLSearchParams({
+							        'bookGoal': selectedOption //전송할 데이터 설정
+							    })
+							})
+							.then(response => response.json())  // 서버에서 받은 응답 JSON 처리
+							.then(data => { //데이터를 잘 받았는지 확인하는 작업
+							    if (data.status === "success") {
+							        console.log(data.message);
+							    } else {
+							        console.error(data.message);
+							    }
+							})
+							.catch(error => console.error('Error:', error));
+
+
 				            // 차트 데이터 갱신
-				            goalChart.data.datasets[0].data = [thisMonthRead, booksRemaining]; // 차트의 데이터 배열 갱신
-				            goalChart.update(); // 차트 업데이트
+				            goalChart.data.datasets[0].data = [thisMonthRead, booksRemaining];
+				            goalChart.update();
 				        });
 				    });
 					    

@@ -8,10 +8,11 @@ body, html {
 }
 
 /* 배너 스타일 */
-.banner {
-    background-color: #dcdcdc;
-    height: 300px;
-    margin-bottom: 20px;
+.main-banner {
+	background-color: black;
+	width: 1440px;
+	height: 300px;
+	margin-bottom: 20px;
 }
 
 /* 로그인 섹션 */

@@ -18,11 +18,11 @@ public class MonthlyBoardUpdateController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 클라이언트에서 보낸 데이터 처리
+        // 데이터 받기
         String bookGoalParam = request.getParameter("bookGoal");
         String member_id = String.valueOf(request.getSession().getAttribute("member_id"));
 
-        // 데이터가 없으면 종료
+        // 데이터 검사, 없으면 그대로 종료
         if (bookGoalParam == null || member_id == null) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -38,11 +38,12 @@ public class MonthlyBoardUpdateController extends HttpServlet {
         MemberInformationDAO mDao = new MemberInformationDAO();
         boolean updateCheck = mDao.memberMonthlyBoardUpdate(bookGoal, member_id);
 
-        // 응답 결과 생성
-        response.setContentType("application/json");
+        // 응답할 객체 생성
+        response.setContentType("application/json"); //응답 방식 json으로 설정
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         
+        //응답 작성하고 전송
         if (updateCheck) {
             out.print("{\"status\":\"success\", \"message\":\"Book goal updated successfully.\"}");
         } else {

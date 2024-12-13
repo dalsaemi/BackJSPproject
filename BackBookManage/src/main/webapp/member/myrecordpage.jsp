@@ -174,30 +174,30 @@
 				            // 실시간으로 남은 책 수 업데이트
 				            document.getElementById("remainingBooks").textContent = booksRemaining;
 
-				            // 한 달 목표 db에 업데이트 (비동기 요청 사용)
+				            // 한 달 목표 db에 업데이트 (비동기 요청)
 				            fetch('<%= request.getContextPath() %>/monthlyBoardUpdate.do', {
-							    method: 'POST', // POST로 요청
+							    method: 'POST',
 							    headers: {
-							        'Content-Type': 'application/x-www-form-urlencoded',
+							        'Content-Type': 'application/x-www-form-urlencoded', //url 인코딩 방식
 							    },
 							    body: new URLSearchParams({
-							        'bookGoal': selectedOption
+							        'bookGoal': selectedOption //전송할 데이터 설정
 							    })
 							})
-							.then(response => response.json())  // 서버에서 받은 응답을 JSON으로 처리
-							.then(data => {
+							.then(response => response.json())  // 서버에서 받은 응답 JSON 처리
+							.then(data => { //데이터를 잘 받았는지 확인하는 작업
 							    if (data.status === "success") {
-							        console.log(data.message); // 성공 메시지 처리 (필요한 경우)
+							        console.log(data.message);
 							    } else {
-							        console.error(data.message); // 실패 메시지 처리
+							        console.error(data.message);
 							    }
 							})
 							.catch(error => console.error('Error:', error));
 
 
 				            // 차트 데이터 갱신
-				            goalChart.data.datasets[0].data = [thisMonthRead, booksRemaining]; // 차트의 데이터 배열 갱신
-				            goalChart.update(); // 차트 업데이트
+				            goalChart.data.datasets[0].data = [thisMonthRead, booksRemaining];
+				            goalChart.update();
 				        });
 				    });
 					    

@@ -170,31 +170,31 @@
 				        document.querySelector("#bookGoal").addEventListener("change", function() {
 				            const selectedOption = document.querySelector("#bookGoal > option:checked").value;
 				            booksRemaining = selectedOption - thisMonthRead; // 남은 책 수 재계산
-				
+
 				            // 실시간으로 남은 책 수 업데이트
 				            document.getElementById("remainingBooks").textContent = booksRemaining;
-				            
-				            //한달 목표 db에 업데이트
-				            var form = document.createElement('form');
-						    form.method = 'GET';
-						    form.action = '<%= request.getContextPath() %>/monthlyBoardUpdate.do';
-						
-						    var input = document.createElement('input');
-						    input.type = 'hidden';
-						    input.name = 'bookGoal';
-						    input.value = selectedOption;
-						    console.log("bookGoal"+selectedOption);
-						
-						    form.appendChild(input);
-						    document.body.appendChild(form);
-						    form.submit();
-						    console.log("실행");
-				            <%
-					            //request.setAttribute("bookGoal", bookGoal);
-					            //dispatcher = request.getRequestDispatcher("/monthlyBoardUpdate.do");
-	   							//dispatcher.include(request, response);
-   							%>
-				
+
+				            // 한 달 목표 db에 업데이트 (비동기 요청 사용)
+				            fetch('<%= request.getContextPath() %>/monthlyBoardUpdate.do', {
+							    method: 'POST', // POST로 요청
+							    headers: {
+							        'Content-Type': 'application/x-www-form-urlencoded',
+							    },
+							    body: new URLSearchParams({
+							        'bookGoal': selectedOption
+							    })
+							})
+							.then(response => response.json())  // 서버에서 받은 응답을 JSON으로 처리
+							.then(data => {
+							    if (data.status === "success") {
+							        console.log(data.message); // 성공 메시지 처리 (필요한 경우)
+							    } else {
+							        console.error(data.message); // 실패 메시지 처리
+							    }
+							})
+							.catch(error => console.error('Error:', error));
+
+
 				            // 차트 데이터 갱신
 				            goalChart.data.datasets[0].data = [thisMonthRead, booksRemaining]; // 차트의 데이터 배열 갱신
 				            goalChart.update(); // 차트 업데이트

@@ -7,39 +7,29 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class APIbuilder {
+	// 매개변수로 받은 URL을 기반으로 HTTP 요청을 보내고 응답 결과를 반환하는 메소드
 	public static String apibuilder(StringBuilder url) {
-		String responseCode = "";
-        String responseBody = "";
-        
-//       StringBuilder urlBuilder = new StringBuilder("http://www.aladin.co.kr/ttb/api/ItemSearch.aspx");
-//	    urlBuilder.append("?" + URLEncoder.encode("ttbkey", "UTF-8") + "=" + URLEncoder.encode(apikey, "UTF-8"));
-//	    urlBuilder.append("&" + URLEncoder.encode("Query", "UTF-8") + "=" + URLEncoder.encode(inputSearch, "UTF-8"));
-//	    urlBuilder.append("&" + URLEncoder.encode("MaxResults", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
-//	    urlBuilder.append("&" + URLEncoder.encode("start", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
-//	    urlBuilder.append("&" + URLEncoder.encode("output", "UTF-8") + "=" + URLEncoder.encode("js", "UTF-8"));
+		String responseCode = ""; // 응답 상태 코드
+        String responseBody = ""; // 응답 본문
 
-        // Create an HttpClient instance (Java 11+)
         HttpClient client = HttpClient.newHttpClient();
-
-        // Create an HttpRequest object
+        // URL 및 헤더 정보 설정
         HttpRequest apiRequest = HttpRequest.newBuilder()
-                .uri(URI.create(url.toString())) // Set the request URL
-                .header("Content-Type", "application/json") // Set header (we expect XML response)
+                .uri(URI.create(url.toString())) 
+                .header("Content-Type", "application/json") 
                 .build();
         
         try {
-            // Send the request and get the response
+        	// API 요청 전송 및 응답 받기
             HttpResponse<String> apiResponse = client.send(apiRequest, HttpResponse.BodyHandlers.ofString());
-
-            // Store the response code and body
+            // 응답 상태 코드 및 본문 가져오기
             responseCode = String.valueOf(apiResponse.statusCode());
             responseBody = apiResponse.body();
 
-            // 상태 코드가 200이 아닌 경우 예외 처리
             if (apiResponse.statusCode() != 200) {
                 throw new Exception("API 호출 실패: " + apiResponse.statusCode() + " - " + apiResponse.body());
             } else {
-            	return responseBody;
+            	return responseBody; // 상태 코드가 200이면 응답 본문 반환
             }
             
         } catch (Exception e) {
@@ -48,5 +38,4 @@ public class APIbuilder {
         }
         return null;
 	}
-
 }

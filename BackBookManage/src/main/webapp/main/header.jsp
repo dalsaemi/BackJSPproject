@@ -15,7 +15,7 @@
             	<a href="<%=request.getContextPath() %>/index.jsp">
             		<img class = "logo-img" src="${pageContext.request.contextPath}/image/logo_img.png" alt="로고" width = "50" height = "50">
             	</a>
-                <div class="logo"><a class = "index-title" href="<%=request.getContextPath() %>/index.jsp">&nbsp;페이지플로우</a></div>
+                <div class="logo"><a class = "index-title" href="<%=request.getContextPath() %>/index.jsp">&nbsp;PageFlow</a></div>
                 <div class="search-bar">
 	                <form action="<%= request.getContextPath() %>/bookSearch.do" method="get" id="search-form">
 					    <input type="text" name="inputSearch" placeholder="도서 검색">

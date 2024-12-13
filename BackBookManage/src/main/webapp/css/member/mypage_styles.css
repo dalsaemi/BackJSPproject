@@ -36,7 +36,7 @@ body {
 
 /* 프로필 섹션 */
 .user-profile {
-    background: linear-gradient(to right, #6dd5fa, #ffffff);
+    background: linear-gradient(to right, #79baff, #ffffff);
     padding: 20px;
     border-radius: 8px;
     display: flex;
@@ -52,7 +52,7 @@ body {
 .profile-img {
     width: 100px;
     height: 100px;
-    background-color: #34495e;
+    background-color: #2e3d86;
     color: #ecf0f1;
     font-size: 2.5em;
     display: flex;
@@ -114,7 +114,7 @@ table td {
 .modification-section button,
 .modification-section div,
 .modification-section input {
-  background-color: skyblue;
+  background-color: #79baff;
   border: none;
   border-radius: 10;
   width: 200px; /* 사각형 너비 */

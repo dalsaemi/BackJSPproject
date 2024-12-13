@@ -30,7 +30,10 @@
 <body>
 	<header class="header">
         <div class="header-inner">
-            <div class="logo"><a class = "index-title" href="<%=request.getContextPath() %>/index.jsp">웹사이트 이름</a></div>
+        	<a href="<%=request.getContextPath() %>/index.jsp">
+            	<img class = "logo-img" src="${pageContext.request.contextPath}/image/logo_img.png" alt="로고" width = "50" height = "50">
+            </a>
+            <div class="logo"><a class = "index-title" href="<%=request.getContextPath() %>/index.jsp">&nbsp;PageFlow</a></div>
             <!--menu-->
             <nav class="nav-links">
                 <a href="<%=request.getContextPath() %>/member/adminpage.jsp">회원 관리</a>

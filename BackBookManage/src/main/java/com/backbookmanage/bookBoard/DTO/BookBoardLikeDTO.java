@@ -1,8 +1,8 @@
 package com.backbookmanage.bookBoard.DTO;
 
 public class BookBoardLikeDTO {
-	private int board_id;
-	private String member_id;
+	private int board_id; // 게시판 번호
+	private String member_id; // 추천 누른 회원의 ID
 	
 	public int getBoard_id() {
 		return board_id;

@@ -64,13 +64,21 @@ button:hover {
     background-color: #005f99;
 }
 
-button.liked {
-    background-color: #f39c12;
+#likeButton {
+	background-color: lightgray;
+}
+
+#likeButton:hover {
+	background-color: #b8b8b8;
+}
+
+#likeButton.liked {
+    background-color: pink;
     color: #ffffff;
 }
 
-button.liked:hover {
-    background-color: #e67e22;
+#likeButton.liked:hover {
+    background-color: #fa98a8;
 }
 
 .likes, .book-id, .rating {

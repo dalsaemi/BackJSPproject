@@ -107,10 +107,11 @@ public class BoardLikeController extends HttpServlet {
             response.getWriter().write(responseJson.toString());
             return; // 처리 종료
         } 
-        
+        // 좋아요 상태 확인
     	isLiked = lDAO.likeCheck(board_id, member_id);
+    	// 좋아요 없으면 좋아요 수 1 추가 / 있으면 1 감소
     	bDAO.likeCalc(isLiked, board_id);
-    	if (!isLiked) {
+    	if (!isLiked) { // 좋아요 테이블에 insert/delete
     		success = lDAO.likeInsert(lDTO);
     	} else {
     		success = lDAO.likeDelete(lDTO);
@@ -123,7 +124,7 @@ public class BoardLikeController extends HttpServlet {
         JSONObject responseJson = new JSONObject();
         responseJson.put("success", success);
         responseJson.put("isLiked", !isLiked);
-        responseJson.put("board_recommend", updatedRecommend);  // 변경된 추천 수 추가
+        responseJson.put("board_recommend", updatedRecommend);
 
         // 응답 전송
         response.setContentType("application/json");
@@ -131,9 +132,6 @@ public class BoardLikeController extends HttpServlet {
         System.out.println(responseJson.toString());
         response.getWriter().write(responseJson.toString());
         
-        
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinfo/recordViewer.jsp");
-//        dispatcher.forward(request, response);
 	}
 
 }
